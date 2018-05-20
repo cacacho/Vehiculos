@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package concesionario.vehiculos.umg.concesionario.api.entity;
 
 import java.io.Serializable;
@@ -11,6 +6,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -42,49 +39,57 @@ public class CvUsuarios implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_USUARIO")
-    private Long idUsuario;
+    private Integer idUsuario;
+    
     @Basic(optional = false)
     @Column(name = "USUARIO")
     private String usuario;
+    
     @Basic(optional = false)
     @Column(name = "PASSWORD")
     private String password;
+    
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
+    
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
+    
     @Column(name = "FECHA_ELIMINACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
+    
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
+    
     @Column(name = "ACTIVO")
-    private Short activo;
+    private boolean activo;
+    
     @JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID_COLABORADOR")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private CvColaborador idColaborador;
 
     public CvUsuarios() {
     }
 
-    public CvUsuarios(Long idUsuario) {
+    public CvUsuarios(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public CvUsuarios(Long idUsuario, String usuario, String password) {
+    public CvUsuarios(Integer idUsuario, String usuario, String password) {
         this.idUsuario = idUsuario;
         this.usuario = usuario;
         this.password = password;
     }
 
-    public Long getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Long idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -136,11 +141,11 @@ public class CvUsuarios implements Serializable {
         this.usuarioEliminacion = usuarioEliminacion;
     }
 
-    public Short getActivo() {
+    public boolean getActivo() {
         return activo;
     }
 
-    public void setActivo(Short activo) {
+    public void setActivo(boolean activo) {
         this.activo = activo;
     }
 
@@ -176,5 +181,5 @@ public class CvUsuarios implements Serializable {
     public String toString() {
         return "concesionario.vehiculos.umg.concesionario.api.entity.CvUsuarios[ idUsuario=" + idUsuario + " ]";
     }
-    
+
 }

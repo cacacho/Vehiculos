@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package concesionario.vehiculos.umg.concesionario.api.entity;
 
 import java.io.Serializable;
@@ -12,6 +7,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -42,44 +39,51 @@ public class CvTipoPago implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TIPO_PAGO")
-    private Long idTipoPago;
+    private Integer idTipoPago;
+
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
+    
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
+    
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
+    
     @Column(name = "FECHA_ELIMINACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
+    
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
+    
     @Column(name = "ACTIVO")
-    private Short activo;
-    @OneToMany(mappedBy = "idTipoPago", fetch = FetchType.EAGER)
+    private boolean activo;
+    
+    @OneToMany(mappedBy = "idTipoPago", fetch = FetchType.LAZY)
     private List<CvVenta> cvVentaList;
 
     public CvTipoPago() {
     }
 
-    public CvTipoPago(Long idTipoPago) {
+    public CvTipoPago(Integer idTipoPago) {
         this.idTipoPago = idTipoPago;
     }
 
-    public CvTipoPago(Long idTipoPago, String nombre) {
+    public CvTipoPago(Integer idTipoPago, String nombre) {
         this.idTipoPago = idTipoPago;
         this.nombre = nombre;
     }
 
-    public Long getIdTipoPago() {
+    public Integer getIdTipoPago() {
         return idTipoPago;
     }
 
-    public void setIdTipoPago(Long idTipoPago) {
+    public void setIdTipoPago(Integer idTipoPago) {
         this.idTipoPago = idTipoPago;
     }
 
@@ -123,11 +127,11 @@ public class CvTipoPago implements Serializable {
         this.usuarioEliminacion = usuarioEliminacion;
     }
 
-    public Short getActivo() {
+    public boolean getActivo() {
         return activo;
     }
 
-    public void setActivo(Short activo) {
+    public void setActivo(boolean activo) {
         this.activo = activo;
     }
 
@@ -164,5 +168,5 @@ public class CvTipoPago implements Serializable {
     public String toString() {
         return "concesionario.vehiculos.umg.concesionario.api.entity.CvTipoPago[ idTipoPago=" + idTipoPago + " ]";
     }
-    
+
 }

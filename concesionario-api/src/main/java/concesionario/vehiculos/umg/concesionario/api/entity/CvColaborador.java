@@ -7,6 +7,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -44,52 +46,52 @@ public class CvColaborador implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_COLABORADOR")
     private Integer idColaborador;
-    
+
     @Column(name = "NOMBRES")
     private String nombres;
-    
+
     @Column(name = "APELLIDOS")
     private String apellidos;
-    
+
     @Column(name = "CUI")
     private Long cui;
-    
+
     @Column(name = "NIF")
     private String nif;
-    
+
     @Column(name = "DIRECCION")
     private String direccion;
-    
+
     @Column(name = "TELEFONO")
     private String telefono;
-    
+
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
-    
+
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
-    
+
     @Column(name = "FECHA_ELIMINACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
-    
+
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
-    
+
     @Column(name = "ACTIVO")
     private boolean activo;
-    
+
     @OneToMany(mappedBy = "idColaborador", fetch = FetchType.LAZY)
     private List<CvUsuarios> cvUsuariosList;
-    
+
     @JoinColumn(name = "ID_TIPO_COLABORADOR", referencedColumnName = "ID_TIPO_COLABORADOR")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvTipoColaborador idTipoColaborador;
-    
+
     @OneToMany(mappedBy = "idColaborador", fetch = FetchType.LAZY)
     private List<CvVenta> cvVentaList;
 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package concesionario.vehiculos.umg.concesionario.api.entity;
 
 import java.io.Serializable;
@@ -12,6 +7,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -45,50 +42,60 @@ public class CvProveedor implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_PROVEEDOR")
-    private Long idProveedor;
+    private Integer idProveedor;
+
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
+
     @Column(name = "DIRECCION")
     private String direccion;
+
     @Column(name = "TELEFONO")
     private String telefono;
+
     @Column(name = "CORREO_ELECTRONICO")
     private String correoElectronico;
+
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
+
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
+
     @Column(name = "FECHA_ELIMINACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
+
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
+
     @Column(name = "ACTIVO")
-    private Short activo;
-    @OneToMany(mappedBy = "idProveedor", fetch = FetchType.EAGER)
+    private boolean activo;
+
+    @OneToMany(mappedBy = "idProveedor", fetch = FetchType.LAZY)
     private List<CvConcesionario> cvConcesionarioList;
 
     public CvProveedor() {
     }
 
-    public CvProveedor(Long idProveedor) {
+    public CvProveedor(Integer idProveedor) {
         this.idProveedor = idProveedor;
     }
 
-    public CvProveedor(Long idProveedor, String nombre) {
+    public CvProveedor(Integer idProveedor, String nombre) {
         this.idProveedor = idProveedor;
         this.nombre = nombre;
     }
 
-    public Long getIdProveedor() {
+    public Integer getIdProveedor() {
         return idProveedor;
     }
 
-    public void setIdProveedor(Long idProveedor) {
+    public void setIdProveedor(Integer idProveedor) {
         this.idProveedor = idProveedor;
     }
 
@@ -156,11 +163,11 @@ public class CvProveedor implements Serializable {
         this.usuarioEliminacion = usuarioEliminacion;
     }
 
-    public Short getActivo() {
+    public boolean getActivo() {
         return activo;
     }
 
-    public void setActivo(Short activo) {
+    public void setActivo(boolean activo) {
         this.activo = activo;
     }
 
@@ -197,5 +204,5 @@ public class CvProveedor implements Serializable {
     public String toString() {
         return "concesionario.vehiculos.umg.concesionario.api.entity.CvProveedor[ idProveedor=" + idProveedor + " ]";
     }
-    
+
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package concesionario.vehiculos.umg.concesionario.api.entity;
 
 import java.io.Serializable;
@@ -12,6 +7,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -43,42 +40,50 @@ public class CvDetalleExtraVehiculo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_DETALLE_EXTRA_VEHICULO")
-    private Long idDetalleExtraVehiculo;
+    private Integer idDetalleExtraVehiculo;
+
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
+
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
+
     @Column(name = "FECHA_ELIMINACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
+
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
+
     @Column(name = "ACTIVO")
-    private Short activo;
+    private boolean activo;
+
     @JoinColumn(name = "ID_EXTRA_VEHICULO", referencedColumnName = "ID_EXTRA_VEHICULO")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private CvExtraVehiculo idExtraVehiculo;
+
     @JoinColumn(name = "ID_VEHICULO", referencedColumnName = "ID_VEHICULO")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private CvVehiculo idVehiculo;
-    @OneToMany(mappedBy = "idDetalleExtraVehiculo", fetch = FetchType.EAGER)
+
+    @OneToMany(mappedBy = "idDetalleExtraVehiculo", fetch = FetchType.LAZY)
     private List<CvVenta> cvVentaList;
 
     public CvDetalleExtraVehiculo() {
     }
 
-    public CvDetalleExtraVehiculo(Long idDetalleExtraVehiculo) {
+    public CvDetalleExtraVehiculo(Integer idDetalleExtraVehiculo) {
         this.idDetalleExtraVehiculo = idDetalleExtraVehiculo;
     }
 
-    public Long getIdDetalleExtraVehiculo() {
+    public Integer getIdDetalleExtraVehiculo() {
         return idDetalleExtraVehiculo;
     }
 
-    public void setIdDetalleExtraVehiculo(Long idDetalleExtraVehiculo) {
+    public void setIdDetalleExtraVehiculo(Integer idDetalleExtraVehiculo) {
         this.idDetalleExtraVehiculo = idDetalleExtraVehiculo;
     }
 
@@ -114,11 +119,11 @@ public class CvDetalleExtraVehiculo implements Serializable {
         this.usuarioEliminacion = usuarioEliminacion;
     }
 
-    public Short getActivo() {
+    public boolean getActivo() {
         return activo;
     }
 
-    public void setActivo(Short activo) {
+    public void setActivo(boolean activo) {
         this.activo = activo;
     }
 
@@ -171,5 +176,5 @@ public class CvDetalleExtraVehiculo implements Serializable {
     public String toString() {
         return "concesionario.vehiculos.umg.concesionario.api.entity.CvDetalleExtraVehiculo[ idDetalleExtraVehiculo=" + idDetalleExtraVehiculo + " ]";
     }
-    
+
 }

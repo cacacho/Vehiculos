@@ -7,6 +7,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -41,47 +43,47 @@ public class CvConcesionario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_CONCESIONARIO")
     private Integer idConcesionario;
-    
+
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
-    
+
     @Column(name = "DIRECCION")
     private String direccion;
-    
+
     @Column(name = "STOCK")
     private Integer stock;
-    
+
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
-    
+
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
-    
+
     @Column(name = "FECHA_ELIMINACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
-    
+
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
-    
+
     @Column(name = "ACTIVO")
     private boolean activo;
-    
+
     @OneToMany(mappedBy = "idConcesionario", fetch = FetchType.LAZY)
     private List<CvServicioOficial> cvServicioOficialList;
-    
+
     @JoinColumn(name = "ID_PROVEEDOR", referencedColumnName = "ID_PROVEEDOR")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvProveedor idProveedor;
-    
+
     @OneToMany(mappedBy = "idConcesionario", fetch = FetchType.LAZY)
     private List<CvVehiculo> cvVehiculoList;
-    
+
     @OneToMany(mappedBy = "idConcesionario", fetch = FetchType.LAZY)
     private List<CvPedido> cvPedidoList;
 

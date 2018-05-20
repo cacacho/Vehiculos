@@ -1,17 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package concesionario.vehiculos.umg.concesionario.api.entity;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -49,60 +45,75 @@ public class CvVehiculo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_VEHICULO")
-    private Long idVehiculo;
+    private Integer idVehiculo;
+
     @Column(name = "BASTIDOR")
     private String bastidor;
+
     @Column(name = "MATRICULA")
     private String matricula;
+
     @Column(name = "MODELO")
     private Integer modelo;
+
     @Column(name = "MOTOR")
     private String motor;
+
     @Column(name = "COLOR")
     private String color;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+
     @Column(name = "PRECIO")
     private Double precio;
+
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
+
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
+
     @Column(name = "FECHA_ELIMINACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
+
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
+    
     @Column(name = "ACTIVO")
-    private Short activo;
-    @OneToMany(mappedBy = "idVehiculo", fetch = FetchType.EAGER)
+    private boolean activo;
+
+    @OneToMany(mappedBy = "idVehiculo", fetch = FetchType.LAZY)
     private List<CvDetalleExtraVehiculo> cvDetalleExtraVehiculoList;
+
     @JoinColumn(name = "ID_CONCESIONARIO", referencedColumnName = "ID_CONCESIONARIO")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private CvConcesionario idConcesionario;
+
     @JoinColumn(name = "ID_MARCA", referencedColumnName = "ID_MARCA")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private CvMarca idMarca;
+
     @JoinColumn(name = "ID_TIPO_VEHICULO", referencedColumnName = "ID_TIPO_VEHICULO")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private CvTipoVehiculo idTipoVehiculo;
-    @OneToMany(mappedBy = "idVehiculo", fetch = FetchType.EAGER)
+
+    @OneToMany(mappedBy = "idVehiculo", fetch = FetchType.LAZY)
     private List<CvVenta> cvVentaList;
 
     public CvVehiculo() {
     }
 
-    public CvVehiculo(Long idVehiculo) {
+    public CvVehiculo(Integer idVehiculo) {
         this.idVehiculo = idVehiculo;
     }
 
-    public Long getIdVehiculo() {
+    public Integer getIdVehiculo() {
         return idVehiculo;
     }
 
-    public void setIdVehiculo(Long idVehiculo) {
+    public void setIdVehiculo(Integer idVehiculo) {
         this.idVehiculo = idVehiculo;
     }
 
@@ -186,11 +197,11 @@ public class CvVehiculo implements Serializable {
         this.usuarioEliminacion = usuarioEliminacion;
     }
 
-    public Short getActivo() {
+    public boolean getActivo() {
         return activo;
     }
 
-    public void setActivo(Short activo) {
+    public void setActivo(boolean activo) {
         this.activo = activo;
     }
 
@@ -260,5 +271,5 @@ public class CvVehiculo implements Serializable {
     public String toString() {
         return "concesionario.vehiculos.umg.concesionario.api.entity.CvVehiculo[ idVehiculo=" + idVehiculo + " ]";
     }
-    
+
 }

@@ -7,6 +7,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -41,44 +43,44 @@ public class CvCliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_CLIENTE")
     private Integer idCliente;
-    
+
     @Basic(optional = false)
     @Column(name = "NOMBRES")
     private String nombres;
-    
+
     @Basic(optional = false)
     @Column(name = "APELLIDOS")
     private String apellidos;
-    
+
     @Column(name = "GENERO")
     private String genero;
-    
+
     @Column(name = "DIRECCION")
     private String direccion;
-    
+
     @Column(name = "CORREO_ELECTRONICO")
     private String correoElectronico;
-    
+
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
-    
+
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
-    
+
     @Column(name = "FECHA_ELIMINACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
-    
+
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
-    
+
     @Column(name = "ACTIVO")
     private boolean activo;
-    
+
     @OneToMany(mappedBy = "idCliente", fetch = FetchType.LAZY)
     private List<CvVenta> cvVentaList;
 
