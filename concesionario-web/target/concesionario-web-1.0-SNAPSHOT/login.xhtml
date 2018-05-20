@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body style="text-align:center">
+        <p:growl autoUpdate="true" showDetail="false" showSummary="true"/>
+        <h:form id="form">
+            <div align="center">
+                <p:panel header="Login" style="width:600px">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputLabel for="username" value="Usuario:" />
+                        <p:inputText value="#{loginMB.usuario}" id="username"
+                                     required="true" requiredMessage="Debe de ingresar un usuario"  label="username" />
+                        <h:outputLabel for="password" value="ContraseÃ±a:" />
+                        <p:password value="#{loginMB.password}" id="password" required="true"
+                                    requiredMessage="Debes de ingresar una contraseÃ±a" label="password" />
+                        <f:facet name="footer">
+                            <p:commandButton id="loginButton" value="Acceder" style="margin-left: 150px;"
+                                             actionListener="#{loginMB.login}"/>
+
+                        </f:facet>
+                    </h:panelGrid>
+                </p:panel>
+            </div>
+        </h:form>
+    </h:body>
+</html>
