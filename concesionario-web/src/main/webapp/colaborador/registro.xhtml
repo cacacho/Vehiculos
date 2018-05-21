@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/template.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:p="http://primefaces.org/ui">     
+    <ui:define name="content">
+        <f:metadata>
+
+        </f:metadata>
+        <h:form id="form"> 
+            <p:growl autoUpdate="true" showDetail="false" showSummary="true"/>
+            <center>
+
+                <h1 style="margin: 0 0 0 0;">Agregar Asueto o feriado</h1>
+                <br/>
+
+                <p:outputPanel id="panelTexto" style="font-size: 1.2em !important; width: 100%; margin-left: 16px;">
+                    <p:panelGrid columns="1" id="registro" styleClass="no-border" style="width: 90%" >
+                        <p:outputLabel value="1. INFORMACIÓN GENERAL" styleClass="stepTitle"/>
+                        <hr/>
+
+                        <p:panelGrid style="width: 100%;" columns="1" styleClass="no-border"> 
+                            <p:outputLabel value="Fecha:" for="fecha" style="font-weight: bold;" />
+
+
+                            <p:calendar id="fecha" value="#{registroAsuetoFeriadoBean.diaAsueto.fecha}"  pattern="dd/MM/yyyy"  
+                                        placeholder="(ingresa la fecha)"  locale="es" navigator="true" timeZone="America/Guatemala" 
+                                        required="true" requiredMessage="Debe ingresar una fecha de asueto o feriado"/>
+
+                            <p:outputLabel value="Descripción:" for="descripcion" style="font-weight: bold;" />
+
+                            <p:inputTextarea style="width: 100%" id="descripcion" placeholder="(descripcion del asueto o feriado)" 
+                                             onkeyup="this.value = this.value.toUpperCase();"
+                                             value="#{registroAsuetoFeriadoBean.diaAsueto.nombre}" /> 
+
+                        </p:panelGrid>
+                    </p:panelGrid>
+
+                    <div align="center">
+                        <p:commandButton value="Agregar" id="agregar"   
+                                         update="@form" action="#{registroAsuetoFeriadoBean.llenarListaAsueto()}"
+                                         process="panelTexto"  style="float: none!important;" styleClass="button-16 b-greylight-16" icon="ui-icon-plus" />  
+                        <p:commandButton value="Limpiar"  
+                                         update="form" process="@this" actionListener="#{registroAsuetoFeriadoBean.limpiarCampos()}"
+                                         style="float: none!important; margin-left:10px;" styleClass="button-16 b-greylight-16" icon="ui-icon-refresh"
+                                         immediate="true"/>   
+                    </div>
+                </p:outputPanel>
+                <br />
+                <br />
+
+                <p:outputPanel id="panelAsueto" style="font-size: 1.2em !important; width: 100%; margin-left: 16px;">
+                    <p:outputLabel value="2. ASUETOS O FERIADOS" styleClass="stepTitle" style="margin-right:83%;"/>
+                    <hr style="width: 90%;"/>
+                </p:outputPanel>
+
+
+                <p:dataTable id="dt_suplente" style="width: 90%;" emptyMessage="No se encontró información de suplente de vacaciones para este empleado" styleClass="tabla-mp"
+                             var="dia" value="#{registroAsuetoFeriadoBean.listAsuetoFeriado}"
+                             rows="15" paginator="#{registroAsuetoFeriadoBean.listAsuetoFeriado.size()>15}" paginatorPosition="bottom" rowIndexVar="rowId">
+
+                    <p:column headerText="No." width="8%">
+                        #{rowId+1}
+                    </p:column>
+
+                    <p:column headerText="Fecha" width="10%"   >
+                        <p:outputLabel value="#{dia.fecha}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Guatemala"/>
+                        </p:outputLabel>
+                    </p:column>
+
+                    <p:column headerText="Descripción" width="10%"   >
+                        <p:outputLabel value="#{dia.nombre}" />
+                    </p:column>
+
+                    <p:column headerText="" width="3%" style="text-align: right !important;" exportable="false">
+                        <p:commandLink value="Eliminar"  title="Eliminar Día" action="#{registroAsuetoFeriadoBean.removeDia(rowId)}"
+                                       update=":form:dt_suplente" onstart="return confirm('¿Confirmas eliminar el registro?');" onsuccess="stop();" immediate="true" />
+
+
+                    </p:column>
+
+                </p:dataTable>
+
+
+                <br/>
+
+                <div align="center">
+                    <p:panelGrid columns="2" styleClass="no-border">                        
+                        <p:commandButton value="Guardar" styleClass="button-16 b-greylight-16" icon="ui-icon-disk" immediate="true"
+                                         style="float: none!important;" action="#{registroAsuetoFeriadoBean.guardarDiaAsueto()}" 
+                                         onstart="return confirm('¿Confirmas guardar el asueto o feriado?');"/>
+
+
+
+                        <p:button value="Cancelar" 
+                                  style="float: none!important;" styleClass="button-16 b-greylight-16" icon="ui-icon-circle-close"
+                                  href="/acciones/asuetos/lista.xhtml"/>
+
+                    </p:panelGrid>
+                </div>
+
+
+
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" position="top" resizable="false" showHeader="false">
+                    <p:graphicImage name="images/cargando.gif" />
+                </p:dialog>
+
+            </center>
+        </h:form>   
+    </ui:define>
+</ui:composition>

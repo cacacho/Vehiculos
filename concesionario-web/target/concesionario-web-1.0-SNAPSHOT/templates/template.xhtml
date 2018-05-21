@@ -29,13 +29,13 @@
         </span>
         <br /><br />
         <span style="font-size: 11px; color: #787878!important;">
-            #{menuMB.nombreContacto}
+           Sistema Informatico de Concesionario de Vehiculos
         </span>
         <br />
 
         <h:graphicImage library="images" name="acercaDe.png"  onclick="PF('dlg_acerca_de').show();"  style="float: right; margin-right: 20px;  " width="30px;" title="#{msg.acercaDe}"/>
 
-        <p:dialog header="Sistema desarrollado por:" widgetVar="dlg_acerca_de" minHeight="60" width="300"  style="text-align: left" resizable="false" >
+        <p:dialog header="Sistema desarrollado por:" widgetVar="dlg_acerca_de" minHeight="50" width="300"  style="text-align: left" resizable="false" >
 
             <ol>
                 <li>Raúl Cacacho</li>
@@ -45,9 +45,7 @@
 
         <p:hotkey bind="esc" handler="PF('dlg_acerca_de').hide()" />
         <h:outputScript library="js"  name="calendarLabels_es_GT.js" /> 
-        <h:outputStylesheet library="css" name="/resources/css/concesionario.css" />
+        <h:outputStylesheet library="css" name="concesionario.css" />
     </ui:define>
-
-
-
+    
 </ui:composition>

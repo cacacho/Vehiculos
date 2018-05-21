@@ -47,6 +47,8 @@
 
 .ui-menubar{
     background: none;
+    margin-top: 85px;
+    position: static;
 }
 .ui-menu-list{
     background: #eee!important;

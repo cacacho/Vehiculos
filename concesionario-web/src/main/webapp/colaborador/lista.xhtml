@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/template.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:shiro="http://shiro.apache.org/tags">
+
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{listaColaboradoresMB.cargarDatos}" />
+    </f:metadata>
+
+
+    <ui:define name="content">
+        <h:form id="frm_content">
+            <div align="center">
+                <h1 style="margin: 0 0 0 0;">Consultar de Colaboradores</h1>    
+                <br />
+
+                <div>
+                    <p:commandButton value="Agregar Fecha" style="float:left!important; margin-left:7.5% !important; margin-top: -15px!important;" styleClass="button-16 b-greylight-16" icon="ui-icon-plus" 
+                                     action="#{consultaAsuetoFeriadoBean.linkRegistro()}" update="@all"/>
+                </div>
+
+                <br />
+
+                <p:dataTable id="dt_colaborador" var="col" value="#{listaColaboradoresMB.listColaboradores}" widgetVar="asuetos"
+                             emptyMessage="No hay colaboradores registrados" 
+                             styleClass="tabla-mp" style="width: 85%"
+                             rows="15" paginator="#{listaColaboradoresMB.listColaboradores.size()>10}"  paginatorPosition="bottom">
+
+                    <p:column headerText="Nombres" width="7%" >
+                        <p:outputLabel value="#{col.nombres}"/>
+                    </p:column>
+                    
+                     <p:column headerText="Apellidos" width="7%" >
+                         <p:outputLabel value="#{col.apellidos}"/>
+                    </p:column>
+
+                    <p:column headerText="Dirección" width="10%" >
+                        <p:outputLabel value="#{col.direccion}"/>
+                    </p:column>
+
+                    <p:column headerText="Telefono" width="10%" >
+                        <p:outputLabel value="#{dia.nombre}"/>
+                    </p:column>
+
+                    <p:column headerText="Usuario" width="10%" >
+                        <p:outputLabel value="#{dia.nombre}"/>
+                    </p:column>
+
+                    <p:column headerText="Fecha de Inicio" width="7%" >
+                        <p:outputLabel value="#{col.fechaCreacion}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:outputLabel>
+                    </p:column>
+
+                    <p:column width="9%" exportable="false" >
+                        <p:commandLink value="Ver Detalle" action="#{consultaAsuetoFeriadoBean.verDetalle}" title="Ver detalle de asueto">
+                            <f:setPropertyActionListener value="#{dia}" target="#{consultaAsuetoFeriadoBean.asuetoFeriadoSelected}"/>                                
+                        </p:commandLink>
+
+                    </p:column>
+
+                </p:dataTable>
+
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -1,2 +1,4 @@
 concesionario\vehiculos\umg\login\LoginMB.class
 concesionario\vehiculos\umg\utilidades\JsfUtil.class
+concesionario\vehiculos\umg\login\ListaColaboradoresMB.class
+concesionario\vehiculos\umg\login\SesionMB.class
