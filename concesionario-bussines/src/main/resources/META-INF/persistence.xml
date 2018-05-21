@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="ConcesionarioVehiculosPU" transaction-type="JTA">
+        <jta-data-source>jdbc/vehiculos</jta-data-source>
+        <class>concesionario.vehiculos.umg.concesionario.api.entity.CvCliente</class>
+        <class>concesionario.vehiculos.umg.concesionario.api.entity.CvColaborador</class>
+        <class>concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionario</class>
+        <class>concesionario.vehiculos.umg.concesionario.api.entity.CvDetalleExtraVehiculo</class>
+        <class>concesionario.vehiculos.umg.concesionario.api.entity.CvExtraVehiculo</class>
+        <class>concesionario.vehiculos.umg.concesionario.api.entity.CvMarca</class>
+        <class>concesionario.vehiculos.umg.concesionario.api.entity.CvPedido</class>
+        <class>concesionario.vehiculos.umg.concesionario.api.entity.CvProveedor</class>
+        <class>concesionario.vehiculos.umg.concesionario.api.entity.CvServicioOficial</class>
+        <class>concesionario.vehiculos.umg.concesionario.api.entity.CvTipoColaborador</class>
+        <class>concesionario.vehiculos.umg.concesionario.api.entity.CvTipoPago</class>
+        <class>concesionario.vehiculos.umg.concesionario.api.entity.CvTipoPedido</class>
+        <class>concesionario.vehiculos.umg.concesionario.api.entity.CvTipoSucursal</class>
+        <class>concesionario.vehiculos.umg.concesionario.api.entity.CvTipoVehiculo</class>
+        <class>concesionario.vehiculos.umg.concesionario.api.entity.CvUsuarios</class>
+        <class>concesionario.vehiculos.umg.concesionario.api.entity.CvVehiculo</class>
+        <class>concesionario.vehiculos.umg.concesionario.api.entity.CvVenta</class>
+   
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <properties>
+            <property name="eclipselink.logging.level.sql" value="OFF"/>
+            <property name="eclipselink.logging.parameters" value="false"/>
+            <property name="eclipselink.jdbc.sequence-connection-pool" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
