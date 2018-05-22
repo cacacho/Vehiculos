@@ -1,6 +1,5 @@
 package concesionario.vehiculos.umg.login;
 
-import concesionario.vehiculos.umg.concesionario.api.ejb.ColaboradorBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvColaborador;
 import java.io.Serializable;
 import java.util.List;
@@ -8,6 +7,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.apache.log4j.Logger;
+import concesionario.vehiculos.umg.concesionario.api.ejb.EmpleadoBeanLocal;
 
 /**
  *
@@ -20,7 +20,7 @@ public class ListaColaboradoresMB implements Serializable {
     private static final Logger log = Logger.getLogger(ListaColaboradoresMB.class);
 
     @EJB
-    private ColaboradorBeanLocal colaboradorBeanLocal;
+    private EmpleadoBeanLocal colaboradorBeanLocal;
 
     private List<CvColaborador> listColaboradores;
 

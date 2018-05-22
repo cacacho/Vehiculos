@@ -1,23 +1,23 @@
 package concesionario.vehiculos.umg.concesionario.bussines.ejb.impl;
 
-import concesionario.vehiculos.umg.concesionario.api.ejb.ColaboradorBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvColaborador;
 import java.util.List;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.apache.log4j.Logger;
+import concesionario.vehiculos.umg.concesionario.api.ejb.EmpleadoBeanLocal;
 
 /**
  *
  * @author DELL
  */
 @Singleton
-public class ColaboradorBean implements ColaboradorBeanLocal {
+public class ColaboradorBean implements EmpleadoBeanLocal {
 
-    private static final Logger log = Logger.getLogger(ColaboradorBeanLocal.class);
+    private static final Logger log = Logger.getLogger(EmpleadoBeanLocal.class);
 
-    @PersistenceContext(unitName = "VehiculosPU")
+    @PersistenceContext(unitName = "ConceVehiculosPU")
     EntityManager em;
 
     @Override

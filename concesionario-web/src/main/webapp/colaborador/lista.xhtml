@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="/templates/template.xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:h="http://java.sun.com/jsf/html"    
                 xmlns:p="http://primefaces.org/ui"
+                template="/templates/template.xhtml"
                 xmlns:shiro="http://shiro.apache.org/tags">
 
 
@@ -13,11 +13,16 @@
         <f:event type="preRenderView" listener="#{listaColaboradoresMB.cargarDatos}" />
     </f:metadata>
 
-
+    <ui:define name="pageTitle">
+        Consultar de Colaboradores
+    </ui:define>
+    
     <ui:define name="content">
         <h:form id="frm_content">
             <div align="center">
-                <h1 style="margin: 0 0 0 0;">Consultar de Colaboradores</h1>    
+                <ui:define name="pageTitle">
+                    <h1 style="margin: 0 0 0 0;">Consultar de Colaboradores</h1>            
+                </ui:define>
                 <br />
 
                 <div>
@@ -35,9 +40,9 @@
                     <p:column headerText="Nombres" width="7%" >
                         <p:outputLabel value="#{col.nombres}"/>
                     </p:column>
-                    
-                     <p:column headerText="Apellidos" width="7%" >
-                         <p:outputLabel value="#{col.apellidos}"/>
+
+                    <p:column headerText="Apellidos" width="7%" >
+                        <p:outputLabel value="#{col.apellidos}"/>
                     </p:column>
 
                     <p:column headerText="Dirección" width="10%" >
