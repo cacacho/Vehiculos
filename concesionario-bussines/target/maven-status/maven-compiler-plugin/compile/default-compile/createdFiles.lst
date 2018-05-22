@@ -1,2 +1,4 @@
-concesionario\vehiculos\umg\concesionario\bussines\ejb\impl\ColaboradorBean.class
 concesionario\vehiculos\umg\concesionario\bussines\ejb\impl\LoginBean.class
+concesionario\vehiculos\umg\concesionario\bussines\ejb\impl\ColaboradorBean.class
+concesionario\vehiculos\umg\concesionario\bussines\ejb\impl\CatalogoBean.class
+.netbeans_automatic_build
