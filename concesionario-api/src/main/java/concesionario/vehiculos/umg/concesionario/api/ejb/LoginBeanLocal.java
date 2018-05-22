@@ -11,7 +11,9 @@ import javax.ejb.Local;
 public interface LoginBeanLocal {
 
     CvUsuarios verificarUsuario(String usuario, String password);
-    
-    CvUsuarios saveUsuario (CvUsuarios usuario);
+
+    CvUsuarios saveUsuario(CvUsuarios usuario);
+
+    String findUsuario(String usuario);
 
 }

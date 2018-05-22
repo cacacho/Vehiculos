@@ -31,8 +31,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "CvColaborador.findAll", query = "SELECT c FROM CvColaborador c")
     , @NamedQuery(name = "CvColaborador.findByIdColaborador", query = "SELECT c FROM CvColaborador c WHERE c.idColaborador = :idColaborador")
-    , @NamedQuery(name = "CvColaborador.findByNombres", query = "SELECT c FROM CvColaborador c WHERE c.nombres = :nombres")
-    , @NamedQuery(name = "CvColaborador.findByApellidos", query = "SELECT c FROM CvColaborador c WHERE c.apellidos = :apellidos")
     , @NamedQuery(name = "CvColaborador.findByCui", query = "SELECT c FROM CvColaborador c WHERE c.cui = :cui")
     , @NamedQuery(name = "CvColaborador.findByNif", query = "SELECT c FROM CvColaborador c WHERE c.nif = :nif")
     , @NamedQuery(name = "CvColaborador.findByDireccion", query = "SELECT c FROM CvColaborador c WHERE c.direccion = :direccion")
@@ -50,11 +48,17 @@ public class CvColaborador implements Serializable {
     @Column(name = "ID_COLABORADOR")
     private Integer idColaborador;
 
-    @Column(name = "NOMBRES")
-    private String nombres;
+    @Column(name = "PRIMER_NOMBRE")
+    private String primerNombre;
 
-    @Column(name = "APELLIDOS")
-    private String apellidos;
+    @Column(name = "SEGUNDO_NOMBRE")
+    private String segundoNombre;
+
+    @Column(name = "PRIMER_APELLIDO")
+    private String primerApellido;
+
+    @Column(name = "SEGUNDO_APELLIDO")
+    private String segundoApellido;
 
     @Column(name = "CUI")
     private Long cui;
@@ -110,20 +114,36 @@ public class CvColaborador implements Serializable {
         this.idColaborador = idColaborador;
     }
 
-    public String getNombres() {
-        return nombres;
+    public String getPrimerNombre() {
+        return primerNombre;
     }
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
+    public void setPrimerNombre(String primerNombre) {
+        this.primerNombre = primerNombre;
     }
 
-    public String getApellidos() {
-        return apellidos;
+    public String getSegundoNombre() {
+        return segundoNombre;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+    public void setSegundoNombre(String segundoNombre) {
+        this.segundoNombre = segundoNombre;
+    }
+
+    public String getPrimerApellido() {
+        return primerApellido;
+    }
+
+    public void setPrimerApellido(String primerApellido) {
+        this.primerApellido = primerApellido;
+    }
+
+    public String getSegundoApellido() {
+        return segundoApellido;
+    }
+
+    public void setSegundoApellido(String segundoApellido) {
+        this.segundoApellido = segundoApellido;
     }
 
     public Long getCui() {

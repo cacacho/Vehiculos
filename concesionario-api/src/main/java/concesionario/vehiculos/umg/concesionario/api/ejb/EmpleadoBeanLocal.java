@@ -13,4 +13,6 @@ public interface EmpleadoBeanLocal {
 
     List<CvColaborador> ListaColaboradores(String nombre);
 
+    CvColaborador saveColaborador(CvColaborador colaborador);
+
 }
