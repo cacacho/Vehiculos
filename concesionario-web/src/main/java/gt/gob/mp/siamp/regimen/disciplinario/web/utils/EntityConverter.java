@@ -11,7 +11,7 @@ import javax.faces.convert.FacesConverter;
 
 /**
  *
- * @author Raul
+ * @author Kenny
  */
 @FacesConverter(value = "entityConverter")
 public class EntityConverter implements Converter {

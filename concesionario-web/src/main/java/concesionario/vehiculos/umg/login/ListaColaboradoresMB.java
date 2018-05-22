@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.apache.log4j.Logger;
 import concesionario.vehiculos.umg.concesionario.api.ejb.EmpleadoBeanLocal;
+import concesionario.vehiculos.umg.utilidades.JsfUtil;
 
 /**
  *
@@ -29,6 +30,10 @@ public class ListaColaboradoresMB implements Serializable {
 
     public void cargarDatos() {
         listColaboradores = colaboradorBeanLocal.ListaColaboradores();
+    }
+
+    public void linkRegistro() {
+        JsfUtil.redirectTo("/colaborador/registro.xhtml");
     }
 
     /*Metodos getters y setters*/

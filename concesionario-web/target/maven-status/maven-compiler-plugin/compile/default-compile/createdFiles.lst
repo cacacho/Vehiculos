@@ -1,4 +1,11 @@
-concesionario\vehiculos\umg\login\LoginMB.class
-concesionario\vehiculos\umg\utilidades\JsfUtil.class
+gt\gob\mp\siamp\regimen\disciplinario\web\utils\ReporteJasper.class
+gt\gob\mp\siamp\regimen\disciplinario\web\utils\GenericEntityConverter.class
 concesionario\vehiculos\umg\login\ListaColaboradoresMB.class
+gt\gob\mp\siamp\regimen\disciplinario\web\utils\JasperUtil.class
+concesionario\vehiculos\umg\login\LoginMB.class
+gt\gob\mp\siamp\regimen\disciplinario\web\utils\AbstractEntityConverter.class
+concesionario\vehiculos\umg\utilidades\JsfUtil.class
 concesionario\vehiculos\umg\login\SesionMB.class
+gt\gob\mp\siamp\regimen\disciplinario\web\utils\EntityConverter.class
+concesionario\vehiculos\umg\login\RegistroColaboradorMB.class
+gt\gob\mp\siamp\regimen\disciplinario\web\utils\FileUtil.class

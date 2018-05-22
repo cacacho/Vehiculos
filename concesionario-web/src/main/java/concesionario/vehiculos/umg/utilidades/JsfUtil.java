@@ -1,15 +1,20 @@
 package concesionario.vehiculos.umg.utilidades;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
+import org.apache.log4j.Logger;
 
 public class JsfUtil {
+
+    private static final Logger log = Logger.getLogger(JsfUtil.class);
 
     public static String ANIO_INICIAL = "AÑO_INICIAL";
     public static String ANIO_FINAL = "AÑO_FINAL";
@@ -95,6 +100,15 @@ public class JsfUtil {
 
     public static String getHour(Date now) {
         return (now.getHours() + 1) + ":" + (now.getMinutes() < 10 ? "0" + now.getMinutes() : now.getMinutes());
+    }
+
+    public static void redirectTo(String pageTo) {
+        try {
+            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+            context.redirect(context.getRequestContextPath() + pageTo);
+        } catch (IOException e) {
+            log.error(e);
+        }
     }
 
 }
