@@ -14,9 +14,9 @@
                         <h:outputLabel for="username" value="Usuario:" />
                         <p:inputText value="#{loginMB.usuario}" id="username"
                                      required="true" requiredMessage="Debe de ingresar un usuario"  label="username" />
-                        <h:outputLabel for="password" value="ContraseÃ±a:" />
+                        <h:outputLabel for="password" value="Contraseña:" />
                         <p:password value="#{loginMB.password}" id="password" required="true"
-                                    requiredMessage="Debes de ingresar una contraseÃ±a" label="password" />
+                                    requiredMessage="Debes de ingresar una contraseña" label="password" />
                         <f:facet name="footer">
                             <p:commandButton id="loginButton" value="Acceder" style="margin-left: 150px;"
                                              actionListener="#{loginMB.login}"/>

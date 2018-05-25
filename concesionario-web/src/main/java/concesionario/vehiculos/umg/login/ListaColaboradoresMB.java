@@ -24,6 +24,7 @@ public class ListaColaboradoresMB implements Serializable {
     private EmpleadoBeanLocal colaboradorBeanLocal;
 
     private List<CvColaborador> listColaboradores;
+    private CvColaborador selectedColaborador;
 
     public ListaColaboradoresMB() {
     }
@@ -34,6 +35,10 @@ public class ListaColaboradoresMB implements Serializable {
 
     public void linkRegistro() {
         JsfUtil.redirectTo("/colaborador/registro.xhtml");
+    }
+
+    public String verDetalle() {
+        return "detalle.xhtml?faces-redirect=true&idColaborador=" + selectedColaborador.getIdColaborador();
     }
 
     /*Metodos getters y setters*/

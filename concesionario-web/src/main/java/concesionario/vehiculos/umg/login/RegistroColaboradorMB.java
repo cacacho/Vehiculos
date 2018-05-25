@@ -1,8 +1,10 @@
 package concesionario.vehiculos.umg.login;
 
 import concesionario.vehiculos.umg.concesionario.api.ejb.CatalogoBeanLocal;
+import concesionario.vehiculos.umg.concesionario.api.ejb.EmpleadoBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvColaborador;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoColaborador;
+import concesionario.vehiculos.umg.utilidades.JsfUtil;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -23,17 +25,26 @@ public class RegistroColaboradorMB implements Serializable {
 
     @EJB
     private CatalogoBeanLocal catalogoBeanLocal;
+    @EJB
+    EmpleadoBeanLocal colaboradorBeanLocal;
 
     private List<CvTipoColaborador> listTipoColaboradores;
     private CvTipoColaborador tipoColaboradorSelected;
     private CvColaborador colaborador;
 
     public RegistroColaboradorMB() {
+        colaborador = new CvColaborador();
     }
 
     @PostConstruct
     void initData() {
         listTipoColaboradores = catalogoBeanLocal.listAllTipoColaborador();
+    }
+
+    public void saveColaborador() {
+        colaboradorBeanLocal.saveColaborador(colaborador);
+        
+        JsfUtil.addSuccessMessage("Colaborador creado con exito");
     }
 
     /*Metodos getters y setters*/

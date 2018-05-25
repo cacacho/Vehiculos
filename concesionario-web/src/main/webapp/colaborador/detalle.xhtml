@@ -1,16 +1,163 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"     
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/template.xhtml"
+                xmlns:shiro="http://shiro.apache.org/tags">
+
+    <f:metadata>
+        <f:viewParam name="idPrueba" value="#{detallePruebaMB.idPrueba}"/>
+        <f:event type="preRenderView" listener="#{detallePruebaMB.loadData()}"/>
+    </f:metadata>
+
+    <ui:define name="pageTitle">
+        Detalle del Colaborador
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="frm_content">
+
+            <table style="width: 100%; margin-top: 23px;">
+                <tr>
+                    <td style="width: 50%;">
+                        <p:outputLabel value="1. Información del Colaborador" 
+                                       style="font-size: 16px !important; display: block; width: 100%; text-align: left;" />
+                    </td>
+                </tr>
+            </table>
+
+            <hr class="hr-mp" style="margin-bottom: 10px!important;"/>
+
+            <p:panelGrid  id="pg_info" styleClass="no-border" style="width: 90%; margin-left: 4%;">
+                <p:row>
+                    <p:column style="width: 55%;">
+                        <p:outputLabel value="Persona presento prueba:" styleClass="colorTitulo" />
+                    </p:column>
+
+                </p:row>
+
+                <p:row>
+                    <p:column colspan="2">
+                        <p:outputLabel value="DENUNCIADO: #{detallePruebaMB.prueba.idDenunciado.idPersona.nombre}" style="font-size: 16px!important;" rendered="#{!(detallePruebaMB.prueba.idDenunciado eq null)}" />
+                        <p:outputLabel value="DENUNCIANTE: #{detallePruebaMB.prueba.idDenunciante.idPersona.nombre}" style="font-size: 16px!important;" rendered="#{!(detallePruebaMB.prueba.idDenunciante eq null)}" />
+                        <p:outputLabel value="OTRO: #{detallePruebaMB.prueba.otraFuente}" style="font-size: 16px!important;" rendered="#{!(detallePruebaMB.prueba.otraFuente eq null)}" />
+                    </p:column>
+
+                </p:row>
+
+                <p:row>
+                    <p:column >
+                        <p:outputLabel value="Tipo prueba:" styleClass="colorTitulo" />
+                    </p:column>
+                    <p:column >
+                        <p:outputLabel value="Categoria prueba:" styleClass="colorTitulo" />
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="#{detallePruebaMB.prueba.idTipoPrueba.nombre}" style="font-size: 16px!important;"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{detallePruebaMB.prueba.idCategoriaPrueba.nombre}" style="font-size: 16px!important;">
+                        </p:outputLabel> 
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column >
+                        <p:outputLabel value="Estado prueba:" styleClass="colorTitulo" />
+                    </p:column>
+                    <p:column >
+                        <p:outputLabel value="Observaciones:" styleClass="colorTitulo" />
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="#{detallePruebaMB.prueba.idEstadoPrueba.nombre}" style="font-weight: bold;color: red;font-size: 16px!important;"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{detallePruebaMB.prueba.observaciones}" style="font-size: 16px!important;" >
+                        </p:outputLabel> 
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column >
+                        <p:outputLabel value="Referencia:" styleClass="colorTitulo" />
+                    </p:column>
+                    <p:column >
+                        <p:outputLabel value="Descripción:" styleClass="colorTitulo" />
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="#{detallePruebaMB.prueba.referencia}" style="font-size: 16px!important;"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{detallePruebaMB.prueba.descripcion}" style="font-size: 16px!important;">
+                        </p:outputLabel> 
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="Dependencia que diligencio la prueba:" styleClass="colorTitulo" />
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column colspan="2">
+                        <p:outputLabel value="#{detallePruebaMB.prueba.nombreDependenciaDr}" style="font-size: 16px!important;"/>
+                    </p:column>
+                </p:row>
+
+            </p:panelGrid>
+
+            <p:outputLabel value="2. Información del usuario" 
+                           style="font-size: 16px !important; display: block; margin-top: 3%;  width: 100%; text-align: left;" />
+            <hr class="hr-mp" style="margin-bottom: 15px!important;"/>
+
+            <p:panelGrid styleClass="no-border" columns="1" style=" margin-left: 2%; margin-right:7%; width: 100%;" >
+                <p:dataTable id="dt_archivos" value="#{detallePruebaMB.listArchivos}" var="arc"
+                             editable="true"
+                             scrollable="true"
+                             rendered="#{detallePruebaMB.listArchivos.size()>0}"
+                             styleClass="tabla-mp no-header"
+                             style="width: 50%; margin-top: 25px;"
+                             emptyMessage="#{msg.noHay} prueba adjunta" 
+                             rowIndexVar="rowId" >
+
+
+                    <p:column headerText="" width="55%">
+                        <h:commandLink value="#{arc.referencia}" 
+                                       style="font-size: 13px!important;"
+                                       onclick="PrimeFaces.monitorDownload(start, stop);"
+                                       title="#{msg.descargar}" immediate="true" >
+                            <p:fileDownload  value="#{detallePruebaMB.downloadFile(arc)}"/>
+                        </h:commandLink>
+
+                    </p:column>
+                    <p:column headerText="" width="20%">
+                        <p:commandButton  action="#{detallePruebaMB.eliminarArchivo(arc)}"  title="#{msg.eliminar}" icon="ui-icon-close"
+                                          onstart="return confirm('#{msg.confirmarEliminacion} el archivo?');" onsuccess="stop();" process="@this" update="@all" disabled="#{detallePruebaMB.verificarBotonTrabajar}" />
+                    </p:column>
+
+                </p:dataTable>
+                <br/>
+
+
+            </p:panelGrid> 
+            <div align="center">
+                <p:commandButton value="Imprimir" icon="ui-icon-print" process="@this" oncomplete="PF('eventDialog').show();" disabled="#{detallePruebaMB.verificarBotonTrabajar}"/>    
+            </div>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

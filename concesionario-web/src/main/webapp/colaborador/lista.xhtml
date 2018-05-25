@@ -12,6 +12,9 @@
     </ui:define>
 
     <ui:define name="content">
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{listaColaboradoresMB.cargarDatos()}" />
+        </f:metadata>
         <h:form id="frm_content">
             <div align="center">
                 <ui:define name="pageTitle">
@@ -46,11 +49,7 @@
                     </p:column>
 
                     <p:column headerText="Telefono" width="15%" >
-                        <p:outputLabel value="#{dia.nombre}"/>
-                    </p:column>
-
-                    <p:column headerText="Usuario" width="10%" >
-                        <p:outputLabel value="#{dia.nombre}"/>
+                        <p:outputLabel value="#{col.telefono}"/>
                     </p:column>
 
                     <p:column headerText="Fecha de Inicio" width="17%" >
@@ -60,8 +59,8 @@
                     </p:column>
 
                     <p:column width="9%" exportable="false" >
-                        <p:commandLink value="Ver Detalle" action="#{consultaAsuetoFeriadoBean.verDetalle}" title="Ver detalle de asueto">
-                            <f:setPropertyActionListener value="#{dia}" target="#{consultaAsuetoFeriadoBean.asuetoFeriadoSelected}"/>                                
+                        <p:commandLink value="Detalle" action="#{listaColaboradoresMB.verDetalle}" title="Ver detalle de Colaborador">
+                            <f:setPropertyActionListener value="#{col}" target="#{consultaAsuetoFeriadoBean.asuetoFeriadoSelected}"/>                                
                         </p:commandLink>
 
                     </p:column>
