@@ -7,8 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.apache.log4j.Logger;
 import concesionario.vehiculos.umg.concesionario.api.ejb.EmpleadoBeanLocal;
+import concesionario.vehiculos.umg.concesionario.api.ejb.LoginBeanLocal;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvUsuarios;
 import java.util.Date;
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.ejb.EJBContext;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -27,6 +30,9 @@ public class ColaboradorBean implements EmpleadoBeanLocal {
 
     @Resource
     private EJBContext context;
+
+    @EJB
+    LoginBeanLocal loginBeanLocal;
 
     private void processException(Exception ex) {
         log.error(ex.getMessage(), ex);
@@ -82,7 +88,8 @@ public class ColaboradorBean implements EmpleadoBeanLocal {
 
             em.persist(colaborador);
             em.flush();
-            //bitacora.info("REGISTRO DE UNA AUSENCIA DE AUDIENCIA", "RD_AUSENCIA_AUDIENCIA", ausenciaAudiencia.getIdAusenciaAudiencia(), sesion);
+
+            loginBeanLocal.saveUsuario(colaborador);
             return (colaborador);
         } catch (ConstraintViolationException ex) {
             String validationError = getConstraintViolationExceptionAsString(ex);
