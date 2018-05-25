@@ -60,7 +60,7 @@
 
                     <p:column width="9%" exportable="false" >
                         <p:commandLink value="Detalle" action="#{listaColaboradoresMB.verDetalle}" title="Ver detalle de Colaborador">
-                            <f:setPropertyActionListener value="#{col}" target="#{consultaAsuetoFeriadoBean.asuetoFeriadoSelected}"/>                                
+                            <f:setPropertyActionListener value="#{col}" target="#{listaColaboradoresMB.selectedColaborador}"/>                                
                         </p:commandLink>
 
                     </p:column>

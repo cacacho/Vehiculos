@@ -9,8 +9,8 @@
                 xmlns:shiro="http://shiro.apache.org/tags">
 
     <f:metadata>
-        <f:viewParam name="idPrueba" value="#{detallePruebaMB.idPrueba}"/>
-        <f:event type="preRenderView" listener="#{detallePruebaMB.loadData()}"/>
+        <f:viewParam name="idColaborador" value="#{detalleColaboradorMB.idColaborador}"/>
+        <f:event type="preRenderView" listener="#{detalleColaboradorMB.cargarDatos()}"/>
     </f:metadata>
 
     <ui:define name="pageTitle">
@@ -26,6 +26,11 @@
                         <p:outputLabel value="1. Información del Colaborador" 
                                        style="font-size: 16px !important; display: block; width: 100%; text-align: left;" />
                     </td>
+                    <td style="width: 50%;vertical-align: bottom;text-align: right!important;font-size: 13px;">
+                        <p:link value="Editar" outcome="editar.xhtml" styleClass="links" style="vertical-align: bottom!important; float: right; ">
+                            <f:param name="idColaborador" value="#{detalleColaboradorMB.idColaborador}"/>
+                        </p:link>
+                    </td>
                 </tr>
             </table>
 
@@ -33,87 +38,59 @@
 
             <p:panelGrid  id="pg_info" styleClass="no-border" style="width: 90%; margin-left: 4%;">
                 <p:row>
-                    <p:column style="width: 55%;">
-                        <p:outputLabel value="Persona presento prueba:" styleClass="colorTitulo" />
-                    </p:column>
-
-                </p:row>
-
-                <p:row>
-                    <p:column colspan="2">
-                        <p:outputLabel value="DENUNCIADO: #{detallePruebaMB.prueba.idDenunciado.idPersona.nombre}" style="font-size: 16px!important;" rendered="#{!(detallePruebaMB.prueba.idDenunciado eq null)}" />
-                        <p:outputLabel value="DENUNCIANTE: #{detallePruebaMB.prueba.idDenunciante.idPersona.nombre}" style="font-size: 16px!important;" rendered="#{!(detallePruebaMB.prueba.idDenunciante eq null)}" />
-                        <p:outputLabel value="OTRO: #{detallePruebaMB.prueba.otraFuente}" style="font-size: 16px!important;" rendered="#{!(detallePruebaMB.prueba.otraFuente eq null)}" />
-                    </p:column>
-
-                </p:row>
-
-                <p:row>
                     <p:column >
-                        <p:outputLabel value="Tipo prueba:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Primer Nombre:" styleClass="colorTitulo" />
                     </p:column>
                     <p:column >
-                        <p:outputLabel value="Categoria prueba:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Segundo Nombre:" styleClass="colorTitulo" />
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column>
-                        <p:outputLabel value="#{detallePruebaMB.prueba.idTipoPrueba.nombre}" style="font-size: 16px!important;"/>
+                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.primerNombre}" style="font-size: 16px!important;"/>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{detallePruebaMB.prueba.idCategoriaPrueba.nombre}" style="font-size: 16px!important;">
+                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.segundoNombre}" style="font-size: 16px!important;">
                         </p:outputLabel> 
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column >
-                        <p:outputLabel value="Estado prueba:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Primer Apellido:" styleClass="colorTitulo" />
                     </p:column>
                     <p:column >
-                        <p:outputLabel value="Observaciones:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Segundo Apellido:" styleClass="colorTitulo" />
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column>
-                        <p:outputLabel value="#{detallePruebaMB.prueba.idEstadoPrueba.nombre}" style="font-weight: bold;color: red;font-size: 16px!important;"/>
+                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.primerApellido}" style="font-size: 16px!important;"/>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{detallePruebaMB.prueba.observaciones}" style="font-size: 16px!important;" >
+                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.segundoApellido}" style="font-size: 16px!important;" >
                         </p:outputLabel> 
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column >
-                        <p:outputLabel value="Referencia:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Telefono:" styleClass="colorTitulo" />
                     </p:column>
                     <p:column >
-                        <p:outputLabel value="Descripción:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Dirección:" styleClass="colorTitulo" />
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column>
-                        <p:outputLabel value="#{detallePruebaMB.prueba.referencia}" style="font-size: 16px!important;"/>
+                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.telefono}" style="font-size: 16px!important;"/>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{detallePruebaMB.prueba.descripcion}" style="font-size: 16px!important;">
+                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.direccion}" style="font-size: 16px!important;">
                         </p:outputLabel> 
-                    </p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column>
-                        <p:outputLabel value="Dependencia que diligencio la prueba:" styleClass="colorTitulo" />
-                    </p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column colspan="2">
-                        <p:outputLabel value="#{detallePruebaMB.prueba.nombreDependenciaDr}" style="font-size: 16px!important;"/>
                     </p:column>
                 </p:row>
 
@@ -123,39 +100,26 @@
                            style="font-size: 16px !important; display: block; margin-top: 3%;  width: 100%; text-align: left;" />
             <hr class="hr-mp" style="margin-bottom: 15px!important;"/>
 
-            <p:panelGrid styleClass="no-border" columns="1" style=" margin-left: 2%; margin-right:7%; width: 100%;" >
-                <p:dataTable id="dt_archivos" value="#{detallePruebaMB.listArchivos}" var="arc"
-                             editable="true"
-                             scrollable="true"
-                             rendered="#{detallePruebaMB.listArchivos.size()>0}"
-                             styleClass="tabla-mp no-header"
-                             style="width: 50%; margin-top: 25px;"
-                             emptyMessage="#{msg.noHay} prueba adjunta" 
-                             rowIndexVar="rowId" >
-
-
-                    <p:column headerText="" width="55%">
-                        <h:commandLink value="#{arc.referencia}" 
-                                       style="font-size: 13px!important;"
-                                       onclick="PrimeFaces.monitorDownload(start, stop);"
-                                       title="#{msg.descargar}" immediate="true" >
-                            <p:fileDownload  value="#{detallePruebaMB.downloadFile(arc)}"/>
-                        </h:commandLink>
-
+            <p:panelGrid id="pg_usuario" styleClass="no-border" style="width: 90%; margin-left: 4%;" >
+                <p:row>
+                    <p:column >
+                        <p:outputLabel value="Usuario:" styleClass="colorTitulo" />
                     </p:column>
-                    <p:column headerText="" width="20%">
-                        <p:commandButton  action="#{detallePruebaMB.eliminarArchivo(arc)}"  title="#{msg.eliminar}" icon="ui-icon-close"
-                                          onstart="return confirm('#{msg.confirmarEliminacion} el archivo?');" onsuccess="stop();" process="@this" update="@all" disabled="#{detallePruebaMB.verificarBotonTrabajar}" />
+                    <p:column >
+                        <p:outputLabel value="Contraseña:" styleClass="colorTitulo" />
                     </p:column>
+                </p:row>
 
-                </p:dataTable>
-                <br/>
-
-
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="#{detalleColaboradorMB.usuario.usuario}" style="font-size: 16px!important;"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{detalleColaboradorMB.usuario.password}" style="font-size: 16px!important;">
+                        </p:outputLabel> 
+                    </p:column>
+                </p:row>
             </p:panelGrid> 
-            <div align="center">
-                <p:commandButton value="Imprimir" icon="ui-icon-print" process="@this" oncomplete="PF('eventDialog').show();" disabled="#{detallePruebaMB.verificarBotonTrabajar}"/>    
-            </div>
 
         </h:form>
     </ui:define>

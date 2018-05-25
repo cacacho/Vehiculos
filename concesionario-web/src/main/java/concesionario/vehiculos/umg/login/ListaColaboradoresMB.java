@@ -50,4 +50,12 @@ public class ListaColaboradoresMB implements Serializable {
         this.listColaboradores = listColaboradores;
     }
 
+    public CvColaborador getSelectedColaborador() {
+        return selectedColaborador;
+    }
+
+    public void setSelectedColaborador(CvColaborador selectedColaborador) {
+        this.selectedColaborador = selectedColaborador;
+    }
+
 }
