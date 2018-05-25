@@ -17,4 +17,6 @@ public interface LoginBeanLocal {
 
     String findUsuario(String usuario);
 
+    CvUsuarios findUsuarioByIdColaborador(Integer idColaborador);
+
 }

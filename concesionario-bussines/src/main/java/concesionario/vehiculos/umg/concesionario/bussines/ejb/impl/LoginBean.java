@@ -274,4 +274,17 @@ public class LoginBean implements LoginBeanLocal {
         return lst.get(0).getUsuario();
     }
 
+    @Override
+    public CvUsuarios findUsuarioByIdColaborador(Integer idColaborador) {
+        List<CvUsuarios> lst = em.createQuery("SELECT usu FROM CvUsuarios usu WHERE usu.idColaborador.idColaborador =:idColaborador ", CvUsuarios.class)
+                .setParameter("idColaborador", idColaborador)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+        // return new Response(lst.get(0), ResponseStatus.OK_QUERY);
+        return lst.get(0);
+    }
+
 }

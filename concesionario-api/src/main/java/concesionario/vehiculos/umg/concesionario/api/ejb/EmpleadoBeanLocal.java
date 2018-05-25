@@ -15,4 +15,8 @@ public interface EmpleadoBeanLocal {
 
     CvColaborador saveColaborador(CvColaborador colaborador);
 
+    CvColaborador findColaborador(Integer idColaborador);
+
+    CvColaborador updateColaborador(CvColaborador colaborador);
+
 }
