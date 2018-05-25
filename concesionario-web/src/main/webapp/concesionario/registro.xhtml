@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/templates/template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"    
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="pageTitle">
+        Registro de Concesionario
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="frm_content">
+            <p:growl autoUpdate="true" showDetail="false" showSummary="true"/>
+            <div align="center">
+
+                <p:panelGrid  columns="1" styleClass="no-border" style="width: 100%;"  >
+
+                    <p:panelGrid columns="2" id="pg_denunciante"  styleClass="no-border" style="width: 100%; margin-top: 1%; margin-left: 25px;"  >
+                        <p:outputLabel for="nombre" value="Nombre:" />
+                        <p:outputLabel for="direccion"  value="Segundo Nombre:" />
+
+                        <p:inputText id="nombre" value="#{registroConcesionarioMB.concesionario.nombre}" style="width: 350px;"  placeholder="Ingrese un nombre" 
+                                     required="true" requiredMessage="Debes ingresar un nombre"/>
+                        <p:inputText id="direccion" value="#{registroConcesionarioMB.concesionario.direccion}" style="width: 350px;"  placeholder="Ingrese una dirección" />
+
+                        <p:outputLabel for="fabrica" value="Fabrica:" />
+                        <p:outputLabel   value="" />
+
+                        <h:selectOneMenu id="fabrica"  value="#{registroConcesionarioMB.concesionario.idProveedor}" style="width: 342px;"
+                                         converter="entityConverter" >
+                            <f:selectItem itemLabel="Seleccione una fabrica" value="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{registroConcesionarioMB.listProveedor}" var="prove" 
+                                           itemLabel="#{prove.nombre}" itemValue="#{prove}"  />
+                        </h:selectOneMenu>
+
+                        <p:commandButton value="Agregar" style="margin-left:-110px !important;" styleClass="button-16 b-greylight-16" icon="ui-icon-plus" 
+                                         action="#{registroConcesionarioMB.showDialogProveedor()}" process="@this"/>
+
+                    </p:panelGrid>
+
+                    <p:outputPanel  style="margin-top: 4%; margin-bottom: 20px; margin-right: 6%; margin-left: 34%;  font-size: 14px;"  >
+                        <p:commandButton value="Guardar" action="#{registroColaboradorMB.saveColaborador()}" icon="ui-icon-disk" process="@form"  style=" margin-left: 5px; " onstart="return confirm('¿Confirmas guardar el colaborador?');" update="@form"/>
+                        <p:commandButton value="Cancelar" process="@this" action="#{registroColaboradorMB.cancelarRegistro()}" icon="ui-icon-close" style="margin-left: 12px; " update="@form"/>
+                    </p:outputPanel>
+                </p:panelGrid>
+            </div>
+
+            <p:dialog id="proveedores" header="Registro de proveedores" widgetVar="proveedor" modal="true" height="350" width="630" position="center" >
+                <p:outputPanel id="regresarEmpleadoDetail">
+                    <p:panelGrid id="datos" styleClass="no-border" style="width: 90%">
+                        <br/>                   
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="Nombre: " styleClass="stepTitle"/>
+                            </p:column> 
+                        </p:row>                                    
+                        <p:row>
+                            <p:column >
+                                <p:inputText id="nombrePro" style="width: 100%; height: 40px;"  placeholder="(ingrese un nombre)" 
+                                             value="#{registroConcesionarioMB.proveedor.nombre}"/>
+                            </p:column>
+                        </p:row>      
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="Teléfono: " styleClass="stepTitle"/>
+                            </p:column> 
+                        </p:row>   
+                        <p:row>
+                            <p:column >
+                                <p:inputText id="telPro" style="width: 100%; height: 40px;"  placeholder="(ingrese un teléfono)" 
+                                             value="#{registroConcesionarioMB.proveedor.telefono}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="Dirección: " styleClass="stepTitle"/>
+                            </p:column> 
+                        </p:row>
+
+                        <p:row>
+                            <p:column >
+                                <p:inputText id="dirPro" style="width: 100%; height: 40px;"  placeholder="(ingrese una dirección)" 
+                                             value="#{registroConcesionarioMB.proveedor.direccion}"/>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column >
+                                <br/>
+                                <div align="center">
+                                    <p:commandButton value="Cerrar" style="float: right; margin-left: 20px" immediate="true" update="@form"
+                                                     styleClass="button-16 b-greylight-16" icon="ui-icon-circle-close" onclick="PF('proveedores').hide();"/>
+                                    <p:commandButton value="Limpiar" style="float: right; margin-left: 20px" update="proveedores" action="#{registroConcesionarioMB.limpiarDialog()}"
+                                                     styleClass="button-16 b-greylight-16" icon="ui-icon-refresh"/>
+                                    <p:commandButton value="Guardar" action="#{registroConcesionarioMB.guadarProveedor()}" icon="ui-icon-disk" process="proveedores"   
+                                                     style="float: right; margin-left: 20px" onstart="return confirm('¿Confirmas guardar el proveedor?');" update="proveedores"/>
+                                </div>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

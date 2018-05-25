@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"    
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/template.xhtml">
+
+    <ui:define name="pageTitle">
+        Consultar de Concesionarios de Vehículos
+    </ui:define>
+
+    <ui:define name="content">
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{listaConcesionarioMB.cargarDatos()}" />
+        </f:metadata>
+        <h:form id="frm_content">
+            <div align="center">
+                <ui:define name="pageTitle">
+                    <h1 style="margin: 0 0 0 0;"> Consultar de Concesionarios de Vehículos</h1>            
+                </ui:define>
+                <br />
+
+                <div>
+                    <p:commandButton value="Agregar Concesionario" style="float:left!important; margin-left:7.5% !important; margin-top: -15px!important;" styleClass="button-16 b-greylight-16" icon="ui-icon-plus" 
+                                     action="#{listaConcesionarioMB.linkRegistro()}" update="@all"/>
+                </div>
+                <br />
+                <p:dataTable id="dt_concesionario" var="conce" value="#{listaConcesionarioMB.listaConcesionarios}" 
+                             emptyMessage="No hay concesionarios registrado" 
+                             styleClass="tabla-mp" style="width: 85%;margin-top: 25px;"
+                             rows="15" paginator="#{listaConcesionarioMB.listaConcesionarios.size()>10}"  paginatorPosition="bottom">
+
+                    <p:column headerText="Nombre" width="25%" >
+                        <p:outputLabel value="#{conce.nombre}"/>
+                    </p:column>
+
+                    <p:column headerText="Dirección" width="25%" >
+                        <p:outputLabel value="#{conce.direccion}"/>
+                    </p:column>
+
+                    <p:column headerText="Fabrica" width="25%" >
+                        <p:outputLabel value="#{conce.idProveedor.nombre}"/>
+                    </p:column>
+
+                    <p:column width="9%" exportable="false" >
+                        <p:commandLink value="Detalle" action="#{listaConcesionarioMB.verDetalle}" title="Ver detalle de Concesionario">
+                            <f:setPropertyActionListener value="#{col}" target="#{listaConcesionarioMB.selectedConcesionario}"/>                                
+                        </p:commandLink>
+
+                    </p:column>
+
+                </p:dataTable>
+
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
