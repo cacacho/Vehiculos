@@ -9,8 +9,8 @@
                 xmlns:shiro="http://shiro.apache.org/tags">
 
     <f:metadata>
-        <f:viewParam name="idColaborador" value="#{detalleColaboradorMB.idColaborador}"/>
-        <f:event type="preRenderView" listener="#{detalleColaboradorMB.cargarDatos()}"/>
+        <f:viewParam name="idProveedor" value="#{detalleProveedorMB.idProveedor}"/>
+        <f:event type="preRenderView" listener="#{detalleProveedorMB.cargarDatos()}"/>
     </f:metadata>
 
     <ui:define name="pageTitle">
@@ -23,12 +23,12 @@
             <table style="width: 100%; margin-top: 23px;">
                 <tr>
                     <td style="width: 50%;">
-                        <p:outputLabel value="1. Información del Colaborador" 
+                        <p:outputLabel value="1. Información del proveedor" 
                                        style="font-size: 16px !important; display: block; width: 100%; text-align: left;" />
                     </td>
                     <td style="width: 50%;vertical-align: bottom;text-align: right!important;font-size: 13px;">
                         <p:link value="Editar" outcome="editar.xhtml" styleClass="links" style="vertical-align: bottom!important; float: right; ">
-                            <f:param name="idColaborador" value="#{detalleColaboradorMB.idColaborador}"/>
+                            <f:param name="idProveedor" value="#{detalleProveedorMB.idProveedor}"/>
                         </p:link>
                     </td>
                 </tr>
@@ -39,38 +39,19 @@
             <p:panelGrid  id="pg_info" styleClass="no-border" style="width: 90%; margin-left: 4%;">
                 <p:row>
                     <p:column >
-                        <p:outputLabel value="Primer Nombre:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Nombre:" styleClass="colorTitulo" />
                     </p:column>
                     <p:column >
-                        <p:outputLabel value="Segundo Nombre:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Dirección:" styleClass="colorTitulo" />
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.primerNombre}" style="font-size: 16px!important;"/>
+                        <p:outputLabel value="#{detalleProveedorMB.proveedor.nombre}" style="font-size: 16px!important;"/>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.segundoNombre}" style="font-size: 16px!important;">
-                        </p:outputLabel> 
-                    </p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column >
-                        <p:outputLabel value="Primer Apellido:" styleClass="colorTitulo" />
-                    </p:column>
-                    <p:column >
-                        <p:outputLabel value="Segundo Apellido:" styleClass="colorTitulo" />
-                    </p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.primerApellido}" style="font-size: 16px!important;"/>
-                    </p:column>
-                    <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.segundoApellido}" style="font-size: 16px!important;" >
+                        <p:outputLabel value="#{detalleProveedorMB.proveedor.direccion}" style="font-size: 16px!important;">
                         </p:outputLabel> 
                     </p:column>
                 </p:row>
@@ -80,46 +61,20 @@
                         <p:outputLabel value="Teléfono:" styleClass="colorTitulo" />
                     </p:column>
                     <p:column >
-                        <p:outputLabel value="Dirección:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Correo Electrónico:" styleClass="colorTitulo" />
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.telefono}" style="font-size: 16px!important;"/>
+                        <p:outputLabel value="#{detalleProveedorMB.proveedor.telefono}" style="font-size: 16px!important;"/>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.direccion}" style="font-size: 16px!important;">
+                        <p:outputLabel value="#{detalleProveedorMB.proveedor.correoElectronico}" style="font-size: 16px!important;" >
                         </p:outputLabel> 
                     </p:column>
                 </p:row>
-
             </p:panelGrid>
-
-            <p:outputLabel value="2. Información del usuario" 
-                           style="font-size: 16px !important; display: block; margin-top: 3%;  width: 100%; text-align: left;" />
-            <hr class="hr-mp" style="margin-bottom: 15px!important;"/>
-
-            <p:panelGrid id="pg_usuario" styleClass="no-border" style="width: 90%; margin-left: 4%;" >
-                <p:row>
-                    <p:column >
-                        <p:outputLabel value="Usuario:" styleClass="colorTitulo" />
-                    </p:column>
-                    <p:column >
-                        <p:outputLabel value="Contraseña:" styleClass="colorTitulo" />
-                    </p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.usuario.usuario}" style="font-size: 16px!important;"/>
-                    </p:column>
-                    <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.usuario.password}" style="font-size: 16px!important;">
-                        </p:outputLabel> 
-                    </p:column>
-                </p:row>
-            </p:panelGrid> 
 
         </h:form>
     </ui:define>

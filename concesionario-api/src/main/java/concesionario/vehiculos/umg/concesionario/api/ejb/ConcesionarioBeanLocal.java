@@ -36,4 +36,8 @@ public interface ConcesionarioBeanLocal {
     CvProveedor saveProveedor(CvProveedor proveedor);
 
     List<CvProveedor> listaProveedoresByIdConcesionario(Integer idConcesionario);
+
+    CvProveedor findProveedor(Integer idProveedor);
+    
+    CvProveedor updateProveedor(CvProveedor proveedor);
 }

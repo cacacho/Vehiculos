@@ -290,4 +290,50 @@ public class ConcesionarioBean implements ConcesionarioBeanLocal {
         return lstProveedores;
     }
 
+    @Override
+    public CvProveedor findProveedor(Integer idProveedor) {
+        List<CvProveedor> lst = em.createQuery("SELECT prove FROM CvProveedor prove WHERE prove.idProveedor =:idProveedor and prove.activo = true", CvProveedor.class)
+                .setParameter("idProveedor", idProveedor)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst.get(0);
+    }
+
+    @Override
+    public CvProveedor updateProveedor(CvProveedor proveedor) {
+        if (proveedor == null) {
+            context.setRollbackOnly();
+            return null;
+        }
+
+        try {
+            CvProveedor toUpdate = em.find(CvProveedor.class, proveedor.getIdProveedor());
+
+            toUpdate.setNombre(proveedor.getNombre());
+            toUpdate.setDireccion(proveedor.getDireccion());
+            toUpdate.setTelefono(proveedor.getTelefono());
+            toUpdate.setCorreoElectronico(proveedor.getCorreoElectronico());
+
+            if (proveedor.getActivo() == Boolean.FALSE) {
+                toUpdate.setFechaEliminacion(new Date());
+                toUpdate.setActivo(false);
+            }
+
+            em.merge(toUpdate);
+
+            return proveedor;
+        } catch (ConstraintViolationException ex) {
+            String validationError = getConstraintViolationExceptionAsString(ex);
+            log.error(validationError);
+            context.setRollbackOnly();
+            return null;
+        } catch (Exception ex) {
+            processException(ex);
+            return null;
+        }
+    }
 }

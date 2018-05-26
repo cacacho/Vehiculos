@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
  *
  * @author DELL
  */
-@ManagedBean(name = "RegistroProveedorMB")
+@ManagedBean(name = "registroProveedorMB")
 @ViewScoped
 public class RegistroProveedorMB implements Serializable {
 
@@ -27,7 +27,7 @@ public class RegistroProveedorMB implements Serializable {
     public RegistroProveedorMB() {
     }
 
-    public void saveServicioOficial() {
+    public void saveProveedor() {
         CvProveedor prove = new CvProveedor();
 
         prove = concesionarioBeanlocal.saveProveedor(proveedor);
