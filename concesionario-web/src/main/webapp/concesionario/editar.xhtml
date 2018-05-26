@@ -9,12 +9,12 @@
                 xmlns:shiro="http://shiro.apache.org/tags">
 
     <f:metadata>
-        <f:viewParam name="idColaborador" value="#{edicionColaboradorMB.idColaborador}"/>
-        <f:event type="preRenderView" listener="#{edicionColaboradorMB.cargarDatos()}"/>
+        <f:viewParam name="idColaborador" value="#{edicionConcesionarioMB.idConcesionario}"/>
+        <f:event type="preRenderView" listener="#{edicionConcesionarioMB.cargarDatos()}"/>
     </f:metadata>
 
     <ui:define name="pageTitle">
-        Edición del Colaborador
+        Edición del Concesionario de Vehículos
     </ui:define>
 
     <ui:define name="content">
@@ -28,7 +28,7 @@
                     </td>
                     <td style="width: 50%;vertical-align: bottom;text-align: right!important;font-size: 13px;">
                         <p:link value="Regresar" outcome="detalle.xhtml" styleClass="links" style="vertical-align: bottom!important; float: right; ">
-                            <f:param name="idColaborador" value="#{edicionColaboradorMB.idColaborador}"/>
+                            <f:param name="idColaborador" value="#{edicionConcesionarioMB.idConcesionario}"/>
                         </p:link>
                     </td>
                 </tr>
@@ -39,43 +39,7 @@
             <p:panelGrid  id="pg_info" styleClass="no-border" style="width: 90%; margin-left: 4%;">
                 <p:row>
                     <p:column >
-                        <p:outputLabel value="Primer Nombre:" styleClass="colorTitulo" />
-                    </p:column>
-                    <p:column >
-                        <p:outputLabel value="Segundo Nombre:" styleClass="colorTitulo" />
-                    </p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column>
-                        <p:inputText value="#{edicionColaboradorMB.colaborador.primerNombre}" style="font-size: 16px!important;" size="35"/>
-                    </p:column>
-                    <p:column>
-                        <p:inputText value="#{edicionColaboradorMB.colaborador.segundoNombre}" style="font-size: 16px!important;" size="35"/>
-                    </p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column >
-                        <p:outputLabel value="Primer Apellido:" styleClass="colorTitulo" />
-                    </p:column>
-                    <p:column >
-                        <p:outputLabel value="Segundo Apellido:" styleClass="colorTitulo" />
-                    </p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column>
-                        <p:inputText value="#{edicionColaboradorMB.colaborador.primerApellido}" style="font-size: 16px!important;" size="35"/>
-                    </p:column>
-                    <p:column>
-                        <p:inputText value="#{edicionColaboradorMB.colaborador.segundoApellido}" style="font-size: 16px!important;" size="35" />
-                    </p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column >
-                        <p:outputLabel value="Telefono:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Nombre:" styleClass="colorTitulo" />
                     </p:column>
                     <p:column >
                         <p:outputLabel value="Dirección:" styleClass="colorTitulo" />
@@ -84,25 +48,35 @@
 
                 <p:row>
                     <p:column>
-                        <p:inputText value="#{edicionColaboradorMB.colaborador.telefono}" style="font-size: 16px!important;" size="25"/>
+                        <p:inputText value="#{edicionConcesionarioMB.concesionario.nombre}" style="font-size: 16px!important;" size="35"/>
                     </p:column>
                     <p:column>
-                        <p:inputText value="#{edicionColaboradorMB.colaborador.direccion}" style="font-size: 16px!important;" size="35"/>
-                    </p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column>
-                        <p:outputLabel value="Estado:"/>
-                    </p:column>
-                    <p:column>
-                        <p:outputLabel  value=""/>
+                        <p:inputText value="#{edicionConcesionarioMB.concesionario.direccion}" style="font-size: 16px!important;" size="35"/>
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column>
-                        <h:selectOneMenu id="tipo"  value="#{registroColaboradorMB.colaborador.idTipoColaborador}" style="width: 272px;" >
+                        <p:outputLabel value="Proveedores: "/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel  value="Estado:"/>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <h:selectOneMenu id="fabrica"  value="#{edicionConcesionarioMB.concesionario.idProveedor}" style="width: 342px;"
+                                         converter="entityConverter" >
+                            <f:selectItem itemLabel="Seleccione una fabrica" value="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{edicionConcesionarioMB.listProveedor}" var="prove" 
+                                           itemLabel="#{prove.nombre}" itemValue="#{prove}"  />
+                        </h:selectOneMenu>
+
+                    </p:column>
+
+                    <p:column>
+                        <h:selectOneMenu id="tipo"  value="#{edicionConcesionarioMB.concesionario.activo}" style="width: 272px;" >
                             <f:selectItem itemLabel="Seleccione un elemento" value="#{null}" noSelectionOption="true"/>
                             <f:selectItem itemValue="#{true}" itemLabel="Activo" />
                             <f:selectItem itemValue="#{false}" itemLabel="Inactivo" />
@@ -113,8 +87,8 @@
 
             </p:panelGrid>
             <p:outputPanel  style="margin-top: 4%; margin-bottom: 20px; margin-right: 6%; margin-left: 34%;  font-size: 14px;"  >
-                <p:commandButton value="Guardar" action="#{edicionColaboradorMB.actualizarColaborador()}" icon="ui-icon-disk" process="@form"  style=" margin-left: 5px; " onstart="return confirm('¿Confirmas guardar el colaborador?');" update="@form"/>
-                <p:commandButton value="Cancelar" process="@this" action="#{edicionColaboradorMB.cancelarEdicion()}" icon="ui-icon-close" style="margin-left: 12px; " update="@form"/>
+                <p:commandButton value="Guardar" action="#{edicionConcesionarioMB.actualizarColaborador()}" icon="ui-icon-disk" process="@form"  style=" margin-left: 5px; " onstart="return confirm('¿Confirmas guardar el concesionario?');" update="@form"/>
+                <p:commandButton value="Cancelar" process="@this" action="#{edicionConcesionarioMB.cancelarEdicion()}" icon="ui-icon-close" style="margin-left: 12px; " update="@form"/>
             </p:outputPanel>
         </h:form>
     </ui:define>

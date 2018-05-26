@@ -13,54 +13,48 @@
 
     <ui:define name="content">
         <f:metadata>
-            <f:event type="preRenderView" listener="#{listaColaboradoresMB.cargarDatos()}" />
+            <f:event type="preRenderView" listener="#{listaServicioOficialMB.cargarDatos()}" />
         </f:metadata>
         <h:form id="frm_content">
             <div align="center">
                 <ui:define name="pageTitle">
-                    <h1 style="margin: 0 0 0 0;">Consultar de Colaboradores</h1>            
+                    <h1 style="margin: 0 0 0 0;"> Consultar de Servicio Oficial</h1>            
                 </ui:define>
                 <br />
 
                 <div>
                     <p:commandButton value="Agregar Colaborador" style="float:left!important; margin-left:7.5% !important; margin-top: -15px!important;" styleClass="button-16 b-greylight-16" icon="ui-icon-plus" 
-                                     action="#{listaColaboradoresMB.linkRegistro()}" update="@all"/>
+                                     action="#{listaServicioOficialMB.linkRegistro()}" update="@all"/>
                 </div>
                 <br />
-                <p:dataTable id="dt_colaborador" var="col" value="#{listaColaboradoresMB.listColaboradores}" widgetVar="asuetos"
-                             emptyMessage="No hay colaboradores registrados" 
+                <p:dataTable id="dt_colaborador" var="servicio" value="#{listaServicioOficialMB.listaServicioOficial}" widgetVar="servicio"
+                             emptyMessage="No hay servicio oficial registrados" 
                              styleClass="tabla-mp" style="width: 85%"
-                             rows="15" paginator="#{listaColaboradoresMB.listColaboradores.size()>10}"  paginatorPosition="bottom">
+                             rows="15" paginator="#{listaServicioOficialMB.listaServicioOficial.size()>10}"  paginatorPosition="bottom">
 
-                    <p:column headerText="Primer Nombre" width="25%" >
-                        <p:outputLabel value="#{col.primerNombre}"/>
+                    <p:column headerText="NIF" width="25%" >
+                        <p:outputLabel value="#{servicio.nif}"/>
                     </p:column>
 
-                    <p:column headerText="Primer Apellido" width="25%" >
-                        <p:outputLabel value="#{col.primerApellido}"/>
+                    <p:column headerText="Nombre" width="25%" >
+                        <p:outputLabel value="#{servicio.nombre}"/>
                     </p:column>
 
-                    <p:column headerText="Segundo Apellido" width="25%" >
-                        <p:outputLabel value="#{col.segundoApellido}"/>
+                    <p:column headerText="Dirección" width="25%" >
+                        <p:outputLabel value="#{servicio.direccion}"/>
                     </p:column>
 
-                    <p:column headerText="Dirección" width="20%" >
-                        <p:outputLabel value="#{col.direccion}"/>
+                    <p:column headerText="Teléfono" width="20%" >
+                        <p:outputLabel value="#{servicio.telefono}"/>
                     </p:column>
 
-                    <p:column headerText="Telefono" width="15%" >
-                        <p:outputLabel value="#{col.telefono}"/>
-                    </p:column>
-
-                    <p:column headerText="Fecha de Inicio" width="17%" >
-                        <p:outputLabel value="#{col.fechaCreacion}">
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:outputLabel>
+                    <p:column headerText="Concesionario" width="15%" >
+                        <p:outputLabel value="#{servicio.idConcesionario.nombre}"/>
                     </p:column>
 
                     <p:column width="9%" exportable="false" >
-                        <p:commandLink value="Detalle" action="#{listaColaboradoresMB.verDetalle}" title="Ver detalle de Colaborador">
-                            <f:setPropertyActionListener value="#{col}" target="#{listaColaboradoresMB.selectedColaborador}"/>                                
+                        <p:commandLink value="Detalle" action="#{listaServicioOficialMB.verDetalle}" title="Ver detalle de Colaborador">
+                            <f:setPropertyActionListener value="#{servicio}" target="#{listaServicioOficialMB.selectedColaborador}"/>                                
                         </p:commandLink>
 
                     </p:column>

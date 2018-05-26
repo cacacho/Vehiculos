@@ -67,6 +67,12 @@ public class CvVehiculo implements Serializable {
     @Column(name = "PRECIO")
     private Double precio;
 
+    @Column(name = "ESTANDAR")
+    private boolean estandar;
+
+    @Column(name = "STOCK")
+    private Integer stock;
+
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
@@ -80,7 +86,7 @@ public class CvVehiculo implements Serializable {
 
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
-    
+
     @Column(name = "ACTIVO")
     private boolean activo;
 
@@ -203,6 +209,22 @@ public class CvVehiculo implements Serializable {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    public boolean isEstandar() {
+        return estandar;
+    }
+
+    public void setEstandar(boolean estandar) {
+        this.estandar = estandar;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
     @XmlTransient

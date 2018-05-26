@@ -33,7 +33,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "CvConcesionario.findByIdConcesionario", query = "SELECT c FROM CvConcesionario c WHERE c.idConcesionario = :idConcesionario")
     , @NamedQuery(name = "CvConcesionario.findByNombre", query = "SELECT c FROM CvConcesionario c WHERE c.nombre = :nombre")
     , @NamedQuery(name = "CvConcesionario.findByDireccion", query = "SELECT c FROM CvConcesionario c WHERE c.direccion = :direccion")
-    , @NamedQuery(name = "CvConcesionario.findByStock", query = "SELECT c FROM CvConcesionario c WHERE c.stock = :stock")
     , @NamedQuery(name = "CvConcesionario.findByFechaCreacion", query = "SELECT c FROM CvConcesionario c WHERE c.fechaCreacion = :fechaCreacion")
     , @NamedQuery(name = "CvConcesionario.findByUsuarioCreacion", query = "SELECT c FROM CvConcesionario c WHERE c.usuarioCreacion = :usuarioCreacion")
     , @NamedQuery(name = "CvConcesionario.findByFechaEliminacion", query = "SELECT c FROM CvConcesionario c WHERE c.fechaEliminacion = :fechaEliminacion")
@@ -53,9 +52,6 @@ public class CvConcesionario implements Serializable {
 
     @Column(name = "DIRECCION")
     private String direccion;
-
-    @Column(name = "STOCK")
-    private Integer stock;
 
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
@@ -121,14 +117,6 @@ public class CvConcesionario implements Serializable {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
     }
 
     public Date getFechaCreacion() {
