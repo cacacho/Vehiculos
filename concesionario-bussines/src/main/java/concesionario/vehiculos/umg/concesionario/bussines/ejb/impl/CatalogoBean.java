@@ -1,6 +1,7 @@
 package concesionario.vehiculos.umg.concesionario.bussines.ejb.impl;
 
 import concesionario.vehiculos.umg.concesionario.api.ejb.CatalogoBeanLocal;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionario;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvProveedor;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoColaborador;
 import java.util.List;
@@ -36,6 +37,18 @@ public class CatalogoBean implements CatalogoBeanLocal {
     @Override
     public List<CvProveedor> listAllProveedor() {
         List<CvProveedor> lst = em.createQuery("SELECT pro FROM CvProveedor pro WHERE pro.activo = true", CvProveedor.class)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+        // return new Response(lst.get(0), ResponseStatus.OK_QUERY);
+        return lst;
+    }
+
+    @Override
+    public List<CvConcesionario> listAllConcesionarios() {
+        List<CvConcesionario> lst = em.createQuery("SELECT conce FROM CvConcesionario conce WHERE conce.activo = true", CvConcesionario.class)
                 .getResultList();
 
         if (lst == null || lst.isEmpty()) {

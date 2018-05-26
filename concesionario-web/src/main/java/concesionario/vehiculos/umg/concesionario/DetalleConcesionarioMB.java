@@ -80,7 +80,7 @@ public class DetalleConcesionarioMB implements Serializable {
     }
 
     public String verDetalle() {
-        return "/concecionario/servicioOficial/detalle.xhtml?faces-redirect=true&idServicio=" + selectedServicioOficial.getIdServicioOficial();
+        return "servicioOficial/detalle.xhtml?faces-redirect=true&idServicio=" + selectedServicioOficial.getIdServicioOficial();
     }
 
     public String verDetalleProveedor() {

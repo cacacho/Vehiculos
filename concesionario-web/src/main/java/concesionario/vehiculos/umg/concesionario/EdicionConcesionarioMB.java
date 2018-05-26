@@ -4,6 +4,8 @@ import concesionario.vehiculos.umg.concesionario.api.ejb.CatalogoBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.ejb.ConcesionarioBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionario;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvProveedor;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvServicioOficial;
+import concesionario.vehiculos.umg.utilidades.JsfUtil;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
@@ -23,19 +25,30 @@ public class EdicionConcesionarioMB implements Serializable {
 
     @EJB
     private ConcesionarioBeanLocal concesionarioBean;
-    @EJB
-    private CatalogoBeanLocal catalogoBeanLocal;
 
     private Integer idConcesionario;
     private CvConcesionario concesionario;
-    private List<CvProveedor> listProveedor;
 
     public EdicionConcesionarioMB() {
     }
 
     public void cargarDatos() {
-        listProveedor = catalogoBeanLocal.listAllProveedor();
         concesionario = concesionarioBean.findConcesionario(idConcesionario);
+    }
+
+    public void cancelarEdicion() {
+        JsfUtil.redirectTo("/concesionario/detalle.xhtml?faces-redirect=true&idConcesionario=" + idConcesionario);
+    }
+
+    public void actualizarConcesionario() {
+        CvConcesionario conce = new CvConcesionario();
+        conce = concesionarioBean.updateConcesionario(concesionario);
+
+        if (conce.getIdConcesionario() != null) {
+            JsfUtil.addSuccessMessage("Registro agregado correctamente");
+        } else {
+            JsfUtil.addSuccessMessage("Sucedio un error inesperado");
+        }
     }
 
     /*Metodos getters y setters*/
@@ -53,14 +66,6 @@ public class EdicionConcesionarioMB implements Serializable {
 
     public void setConcesionario(CvConcesionario concesionario) {
         this.concesionario = concesionario;
-    }
-
-    public List<CvProveedor> getListProveedor() {
-        return listProveedor;
-    }
-
-    public void setListProveedor(List<CvProveedor> listProveedor) {
-        this.listProveedor = listProveedor;
     }
 
 }
