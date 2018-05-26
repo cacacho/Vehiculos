@@ -22,6 +22,8 @@ public interface ConcesionarioBeanLocal {
     /*Servicio oficial*/
     List<CvServicioOficial> ListaServiciosOficiales();
 
+    List<CvServicioOficial> ListaServiciosOficialesByIdConcesionario(Integer idConcesionario);
+
     CvServicioOficial saveServicioOficial(CvServicioOficial servicioOficial);
 
     CvServicioOficial findServicioOficial(Integer idServicioOficial);
@@ -32,4 +34,6 @@ public interface ConcesionarioBeanLocal {
 
     /*Registro de proveedores*/
     CvProveedor saveProveedor(CvProveedor proveedor);
+
+    List<CvProveedor> listaProveedoresByIdConcesionario(Integer idConcesionario);
 }

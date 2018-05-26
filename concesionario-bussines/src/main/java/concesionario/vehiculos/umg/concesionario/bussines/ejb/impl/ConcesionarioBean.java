@@ -4,6 +4,7 @@ import concesionario.vehiculos.umg.concesionario.api.ejb.ConcesionarioBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionario;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvProveedor;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvServicioOficial;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
@@ -11,6 +12,11 @@ import javax.ejb.EJBContext;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import org.apache.log4j.Logger;
@@ -52,7 +58,7 @@ public class ConcesionarioBean implements ConcesionarioBeanLocal {
                 .getResultList();
 
         if (lst == null || lst.isEmpty()) {
-            //return ("No se encontró información relacionada con el puesto");
+            return null;
         }
 
         return lst;
@@ -105,12 +111,8 @@ public class ConcesionarioBean implements ConcesionarioBeanLocal {
         try {
             CvConcesionario toUpdate = em.find(CvConcesionario.class, concesionario.getIdConcesionario());
 
-//            toUpdate.setPrimerNombre(colaborador.getPrimerNombre());
-//            toUpdate.setSegundoNombre(colaborador.getSegundoNombre());
-//            toUpdate.setPrimerApellido(colaborador.getPrimerApellido());
-//            toUpdate.setSegundoApellido(colaborador.getSegundoApellido());
-//            toUpdate.setTelefono(colaborador.getTelefono());
-//            toUpdate.setDireccion(colaborador.getDireccion());
+            toUpdate.setNombre(concesionario.getNombre());
+            toUpdate.setDireccion(concesionario.getDireccion());
 
             if (concesionario.getActivo() == Boolean.FALSE) {
                 toUpdate.setFechaEliminacion(new Date());
@@ -137,7 +139,7 @@ public class ConcesionarioBean implements ConcesionarioBeanLocal {
                 .getResultList();
 
         if (lst == null || lst.isEmpty()) {
-            //return ("No se encontró información relacionada con el puesto");
+            return null;
         }
 
         return lst;
@@ -145,7 +147,23 @@ public class ConcesionarioBean implements ConcesionarioBeanLocal {
 
     @Override
     public CvServicioOficial saveServicioOficial(CvServicioOficial servicioOficial) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            servicioOficial.setFechaCreacion(new Date());
+            servicioOficial.setActivo(true);
+
+            em.persist(servicioOficial);
+            em.flush();
+            return (servicioOficial);
+        } catch (ConstraintViolationException ex) {
+            String validationError = getConstraintViolationExceptionAsString(ex);
+            log.error(validationError);
+            context.setRollbackOnly();
+            return null;
+        } catch (Exception ex) {
+            processException(ex);
+            context.setRollbackOnly();
+            return null;
+        }
     }
 
     @Override
@@ -174,12 +192,10 @@ public class ConcesionarioBean implements ConcesionarioBeanLocal {
         try {
             CvServicioOficial toUpdate = em.find(CvServicioOficial.class, servicioOficial.getIdServicioOficial());
 
-//            toUpdate.setPrimerNombre(colaborador.getPrimerNombre());
-//            toUpdate.setSegundoNombre(colaborador.getSegundoNombre());
-//            toUpdate.setPrimerApellido(colaborador.getPrimerApellido());
-//            toUpdate.setSegundoApellido(colaborador.getSegundoApellido());
-//            toUpdate.setTelefono(colaborador.getTelefono());
-//            toUpdate.setDireccion(colaborador.getDireccion());
+            toUpdate.setNombre(servicioOficial.getNombre());
+            toUpdate.setDireccion(servicioOficial.getDireccion());
+            toUpdate.setTelefono(servicioOficial.getTelefono());
+            toUpdate.setCorreoElectronico(servicioOficial.getCorreoElectronico());
 
             if (servicioOficial.getActivo() == Boolean.FALSE) {
                 toUpdate.setFechaEliminacion(new Date());
@@ -215,7 +231,7 @@ public class ConcesionarioBean implements ConcesionarioBeanLocal {
 
     @Override
     public CvProveedor saveProveedor(CvProveedor proveedor) {
-              try {
+        try {
             proveedor.setFechaCreacion(new Date());
             proveedor.setActivo(true);
 
@@ -232,6 +248,46 @@ public class ConcesionarioBean implements ConcesionarioBeanLocal {
             context.setRollbackOnly();
             return null;
         }
+    }
+
+    @Override
+    public List<CvServicioOficial> ListaServiciosOficialesByIdConcesionario(Integer idConcesionario) {
+        List<CvServicioOficial> lst = em.createQuery("SELECT oficial FROM CvServicioOficial oficial WHERE oficial.idConcesionario.idConcesionario =:idConcesionario and oficial.activo = true", CvServicioOficial.class)
+                .setParameter("idConcesionario", idConcesionario)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst;
+    }
+
+    @Override
+    public List<CvProveedor> listaProveedoresByIdConcesionario(Integer idConcesionario) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        ArrayList<Predicate> lstPredicates = new ArrayList<>();
+
+        CriteriaQuery<CvProveedor> query = cb.createQuery(CvProveedor.class);
+        Root<CvProveedor> proveedor = query.from(CvProveedor.class);
+
+        Join<CvProveedor, CvConcesionario> conce = proveedor.join("idProveedor");
+
+        Predicate pActivo = cb.equal(proveedor.<Boolean>get("activo"), Boolean.TRUE);
+        lstPredicates.add(pActivo);
+
+        Predicate pConce = cb.equal(conce.<Integer>get("idConcesionario"), idConcesionario);
+        lstPredicates.add(pConce);
+
+        query.where(cb.and(lstPredicates.toArray(new Predicate[lstPredicates.size()])));
+
+        List<CvProveedor> lstProveedores = em.createQuery(query).getResultList();
+
+        if (lstProveedores == null || lstProveedores.isEmpty()) {
+            return null;
+        }
+
+        return lstProveedores;
     }
 
 }
