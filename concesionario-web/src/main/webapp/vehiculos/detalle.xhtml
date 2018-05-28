@@ -9,12 +9,12 @@
                 xmlns:shiro="http://shiro.apache.org/tags">
 
     <f:metadata>
-        <f:viewParam name="idColaborador" value="#{detalleColaboradorMB.idColaborador}"/>
-        <f:event type="preRenderView" listener="#{detalleColaboradorMB.cargarDatos()}"/>
+        <f:viewParam name="idColaborador" value="#{detalleVehiculoMB.idvehiculo}"/>
+        <f:event type="preRenderView" listener="#{detalleVehiculoMB.cargarDatos()}"/>
     </f:metadata>
 
     <ui:define name="pageTitle">
-        Detalle del Colaborador
+        Detalle del Vehículo
     </ui:define>
 
     <ui:define name="content">
@@ -23,12 +23,12 @@
             <table style="width: 100%; margin-top: 23px;">
                 <tr>
                     <td style="width: 50%;">
-                        <p:outputLabel value="1. Información del Colaborador" 
+                        <p:outputLabel value="1. Información del vehículo" 
                                        style="font-size: 16px !important; display: block; width: 100%; text-align: left;" />
                     </td>
                     <td style="width: 50%;vertical-align: bottom;text-align: right!important;font-size: 13px;">
                         <p:link value="Editar" outcome="editar.xhtml" styleClass="links" style="vertical-align: bottom!important; float: right; ">
-                            <f:param name="idColaborador" value="#{detalleColaboradorMB.idColaborador}"/>
+                            <f:param name="idVehiculo" value="#{detalleVehiculoMB.idvehiculo}"/>
                         </p:link>
                     </td>
                 </tr>
@@ -39,87 +39,81 @@
             <p:panelGrid  id="pg_info" styleClass="no-border" style="width: 90%; margin-left: 4%;">
                 <p:row>
                     <p:column >
-                        <p:outputLabel value="Primer Nombre:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Bastidor:" styleClass="colorTitulo" />
                     </p:column>
                     <p:column >
-                        <p:outputLabel value="Segundo Nombre:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Matricula:" styleClass="colorTitulo" />
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.primerNombre}" style="font-size: 16px!important;"/>
+                        <p:outputLabel value="#{detalleVehiculoMB.vehiculo.bastidor}" style="font-size: 16px!important;"/>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.segundoNombre}" style="font-size: 16px!important;">
+                        <p:outputLabel value="#{detalleVehiculoMB.vehiculo.matricula}" style="font-size: 16px!important;">
                         </p:outputLabel> 
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column >
-                        <p:outputLabel value="Primer Apellido:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Modelo:" styleClass="colorTitulo" />
                     </p:column>
                     <p:column >
-                        <p:outputLabel value="Segundo Apellido:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Motor:" styleClass="colorTitulo" />
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.primerApellido}" style="font-size: 16px!important;"/>
+                        <p:outputLabel value="#{detalleVehiculoMB.vehiculo.modelo}" style="font-size: 16px!important;"/>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.segundoApellido}" style="font-size: 16px!important;" >
+                        <p:outputLabel value="#{detalleVehiculoMB.vehiculo.motor}" style="font-size: 16px!important;" >
                         </p:outputLabel> 
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column >
-                        <p:outputLabel value="Telefono:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Color:" styleClass="colorTitulo" />
                     </p:column>
                     <p:column >
-                        <p:outputLabel value="Dirección:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Precio:" styleClass="colorTitulo" />
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.telefono}" style="font-size: 16px!important;"/>
+                        <p:outputLabel value="#{detalleVehiculoMB.vehiculo.color}" style="font-size: 16px!important;"/>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.direccion}" style="font-size: 16px!important;">
+                        <p:outputLabel value="#{detalleVehiculoMB.vehiculo.precio}" style="font-size: 16px!important;">
+                        </p:outputLabel> 
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column >
+                        <p:outputLabel value="Estandar:" styleClass="colorTitulo" />
+                    </p:column>
+                    <p:column >
+                        <p:outputLabel value="Cantidad disponible:" styleClass="colorTitulo" />
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="#{detalleVehiculoMB.vehiculo.estandar}" style="font-size: 16px!important;"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{detalleVehiculoMB.vehiculo.stock}" style="font-size: 16px!important;">
                         </p:outputLabel> 
                     </p:column>
                 </p:row>
 
             </p:panelGrid>
-
-            <p:outputLabel value="2. Información del usuario" 
-                           style="font-size: 16px !important; display: block; margin-top: 3%;  width: 100%; text-align: left;" />
-            <hr class="hr-mp" style="margin-bottom: 15px!important;"/>
-
-            <p:panelGrid id="pg_usuario" styleClass="no-border" style="width: 90%; margin-left: 4%;" >
-                <p:row>
-                    <p:column >
-                        <p:outputLabel value="Usuario:" styleClass="colorTitulo" />
-                    </p:column>
-                    <p:column >
-                        <p:outputLabel value="Contraseña:" styleClass="colorTitulo" />
-                    </p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.usuario.usuario}" style="font-size: 16px!important;"/>
-                    </p:column>
-                    <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.usuario.password}" style="font-size: 16px!important;">
-                        </p:outputLabel> 
-                    </p:column>
-                </p:row>
-            </p:panelGrid> 
 
         </h:form>
     </ui:define>

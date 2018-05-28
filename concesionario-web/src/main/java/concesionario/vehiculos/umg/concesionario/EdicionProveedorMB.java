@@ -43,7 +43,7 @@ public class EdicionProveedorMB implements Serializable {
 
             JsfUtil.addSuccessMessage("Registro agregado correctamente");
         } else {
-            JsfUtil.addSuccessMessage("Sucedio un error inesperado");
+            JsfUtil.addErrorMessage("Sucedio un error inesperado");
         }
     }
 

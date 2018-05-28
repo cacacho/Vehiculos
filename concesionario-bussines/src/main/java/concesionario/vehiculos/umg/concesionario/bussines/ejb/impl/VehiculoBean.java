@@ -3,6 +3,8 @@ package concesionario.vehiculos.umg.concesionario.bussines.ejb.impl;
 import concesionario.vehiculos.umg.concesionario.api.ejb.ConcesionarioBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.ejb.VehiculoBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvExtraVehiculo;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvMarca;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvVehiculo;
 import java.util.Date;
 import java.util.List;
@@ -221,6 +223,31 @@ public class VehiculoBean implements VehiculoBeanLocal {
             context.setRollbackOnly();
             return null;
         }
+    }
+
+    @Override
+    public CvTipoVehiculo findTipoVehiculo(Integer idTipoVehiculo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public CvTipoVehiculo updateExtraVehiculoByIdVehiculo(CvTipoVehiculo tipo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<CvTipoVehiculo> listTipoVehiculoByIdVehiculoByIdVehiculo(Integer idVehiculo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public CvTipoVehiculo saveTipoVehiculo(CvTipoVehiculo tipo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public CvMarca saveMarcaVehiculo(CvMarca marca) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

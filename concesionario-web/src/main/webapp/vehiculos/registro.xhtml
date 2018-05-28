@@ -138,7 +138,7 @@
 
             <div align="center">
                 <p:panelGrid columns="2" styleClass="no-border" rendered="#{registroVehiculoMB.mostrarAgregarExtra}" style=" margin-top: 10px; margin-bottom: 10px;" >
-                    <p:commandButton value="Agregar" icon="ui-icon-plus" action="#{registroVehiculoMB.guardarServicioOficial()  }" 
+                    <p:commandButton value="Agregar" icon="ui-icon-plus" action="#{registroVehiculoMB.guardarExtraVehiculo()  }" 
                                      onstart="return confirm('¿Confirmas guardar el extra del vehículo?');" onsuccess="stop();" update="@form" process="@this pg_vehiculo"/>
                     <p:commandButton value="Cancelar" icon="ui-icon-close" action="#{registroVehiculoMB.cancelarAgregarExtra()}" update="@form"  immediate="true"/>
                 </p:panelGrid>
@@ -154,7 +154,7 @@
                              rendered="#{registroVehiculoMB.listExtraVehiculo.size() > 0}"
                              editable="true">
 
-                <p:ajax event="rowEdit" listener="#{consultaLicenciaBean.editarlicencia(detalle)}" 
+                <p:ajax event="rowEdit" listener="#{registroVehiculoMB.editarExtra(extra)}" 
                         process="@this" update="@form" immediate="true"/>
 
                 <p:column headerText="No." style="width: 5%;">
@@ -190,7 +190,7 @@
                 </p:column>
 
                 <p:column headerText="" width="3%" style="text-align: right !important;" exportable="false">
-                    <p:commandLink value="Eliminar"  title="Eliminar extra" action="#{registroAsuetoFeriadoBean.removeDia(rowId)}"
+                    <p:commandLink value="Eliminar"  title="Eliminar extra" action="#{registroVehiculoMB.eliminarExtra(extra)}"
                                    update=":form:dt_suplente" onstart="return confirm('¿Confirmas eliminar el registro?');" onsuccess="stop();" immediate="true" />
                 </p:column>
 
@@ -208,76 +208,41 @@
                     </td>
                     <td style="width: 50%;vertical-align: bottom;text-align: right!important;font-size: 13px;">
                         <p:commandLink value="Agregar"  styleClass="links" style="vertical-align: bottom!important; float: right;"
-                                       update="@form" action="#{detalleConcesionarioMB.visualizarAgregarServicio()}" process="@this"
-                                       rendered="#{!detalleConcesionarioMB.mostrarAgregarServicio}"/>
+                                       update="@form" action="#{registroVehiculoMB.visualizarAgregarTipo()}" process="@this"
+                                       rendered="#{!registroVehiculoMB.mostrarAgregarTipo}"/>
                     </td>
                 </tr>
             </table>
 
             <hr class="hr-mp" style="margin-bottom: 15px!important;"/>
 
-            <p:panelGrid id="pg_servicio" styleClass="no-border" style="width: 90%; margin-left: 4%;" rendered="#{detalleConcesionarioMB.mostrarAgregarServicio}">
+            <p:panelGrid id="pg_servicio" styleClass="no-border" style="width: 90%; margin-left: 4%;" rendered="#{registroVehiculoMB.mostrarAgregarTipo}">
                 <p:row>
                     <p:column >
-                        <p:outputLabel value="NIF:" styleClass="colorTitulo" />
-                    </p:column>
-                    <p:column >
-                        <p:outputLabel value="Nombre:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Tipo de vehículo:" styleClass="colorTitulo" />
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column>
-                        <p:inputText value="#{detalleConcesionarioMB.servicioOficial.nif}" style="font-size: 16px!important;"/>
-                    </p:column>
-                    <p:column>
-                        <p:inputText value="#{detalleConcesionarioMB.servicioOficial.nombre}" size="40" style="font-size: 16px!important;"/> 
-                    </p:column>
-                </p:row>
-                <p:row>
-                    <p:column >
-                        <p:outputLabel value="Dirección:" styleClass="colorTitulo" />
-                    </p:column>
-                    <p:column >
-                        <p:outputLabel value="Teléfono:" styleClass="colorTitulo" />
-                    </p:column>
-                </p:row>
-                <p:row>
-                    <p:column>
-                        <p:inputText value="#{detalleConcesionarioMB.servicioOficial.direccion}" size="40" style="font-size: 16px!important;"/>
-                    </p:column>
-                    <p:column>
-                        <p:inputText value="#{detalleConcesionarioMB.servicioOficial.telefono}" size="40" style="font-size: 16px!important;"/>
-                    </p:column>
-                </p:row>
-                <p:row>
-                    <p:column >
-                        <p:outputLabel value="Correo Electrónico:" styleClass="colorTitulo" />
-                    </p:column>
-                    <p:column >
-                        <p:outputLabel value="" styleClass="colorTitulo" />
-                    </p:column>
-                </p:row>
-                <p:row>
-                    <p:column>
-                        <p:inputText value="#{detalleConcesionarioMB.servicioOficial.correoElectronico}" size="40" style="font-size: 16px!important;"/>
+                        <p:inputText value="#{registroVehiculoMB.tipoVehiculo.descripcionTipo}" style="font-size: 16px!important;"/>
                     </p:column>
                 </p:row>
             </p:panelGrid> 
 
             <div align="center">
-                <p:panelGrid columns="2" styleClass="no-border" rendered="#{detalleConcesionarioMB.mostrarAgregarServicio}" style=" margin-top: 10px; margin-bottom: 10px;" >
-                    <p:commandButton value="Agregar" icon="ui-icon-plus" action="#{detalleConcesionarioMB.guardarServicioOficial()  }" 
-                                     onstart="return confirm('¿Confirmas guardar el Servicio oficial?');" onsuccess="stop();" update="@form" process="@this pg_servicio"/>
-                    <p:commandButton value="Cancelar" icon="ui-icon-close" action="#{detalleConcesionarioMB.cancelarAgregarServicio()}" update="@form"  immediate="true"/>
+                <p:panelGrid columns="2" styleClass="no-border" rendered="#{registroVehiculoMB.mostrarAgregarTipo}" style=" margin-top: 10px; margin-bottom: 10px;" >
+                    <p:commandButton value="Agregar" icon="ui-icon-plus" action="#{registroVehiculoMB.guardarTipo()}" 
+                                     onstart="return confirm('¿Confirmas guardar el tipo?');" onsuccess="stop();" update="@form" process="@this pg_servicio"/>
+                    <p:commandButton value="Cancelar" icon="ui-icon-close" action="#{registroVehiculoMB.cancelarAgregarTipo()}" update="@form"  immediate="true"/>
                 </p:panelGrid>
             </div>
 
-            <h:selectOneMenu id="tipo"  value="#{registroConcesionarioMB.concesionario.idProveedor}" style="width: 342px;"
+            <h:selectOneMenu id="tipo"  value="#{registroVehiculoMB.vehiculo.idTipoVehiculo}" style="width: 342px;"
                              converter="entityConverter" >
-                <f:selectItem itemLabel="Seleccione una fabrica" value="#{null}" noSelectionOption="true"/>
-                <f:selectItems value="#{registroConcesionarioMB.listProveedor}" var="prove" 
-                               itemLabel="#{prove.nombre}" itemValue="#{prove}"  />
+                <f:selectItem itemLabel="Seleccione un tipo de vehículo" value="#{null}" noSelectionOption="true"/>
+                <f:selectItems value="#{registroVehiculoMB.listTipoVehiculo}" var="tipo" 
+                               itemLabel="#{tipo.descripcionTipo}" itemValue="#{tipo}"  />
             </h:selectOneMenu>
 
 
@@ -290,62 +255,40 @@
                     </td>
                     <td style="width: 50%;vertical-align: bottom;text-align: right!important;font-size: 13px;">
                         <p:commandLink value="Agregar"  styleClass="links" style="vertical-align: bottom!important; float: right;"
-                                       update="@form" action="#{detalleConcesionarioMB.visualizarAgregarProveedor()}" process="@this"
-                                       rendered="#{!detalleConcesionarioMB.mostrarAgregarProveedor}"/>
+                                       update="@form" action="#{registroVehiculoMB.visualizarAgregarMarca()}" process="@this"
+                                       rendered="#{!registroVehiculoMB.mostrarAgregarMarca}"/>
                     </td>
                 </tr>
             </table>
             <hr class="hr-mp" style="margin-bottom: 15px!important;"/>
 
-            <p:panelGrid id="pg_proveedor" styleClass="no-border" style="width: 90%; margin-left: 4%;" rendered="#{detalleConcesionarioMB.mostrarAgregarProveedor}" >
+            <p:panelGrid id="pg_marca" styleClass="no-border" style="width: 90%; margin-left: 4%;" rendered="#{registroVehiculoMB.mostrarAgregarMarca}" >
                 <p:row>
                     <p:column >
-                        <p:outputLabel value="Nombre: " styleClass="colorTitulo" />
-                    </p:column>
-                    <p:column >
-                        <p:outputLabel value="Dirección: " styleClass="colorTitulo" />
+                        <p:outputLabel value="Marca: " styleClass="colorTitulo" />
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column>
-                        <p:inputText value="#{detalleConcesionarioMB.proveedor.nombre}" size="40" style="font-size: 16px!important;"/>
-                    </p:column>
-                    <p:column>
-                        <p:inputText value="#{detalleConcesionarioMB.proveedor.direccion}" size="40" style="font-size: 16px!important;"/> 
-                    </p:column>
-                </p:row>
-                <p:row>
-                    <p:column >
-                        <p:outputLabel value="Teléfono:" styleClass="colorTitulo" />
-                    </p:column>
-                    <p:column >
-                        <p:outputLabel value="Correo Electrónico" styleClass="colorTitulo" />
-                    </p:column>
-                </p:row>
-                <p:row>
-                    <p:column>
-                        <p:inputText value="#{detalleConcesionarioMB.proveedor.telefono}" size="40" style="font-size: 16px!important;"/>
-                    </p:column>
-                    <p:column>
-                        <p:inputText value="#{detalleConcesionarioMB.proveedor.correoElectronico}" size="40" style="font-size: 16px!important;"/>
+                        <p:inputText value="#{registroVehiculoMB.marcaVehiculo.nombre}" size="40" style="font-size: 16px!important;"/>
                     </p:column>
                 </p:row>
             </p:panelGrid> 
 
             <div align="center">
-                <p:panelGrid columns="2" styleClass="no-border" rendered="#{detalleConcesionarioMB.mostrarAgregarProveedor}" style=" margin-top: 10px; margin-bottom: 10px;" >
-                    <p:commandButton value="Agregar" icon="ui-icon-plus" action="#{detalleConcesionarioMB.guardarProveedor()}" 
-                                     onstart="return confirm('¿Confirmas guardar el Proveedor?');" onsuccess="stop();" update="@form" process="@this pg_proveedor"/>
-                    <p:commandButton value="Cancelar" icon="ui-icon-close" action="#{detalleConcesionarioMB.cancelarAgregarProveedor()}" update="@form"  immediate="true"/>
+                <p:panelGrid columns="2" styleClass="no-border" rendered="#{registroVehiculoMB.mostrarAgregarMarca}" style=" margin-top: 10px; margin-bottom: 10px;" >
+                    <p:commandButton value="Agregar" icon="ui-icon-plus" action="#{registroVehiculoMB.guardarMarca()}" 
+                                     onstart="return confirm('¿Confirmas guardar la marca?');" onsuccess="stop();" update="@form" process="@this pg_marca"/>
+                    <p:commandButton value="Cancelar" icon="ui-icon-close" action="#{registroVehiculoMB.cancelarAgregarMarca()}" update="@form"  immediate="true"/>
                 </p:panelGrid>
             </div>
 
-            <h:selectOneMenu id="fabrica"  value="#{registroConcesionarioMB.concesionario.idProveedor}" style="width: 342px;"
+            <h:selectOneMenu id="marca"  value="#{registroVehiculoMB.vehiculo.idMarca}" style="width: 342px;"
                              converter="entityConverter" >
-                <f:selectItem itemLabel="Seleccione una fabrica" value="#{null}" noSelectionOption="true"/>
-                <f:selectItems value="#{registroConcesionarioMB.listProveedor}" var="prove" 
-                               itemLabel="#{prove.nombre}" itemValue="#{prove}"  />
+                <f:selectItem itemLabel="Seleccione una marca" value="#{null}" noSelectionOption="true"/>
+                <f:selectItems value="#{registroVehiculoMB.listMarcaVehiculo}" var="marca" 
+                               itemLabel="#{marca.nombre}" itemValue="#{marca}"  />
             </h:selectOneMenu>
 
             <p:outputPanel  style="margin-top: 4%; margin-bottom: 20px; margin-right: 6%; margin-left: 34%;  font-size: 14px;"  >

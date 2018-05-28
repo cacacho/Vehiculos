@@ -2,8 +2,10 @@ package concesionario.vehiculos.umg.concesionario.bussines.ejb.impl;
 
 import concesionario.vehiculos.umg.concesionario.api.ejb.CatalogoBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionario;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvMarca;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvProveedor;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoColaborador;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoVehiculo;
 import java.util.List;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
@@ -49,6 +51,30 @@ public class CatalogoBean implements CatalogoBeanLocal {
     @Override
     public List<CvConcesionario> listAllConcesionarios() {
         List<CvConcesionario> lst = em.createQuery("SELECT conce FROM CvConcesionario conce WHERE conce.activo = true", CvConcesionario.class)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+        // return new Response(lst.get(0), ResponseStatus.OK_QUERY);
+        return lst;
+    }
+
+    @Override
+    public List<CvTipoVehiculo> listAllTipoVehiculo() {
+        List<CvTipoVehiculo> lst = em.createQuery("SELECT tipo FROM CvTipoVehiculo tipo WHERE tipo.activo = true", CvTipoVehiculo.class)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+        // return new Response(lst.get(0), ResponseStatus.OK_QUERY);
+        return lst;
+    }
+
+    @Override
+    public List<CvMarca> listAllMarcaVehiculo() {
+        List<CvMarca> lst = em.createQuery("SELECT marca FROM CvConcesionario marca WHERE marca.activo = true", CvMarca.class)
                 .getResultList();
 
         if (lst == null || lst.isEmpty()) {
