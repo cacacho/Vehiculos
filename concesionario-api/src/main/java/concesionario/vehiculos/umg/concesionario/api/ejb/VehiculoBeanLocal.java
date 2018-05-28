@@ -1,5 +1,6 @@
 package concesionario.vehiculos.umg.concesionario.api.ejb;
 
+import concesionario.vehiculos.umg.concesionario.api.entity.CvExtraVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvVehiculo;
 import java.util.List;
 
@@ -10,13 +11,22 @@ import java.util.List;
 public interface VehiculoBeanLocal {
 
     List<CvVehiculo> ListaVehiculos();
-    
+
     List<CvVehiculo> ListaVehiculosByIdConcesionario(Integer idConcesionario);
 
-    CvVehiculo saveConcesionario(CvVehiculo CvVehiculo);
+    CvVehiculo saveVehiculo(CvVehiculo CvVehiculo);
 
-    CvVehiculo findConcesionario(Integer idVehiculo);
+    CvVehiculo findVehiculo(Integer idVehiculo);
 
-    CvVehiculo updateConcesionario(CvVehiculo vehiculo);
+    CvVehiculo updateVehiculo(CvVehiculo vehiculo);
+
+    /*Extra vehiculo*/
+    CvExtraVehiculo findExtraVehiculo(Integer idExtraVehiculo);
+
+    CvExtraVehiculo updateExtraVehiculoByIdVehiculo(CvExtraVehiculo idExtraVehiculo);
+
+    List<CvExtraVehiculo> listExtraVehiculoByIdVehiculoByIdVehiculo(Integer idVehiculo);
+
+    CvExtraVehiculo saveExtraVehiculo(CvExtraVehiculo extraVehiculo);
 
 }

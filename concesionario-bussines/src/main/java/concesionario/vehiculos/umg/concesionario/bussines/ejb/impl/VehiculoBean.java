@@ -2,7 +2,7 @@ package concesionario.vehiculos.umg.concesionario.bussines.ejb.impl;
 
 import concesionario.vehiculos.umg.concesionario.api.ejb.ConcesionarioBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.ejb.VehiculoBeanLocal;
-import concesionario.vehiculos.umg.concesionario.api.entity.CvServicioOficial;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvExtraVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvVehiculo;
 import java.util.Date;
 import java.util.List;
@@ -72,7 +72,7 @@ public class VehiculoBean implements VehiculoBeanLocal {
     }
 
     @Override
-    public CvVehiculo saveConcesionario(CvVehiculo CvVehiculo) {
+    public CvVehiculo saveVehiculo(CvVehiculo CvVehiculo) {
         try {
             CvVehiculo.setFechaCreacion(new Date());
             CvVehiculo.setActivo(true);
@@ -93,7 +93,7 @@ public class VehiculoBean implements VehiculoBeanLocal {
     }
 
     @Override
-    public CvVehiculo findConcesionario(Integer idVehiculo) {
+    public CvVehiculo findVehiculo(Integer idVehiculo) {
         List<CvVehiculo> lst = em.createQuery("SELECT vehi FROM CvVehiculo vehi WHERE vehi.idConcesionario.idConcesionario =:idConcesionario and vehi.activo = true", CvVehiculo.class)
                 .setParameter("idConcesionario", idVehiculo)
                 .getResultList();
@@ -106,7 +106,7 @@ public class VehiculoBean implements VehiculoBeanLocal {
     }
 
     @Override
-    public CvVehiculo updateConcesionario(CvVehiculo vehiculo) {
+    public CvVehiculo updateVehiculo(CvVehiculo vehiculo) {
         if (vehiculo == null) {
             context.setRollbackOnly();
             return null;
@@ -137,6 +137,88 @@ public class VehiculoBean implements VehiculoBeanLocal {
             return null;
         } catch (Exception ex) {
             processException(ex);
+            return null;
+        }
+    }
+
+    @Override
+    public CvExtraVehiculo findExtraVehiculo(Integer idExtraVehiculo) {
+        List<CvExtraVehiculo> lst = em.createQuery("SELECT extra FROM CvExtraVehiculo extra WHERE extra.idExtraVehiculo =:idExtraVehiculo and extra.activo = true", CvExtraVehiculo.class)
+                .setParameter("idExtraVehiculo", idExtraVehiculo)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst.get(0);
+    }
+
+    @Override
+    public CvExtraVehiculo updateExtraVehiculoByIdVehiculo(CvExtraVehiculo idExtraVehiculo) {
+        if (idExtraVehiculo == null) {
+            context.setRollbackOnly();
+            return null;
+        }
+//        if (sesion == null) {
+//            context.setRollbackOnly();
+//           
+//        }
+        try {
+            CvExtraVehiculo toUpdate = em.find(CvExtraVehiculo.class, idExtraVehiculo.getIdExtraVehiculo());
+
+            toUpdate.setDescripcion(idExtraVehiculo.getDescripcion());
+            toUpdate.setPrecio(idExtraVehiculo.getPrecio());
+
+            if (idExtraVehiculo.getActivo() == Boolean.FALSE) {
+                toUpdate.setFechaEliminacion(new Date());
+                toUpdate.setActivo(false);
+            }
+
+            em.merge(toUpdate);
+
+            return idExtraVehiculo;
+        } catch (ConstraintViolationException ex) {
+            String validationError = getConstraintViolationExceptionAsString(ex);
+            log.error(validationError);
+            context.setRollbackOnly();
+            return null;
+        } catch (Exception ex) {
+            processException(ex);
+            return null;
+        }
+    }
+
+    @Override
+    public List<CvExtraVehiculo> listExtraVehiculoByIdVehiculoByIdVehiculo(Integer idVehiculo) {
+        List<CvExtraVehiculo> lst = em.createQuery("SELECT extra FROM CvExtraVehiculo extra WHERE extra.cvDetalleExtraVehiculoList.idVehiculo.idVehiculo =:idVehiculo and extra.activo = true", CvExtraVehiculo.class)
+                .setParameter("idVehiculo", idVehiculo)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst;
+    }
+
+    @Override
+    public CvExtraVehiculo saveExtraVehiculo(CvExtraVehiculo extraVehiculo) {
+        try {
+            extraVehiculo.setFechaCreacion(new Date());
+            extraVehiculo.setActivo(true);
+
+            em.persist(extraVehiculo);
+            em.flush();
+            return (extraVehiculo);
+        } catch (ConstraintViolationException ex) {
+            String validationError = getConstraintViolationExceptionAsString(ex);
+            log.error(validationError);
+            context.setRollbackOnly();
+            return null;
+        } catch (Exception ex) {
+            processException(ex);
+            context.setRollbackOnly();
             return null;
         }
     }

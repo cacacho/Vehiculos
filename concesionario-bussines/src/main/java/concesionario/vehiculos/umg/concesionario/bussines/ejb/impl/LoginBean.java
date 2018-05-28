@@ -103,7 +103,7 @@ public class LoginBean implements LoginBeanLocal {
                 .getResultList();
 
         if (lst == null || lst.isEmpty()) {
-            //return new Response(ResponseStatus.ERROR_NO_DATA, String.format("No se encontró información relacionada con el puesto"));
+            return null;
         }
         // return new Response(lst.get(0), ResponseStatus.OK_QUERY);
         return lst.get(0);

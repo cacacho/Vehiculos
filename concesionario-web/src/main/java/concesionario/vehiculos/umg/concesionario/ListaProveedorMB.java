@@ -3,6 +3,7 @@ package concesionario.vehiculos.umg.concesionario;
 import concesionario.vehiculos.umg.concesionario.api.ejb.CatalogoBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvProveedor;
 import concesionario.vehiculos.umg.utilidades.JsfUtil;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -15,7 +16,7 @@ import org.apache.log4j.Logger;
  */
 @ManagedBean(name = "listaProveedorMB")
 @ViewScoped
-public class ListaProveedorMB {
+public class ListaProveedorMB implements Serializable {
 
     private static final Logger log = Logger.getLogger(ListaConcesionarioMB.class);
 

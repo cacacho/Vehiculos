@@ -8,7 +8,7 @@
                 template="/templates/template.xhtml">
 
     <ui:define name="pageTitle">
-        Consultar de Servicio Oficial
+        Consulta de Servicio Oficial
     </ui:define>
 
     <ui:define name="content">
@@ -18,7 +18,7 @@
         <h:form id="frm_content">
             <div align="center">
                 <ui:define name="pageTitle">
-                    <h1 style="margin: 0 0 0 0;"> Consultar de Servicio Oficial</h1>            
+                    <h1 style="margin: 0 0 0 0;"> Consulta de Servicio Oficial</h1>            
                 </ui:define>
                 <br />
 
@@ -29,8 +29,12 @@
                 <br />
                 <p:dataTable id="dt_colaborador" var="servicio" value="#{listaServicioOficialMB.listaServicioOficial}" widgetVar="servicio"
                              emptyMessage="No hay servicio oficial registrados" 
-                             styleClass="tabla-mp" style="width: 85%"
+                             styleClass="tabla-mp" style="width: 85%" rowIndexVar="rowId"
                              rows="15" paginator="#{listaServicioOficialMB.listaServicioOficial.size()>10}"  paginatorPosition="bottom">
+
+                    <p:column headerText="No." style="width: 5%;">
+                        #{rowId+1}
+                    </p:column>
 
                     <p:column headerText="NIF" width="25%" >
                         <p:outputLabel value="#{servicio.nif}"/>

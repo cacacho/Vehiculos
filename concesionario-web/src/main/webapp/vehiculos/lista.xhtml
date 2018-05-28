@@ -8,53 +8,63 @@
                 template="/templates/template.xhtml">
 
     <ui:define name="pageTitle">
-        Consultar de Servicio Oficial
+        Consulta de Vehículos
     </ui:define>
 
     <ui:define name="content">
         <f:metadata>
-            <f:event type="preRenderView" listener="#{listaServicioOficialMB.cargarDatos()}" />
+            <f:event type="preRenderView" listener="#{listaVehiculoMB.cargarDatos()}" />
         </f:metadata>
         <h:form id="frm_content">
             <div align="center">
                 <ui:define name="pageTitle">
-                    <h1 style="margin: 0 0 0 0;"> Consultar de Servicio Oficial</h1>            
+                    <h1 style="margin: 0 0 0 0;">Consulta de Vehículos</h1>            
                 </ui:define>
                 <br />
 
                 <div>
-                    <p:commandButton value="Agregar Colaborador" style="float:left!important; margin-left:7.5% !important; margin-top: -15px!important;" styleClass="button-16 b-greylight-16" icon="ui-icon-plus" 
-                                     action="#{listaServicioOficialMB.linkRegistro()}" update="@all"/>
+                    <p:commandButton value="Agregar vehículo" style="float:left!important; margin-left:7.5% !important; margin-top: -15px!important;" 
+                                     styleClass="button-16 b-greylight-16" icon="ui-icon-plus" 
+                                     action="#{listaVehiculoMB.linkRegistro()}" update="@all"/>
                 </div>
                 <br />
-                <p:dataTable id="dt_colaborador" var="servicio" value="#{listaServicioOficialMB.listaServicioOficial}" widgetVar="servicio"
-                             emptyMessage="No hay servicio oficial registrados" 
+                <p:dataTable id="dt_vehiculo" var="vehiculo" value="#{listaVehiculoMB.listaVehiculos}" widgetVar="vehiculo"
+                             emptyMessage="No hay vehículos registrados" 
                              styleClass="tabla-mp" style="width: 85%"
-                             rows="15" paginator="#{listaServicioOficialMB.listaServicioOficial.size()>10}"  paginatorPosition="bottom">
+                             rowIndexVar="rowId"
+                             rows="15" paginator="#{listaVehiculoMB.listaVehiculos.size()>10}"  paginatorPosition="bottom">
 
-                    <p:column headerText="NIF" width="25%" >
-                        <p:outputLabel value="#{servicio.nif}"/>
+                    <p:column headerText="No." style="width: 5%;">
+                        #{rowId+1}
                     </p:column>
 
-                    <p:column headerText="Nombre" width="25%" >
-                        <p:outputLabel value="#{servicio.nombre}"/>
+                    <p:column headerText="Marca" width="25%" >
+                        <p:outputLabel value="#{vehiculo.idMarca.nombre}"/>
                     </p:column>
 
-                    <p:column headerText="Dirección" width="25%" >
-                        <p:outputLabel value="#{servicio.direccion}"/>
+                    <p:column headerText="Modelo" width="10%" >
+                        <p:outputLabel value="#{vehiculo.modelo}"/>
                     </p:column>
 
-                    <p:column headerText="Teléfono" width="20%" >
-                        <p:outputLabel value="#{servicio.telefono}"/>
+                    <p:column headerText="Motor" width="15%" >
+                        <p:outputLabel value="#{vehiculo.motor}"/>
                     </p:column>
 
-                    <p:column headerText="Concesionario" width="15%" >
-                        <p:outputLabel value="#{servicio.idConcesionario.nombre}"/>
+                    <p:column headerText="Color" width="10%" >
+                        <p:outputLabel value="#{vehiculo.color}"/>
+                    </p:column>
+
+                    <p:column headerText="Concesionario" width="25%" >
+                        <p:outputLabel value="#{vehiculo.idConcesionario.nombre}"/>
+                    </p:column>
+
+                    <p:column headerText="Tipo vehículo" width="20%" >
+                        <p:outputLabel value="#{vehiculo.idTipoVehiculo.descripcionTipo}"/>
                     </p:column>
 
                     <p:column width="9%" exportable="false" >
-                        <p:commandLink value="Detalle" action="#{listaServicioOficialMB.verDetalle}" title="Ver detalle de Colaborador">
-                            <f:setPropertyActionListener value="#{servicio}" target="#{listaServicioOficialMB.selectedServicioOficial}"/>                                
+                        <p:commandLink value="Detalle" action="#{listaVehiculoMB.verDetalle}" title="Ver detalle del vehículo">
+                            <f:setPropertyActionListener value="#{vehiculo}" target="#{listaVehiculoMB.selectedVehiculo}"/>                                
                         </p:commandLink>
 
                     </p:column>

@@ -8,7 +8,7 @@
                 template="/templates/template.xhtml">
 
     <ui:define name="pageTitle">
-        Consultar de Colaboradores
+        Consulta de Colaboradores
     </ui:define>
 
     <ui:define name="content">
@@ -18,7 +18,7 @@
         <h:form id="frm_content">
             <div align="center">
                 <ui:define name="pageTitle">
-                    <h1 style="margin: 0 0 0 0;">Consultar de Colaboradores</h1>            
+                    <h1 style="margin: 0 0 0 0;">Consulta de Colaboradores</h1>            
                 </ui:define>
                 <br />
 
@@ -29,8 +29,12 @@
                 <br />
                 <p:dataTable id="dt_colaborador" var="col" value="#{listaColaboradoresMB.listColaboradores}" widgetVar="asuetos"
                              emptyMessage="No hay colaboradores registrados" 
-                             styleClass="tabla-mp" style="width: 85%"
+                             styleClass="tabla-mp" style="width: 85%" rowIndexVar="rowId"
                              rows="15" paginator="#{listaColaboradoresMB.listColaboradores.size()>10}"  paginatorPosition="bottom">
+
+                    <p:column headerText="No." style="width: 5%;">
+                        #{rowId+1}
+                    </p:column>
 
                     <p:column headerText="Primer Nombre" width="25%" >
                         <p:outputLabel value="#{col.primerNombre}"/>

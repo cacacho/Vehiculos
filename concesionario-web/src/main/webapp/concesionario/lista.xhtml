@@ -8,7 +8,7 @@
                 template="/templates/template.xhtml">
 
     <ui:define name="pageTitle">
-        Consultar de Concesionarios de Vehículos
+        Consulta de Concesionarios de Vehículos
     </ui:define>
 
     <ui:define name="content">
@@ -18,7 +18,7 @@
         <h:form id="frm_content">
             <div align="center">
                 <ui:define name="pageTitle">
-                    <h1 style="margin: 0 0 0 0;"> Consultar de Concesionarios de Vehículos</h1>            
+                    <h1 style="margin: 0 0 0 0;"> Consulta de Concesionarios de Vehículos</h1>            
                 </ui:define>
                 <br />
 
@@ -30,8 +30,13 @@
                 <p:dataTable id="dt_concesionario" var="conce" value="#{listaConcesionarioMB.listaConcesionarios}" 
                              emptyMessage="No hay concesionarios registrado" 
                              styleClass="tabla-mp" style="width: 85%;margin-top: 25px;"
+                             rowIndexVar="rowId"
                              rows="15" paginator="#{listaConcesionarioMB.listaConcesionarios.size()>10}"  paginatorPosition="bottom">
 
+                    <p:column headerText="No." style="width: 5%;">
+                        #{rowId+1}
+                    </p:column>
+                    
                     <p:column headerText="Nombre" width="25%" >
                         <p:outputLabel value="#{conce.nombre}"/>
                     </p:column>
