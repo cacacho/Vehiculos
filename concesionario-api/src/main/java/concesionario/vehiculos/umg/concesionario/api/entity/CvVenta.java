@@ -30,7 +30,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "CvVenta.findAll", query = "SELECT c FROM CvVenta c")
     , @NamedQuery(name = "CvVenta.findByIdVenta", query = "SELECT c FROM CvVenta c WHERE c.idVenta = :idVenta")
-    , @NamedQuery(name = "CvVenta.findByIdTipoPedido", query = "SELECT c FROM CvVenta c WHERE c.idTipoPedido = :idTipoPedido")
     , @NamedQuery(name = "CvVenta.findByCantidad", query = "SELECT c FROM CvVenta c WHERE c.cantidad = :cantidad")
     , @NamedQuery(name = "CvVenta.findByPrecio", query = "SELECT c FROM CvVenta c WHERE c.precio = :precio")
     , @NamedQuery(name = "CvVenta.findByTotalExtra", query = "SELECT c FROM CvVenta c WHERE c.totalExtra = :totalExtra")
@@ -48,10 +47,7 @@ public class CvVenta implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_VENTA")
-    private Long idVenta;
-
-    @Column(name = "ID_TIPO_PEDIDO")
-    private Long idTipoPedido;
+    private Integer idVenta;
 
     @Column(name = "CANTIDAD")
     private Integer cantidad;
@@ -71,35 +67,47 @@ public class CvVenta implements Serializable {
     @Column(name = "FECHA_ENTREGA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEntrega;
+
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
+
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
+
     @Column(name = "FECHA_ELIMINACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
+
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
+
     @Column(name = "ACTIVO")
-    private Short activo;
+    private boolean activo;
+
     @OneToMany(mappedBy = "idVenta", fetch = FetchType.LAZY)
     private List<CvPedido> cvPedidoList;
+
     @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvCliente idCliente;
+
     @JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID_COLABORADOR")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvColaborador idColaborador;
+
     @JoinColumn(name = "ID_DETALLE_EXTRA_VEHICULO", referencedColumnName = "ID_DETALLE_EXTRA_VEHICULO")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvDetalleExtraVehiculo idDetalleExtraVehiculo;
+
     @JoinColumn(name = "ID_TIPO_PAGO", referencedColumnName = "ID_TIPO_PAGO")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvTipoPago idTipoPago;
+
     @JoinColumn(name = "ID_TIPO_SUCURSAL", referencedColumnName = "ID_TIPO_SUCURSAL")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvTipoSucursal idTipoSucursal;
+
     @JoinColumn(name = "ID_VEHICULO", referencedColumnName = "ID_VEHICULO")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvVehiculo idVehiculo;
@@ -107,24 +115,16 @@ public class CvVenta implements Serializable {
     public CvVenta() {
     }
 
-    public CvVenta(Long idVenta) {
+    public CvVenta(Integer idVenta) {
         this.idVenta = idVenta;
     }
 
-    public Long getIdVenta() {
+    public Integer getIdVenta() {
         return idVenta;
     }
 
-    public void setIdVenta(Long idVenta) {
+    public void setIdVenta(Integer idVenta) {
         this.idVenta = idVenta;
-    }
-
-    public Long getIdTipoPedido() {
-        return idTipoPedido;
-    }
-
-    public void setIdTipoPedido(Long idTipoPedido) {
-        this.idTipoPedido = idTipoPedido;
     }
 
     public Integer getCantidad() {
@@ -207,11 +207,11 @@ public class CvVenta implements Serializable {
         this.usuarioEliminacion = usuarioEliminacion;
     }
 
-    public Short getActivo() {
+    public boolean getActivo() {
         return activo;
     }
 
-    public void setActivo(Short activo) {
+    public void setActivo(boolean activo) {
         this.activo = activo;
     }
 

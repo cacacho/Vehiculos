@@ -86,13 +86,11 @@
 
                 <p:row>
                     <p:column>
-                        <p:column>
-                            <h:selectOneMenu id="tipo"  value="#{registroVehiculoMB.vehiculo.estandar}" style="width: 272px;" >
-                                <f:selectItem itemLabel="Seleccione un elemento" value="#{null}" noSelectionOption="true"/>
-                                <f:selectItem itemValue="#{true}" itemLabel="Si" />
-                                <f:selectItem itemValue="#{false}" itemLabel="No" />
-                            </h:selectOneMenu>
-                        </p:column>
+                        <h:selectOneMenu id="estandar"  value="#{registroVehiculoMB.vehiculo.estandar}" style="width: 272px;" >
+                            <f:selectItem itemLabel="Seleccione un elemento" value="#{null}" noSelectionOption="true"/>
+                            <f:selectItem itemValue="#{true}" itemLabel="Si" />
+                            <f:selectItem itemValue="#{false}" itemLabel="No" />
+                        </h:selectOneMenu>
                     </p:column>
                     <p:column>
                         <p:inputText value="#{registroVehiculoMB.vehiculo.stock}" style="font-size: 16px!important;"/>
@@ -108,7 +106,7 @@
                     </td>
                     <td style="width: 50%;vertical-align: bottom;text-align: right!important;font-size: 13px;">
                         <p:commandLink value="Agregar"  styleClass="links" style="vertical-align: bottom!important; float: right;"
-                                       update="@form" action="#{detalleConcesionarioMB.visualizarAgregarExtra()}" process="@this"
+                                       update="@form" action="#{registroVehiculoMB.visualizarAgregarExtra()}" process="@this"
                                        rendered="#{!registroVehiculoMB.mostrarAgregarExtra}"/>
                     </td>
                 </tr>
@@ -145,17 +143,20 @@
             </div>
 
             <p:dataTable     value="#{registroVehiculoMB.listExtraVehiculo}" 
+                             id="extraVehiculo"
                              var="extra"
                              styleClass="tabla-mp"                   
                              emptyMessage="No hay extras del vehículo registrados"
                              rowIndexVar="rowId"
                              style=" margin-left: 20px; margin-right:  20px; margin-top: 25px; margin-bottom: 50px;" 
-                             id="tablaServicio"
                              rendered="#{registroVehiculoMB.listExtraVehiculo.size() > 0}"
-                             editable="true">
+                             selection="#{registroVehiculoMB.selectedListExtraVehiculo}"
+                             editable="true"   rowKey="#{extra.idExtraVehiculo}">
 
                 <p:ajax event="rowEdit" listener="#{registroVehiculoMB.editarExtra(extra)}" 
-                        process="@this" update="@form" immediate="true"/>
+                        process="@this" update="extraVehiculo" immediate="true"/>
+
+                <p:column selectionMode="multiple" width="3%" />
 
                 <p:column headerText="No." style="width: 5%;">
                     #{rowId+1}
@@ -191,7 +192,7 @@
 
                 <p:column headerText="" width="3%" style="text-align: right !important;" exportable="false">
                     <p:commandLink value="Eliminar"  title="Eliminar extra" action="#{registroVehiculoMB.eliminarExtra(extra)}"
-                                   update=":form:dt_suplente" onstart="return confirm('¿Confirmas eliminar el registro?');" onsuccess="stop();" immediate="true" />
+                                   update="extraVehiculo" onstart="return confirm('¿Confirmas eliminar el registro?');" onsuccess="stop();" immediate="true" />
                 </p:column>
 
                 <p:column width="5%"  >
@@ -238,7 +239,7 @@
                 </p:panelGrid>
             </div>
 
-            <h:selectOneMenu id="tipo"  value="#{registroVehiculoMB.vehiculo.idTipoVehiculo}" style="width: 342px;"
+            <h:selectOneMenu id="tidescripcion"  value="#{registroVehiculoMB.vehiculo.idTipoVehiculo}" style="width: 342px;"
                              converter="entityConverter" >
                 <f:selectItem itemLabel="Seleccione un tipo de vehículo" value="#{null}" noSelectionOption="true"/>
                 <f:selectItems value="#{registroVehiculoMB.listTipoVehiculo}" var="tipo" 
@@ -292,7 +293,8 @@
             </h:selectOneMenu>
 
             <p:outputPanel  style="margin-top: 4%; margin-bottom: 20px; margin-right: 6%; margin-left: 34%;  font-size: 14px;"  >
-                <p:commandButton value="Guardar" action="#{registroConcesionarioMB.guardarConcesionario()}" icon="ui-icon-disk" process="@form"  style=" margin-left: 5px; " onstart="return confirm('¿Confirmas guardar el colaborador?');" update="@form"/>
+                <p:commandButton value="Guardar" action="#{registroVehiculoMB.guardarVehiculo()}" icon="ui-icon-disk" process="@form"  style=" margin-left: 5px; "
+                                 onstart="return confirm('¿Confirmas guardar el vehiculo?');" update="@form"/>
                 <p:commandButton value="Cancelar" process="@this" action="#{registroColaboradorMB.cancelarRegistro()}" icon="ui-icon-close" style="margin-left: 12px; " update="@form"/>
             </p:outputPanel>
         </h:form>

@@ -1,6 +1,5 @@
 package concesionario.vehiculos.umg.concesionario.bussines.ejb.impl;
 
-import concesionario.vehiculos.umg.concesionario.api.ejb.ConcesionarioBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.ejb.VehiculoBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvExtraVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvMarca;
@@ -24,7 +23,7 @@ import org.apache.log4j.Logger;
 @Singleton
 public class VehiculoBean implements VehiculoBeanLocal {
 
-    private static final Logger log = Logger.getLogger(ConcesionarioBeanLocal.class);
+    private static final Logger log = Logger.getLogger(VehiculoBean.class);
 
     @PersistenceContext(unitName = "ConceVehiculosPU")
     EntityManager em;
@@ -120,10 +119,14 @@ public class VehiculoBean implements VehiculoBeanLocal {
         try {
             CvVehiculo toUpdate = em.find(CvVehiculo.class, vehiculo.getIdVehiculo());
 
-//            toUpdate.setNombre(vehiculo.get);
-//            toUpdate.setDireccion(servicioOficial.getDireccion());
-//            toUpdate.setTelefono(servicioOficial.getTelefono());
-//            toUpdate.setCorreoElectronico(servicioOficial.getCorreoElectronico());
+            toUpdate.setBastidor(vehiculo.getBastidor());
+            toUpdate.setMatricula(vehiculo.getMatricula());
+            toUpdate.setModelo(vehiculo.getModelo());
+            toUpdate.setMotor(vehiculo.getMotor());
+            toUpdate.setColor(vehiculo.getColor());
+            toUpdate.setPrecio(vehiculo.getPrecio());
+            toUpdate.setStock(vehiculo.getStock());
+
             if (vehiculo.getActivo() == Boolean.FALSE) {
                 toUpdate.setFechaEliminacion(new Date());
                 toUpdate.setActivo(false);
@@ -227,27 +230,130 @@ public class VehiculoBean implements VehiculoBeanLocal {
 
     @Override
     public CvTipoVehiculo findTipoVehiculo(Integer idTipoVehiculo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<CvTipoVehiculo> lst = em.createQuery("SELECT tipo FROM CvTipoVehiculo tipo WHERE tipo.idTipoVehiculo =:idTipoVehiculo and tipo.activo = true", CvTipoVehiculo.class)
+                .setParameter("idTipoVehiculo", idTipoVehiculo)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst.get(0);
     }
 
     @Override
     public CvTipoVehiculo updateExtraVehiculoByIdVehiculo(CvTipoVehiculo tipo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (tipo == null) {
+            context.setRollbackOnly();
+            return null;
+        }
+//        if (sesion == null) {
+//            context.setRollbackOnly();
+//           
+//        }
+        try {
+            CvTipoVehiculo toUpdate = em.find(CvTipoVehiculo.class, tipo.getIdTipoVehiculo());
+
+            toUpdate.setDescripcionTipo(tipo.getDescripcionTipo());
+   
+
+            if (tipo.getActivo() == Boolean.FALSE) {
+                toUpdate.setFechaEliminacion(new Date());
+                toUpdate.setActivo(false);
+            }
+
+            em.merge(toUpdate);
+
+            return tipo;
+        } catch (ConstraintViolationException ex) {
+            String validationError = getConstraintViolationExceptionAsString(ex);
+            log.error(validationError);
+            context.setRollbackOnly();
+            return null;
+        } catch (Exception ex) {
+            processException(ex);
+            return null;
+        }
     }
 
     @Override
     public List<CvTipoVehiculo> listTipoVehiculoByIdVehiculoByIdVehiculo(Integer idVehiculo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<CvTipoVehiculo> lst = em.createQuery("SELECT tipo FROM CvTipoVehiculo tipo WHERE tipo.cvVehiculoList.idVehiculo =:idVehiculo and tipo.activo = true", CvTipoVehiculo.class)
+                .setParameter("idVehiculo", idVehiculo)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst;
     }
 
     @Override
     public CvTipoVehiculo saveTipoVehiculo(CvTipoVehiculo tipo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            tipo.setFechaCreacion(new Date());
+            tipo.setActivo(true);
+
+            em.persist(tipo);
+            em.flush();
+            return (tipo);
+        } catch (ConstraintViolationException ex) {
+            String validationError = getConstraintViolationExceptionAsString(ex);
+            log.error(validationError);
+            context.setRollbackOnly();
+            return null;
+        } catch (Exception ex) {
+            processException(ex);
+            context.setRollbackOnly();
+            return null;
+        }
     }
 
     @Override
     public CvMarca saveMarcaVehiculo(CvMarca marca) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            marca.setFechaCreacion(new Date());
+            marca.setActivo(true);
+
+            em.persist(marca);
+            em.flush();
+            return (marca);
+        } catch (ConstraintViolationException ex) {
+            String validationError = getConstraintViolationExceptionAsString(ex);
+            log.error(validationError);
+            context.setRollbackOnly();
+            return null;
+        } catch (Exception ex) {
+            processException(ex);
+            context.setRollbackOnly();
+            return null;
+        }
+    }
+
+    @Override
+    public List<CvVehiculo> ListaVehiculosByBastido(String bastidor) {
+        List<CvVehiculo> lst = em.createQuery("SELECT vehi FROM CvVehiculo vehi WHERE vehi.bastidor =:bastidor and vehi.activo = true", CvVehiculo.class)
+                .setParameter("bastidor", bastidor)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst;
+    }
+
+    @Override
+    public List<CvExtraVehiculo> listExtraVehiculo() {
+       List<CvExtraVehiculo> lst = em.createQuery("SELECT extra FROM CvExtraVehiculo extra WHERE extra.activo = true", CvExtraVehiculo.class)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst;
     }
 
 }

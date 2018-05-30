@@ -2,7 +2,6 @@ concesionario\vehiculos\umg\concesionario\EdicionServicioOficialMB.class
 concesionario\vehiculos\umg\concesionario\RegistroServicioOficialMB.class
 concesionario\vehiculos\umg\utilidades\JsfUtil.class
 concesionario\vehiculos\umg\concesionario\RegistroConcesionarioMB.class
-concesionario\vehiculos\umg\login\SesionMB.class
 concesionario\vehiculos\umg\concesionario\DetalleConcesionarioMB.class
 concesionario\vehiculos\umg\login\DetalleColaboradorMB.class
 concesionario\vehiculos\umg\login\EdicionColaboradorMB.class

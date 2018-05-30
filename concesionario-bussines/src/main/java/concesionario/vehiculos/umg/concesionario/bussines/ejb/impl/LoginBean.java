@@ -27,7 +27,7 @@ import org.apache.log4j.Logger;
 @Singleton
 public class LoginBean implements LoginBeanLocal {
 
-    private static final Logger log = Logger.getLogger(EmpleadoBeanLocal.class);
+    private static final Logger log = Logger.getLogger(LoginBean.class);
 
     @PersistenceContext(unitName = "ConceVehiculosPU")
     EntityManager em;

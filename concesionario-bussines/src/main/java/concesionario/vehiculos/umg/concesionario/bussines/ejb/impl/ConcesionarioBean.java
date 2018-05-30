@@ -28,7 +28,7 @@ import org.apache.log4j.Logger;
 @Singleton
 public class ConcesionarioBean implements ConcesionarioBeanLocal {
 
-    private static final Logger log = Logger.getLogger(ConcesionarioBeanLocal.class);
+    private static final Logger log = Logger.getLogger(ConcesionarioBean.class);
 
     @PersistenceContext(unitName = "ConceVehiculosPU")
     EntityManager em;

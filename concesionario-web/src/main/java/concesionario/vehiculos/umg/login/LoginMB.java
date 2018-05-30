@@ -8,8 +8,8 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.rmi.CORBA.Util;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
@@ -32,15 +32,10 @@ public class LoginMB implements Serializable {
     public LoginMB() {
     }
 
-    public void login() throws IOException {
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.getExternalContext().redirect("menu/menu.xhtml");
-    }
-
     public String loginProject() {
         CvUsuarios usu = new CvUsuarios();
-       usu = loginBeanLocal.verificarUsuario(usuario, password);
-        if (usu.getUsuario() != null) {
+        usu = loginBeanLocal.verificarUsuario(usuario, password);
+        if (usu != null) {
             // get Http Session and store username
             HttpSession session = UtilMB.getSession();
             session.setAttribute("usuario", usuario);
@@ -54,10 +49,18 @@ public class LoginMB implements Serializable {
                             "Usuario o Contraseña invalida",
                             "Intente de nuevo!"));
 
-            // invalidate session, and redirect to other pages
-            //message = "Invalid Login. Please Try Again!";
             return "login.xhtml";
         }
+    }
+
+    public void logout() throws IOException {
+//        HttpSession session = UtilMB.getSession();
+//        session.invalidate();
+
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.invalidateSession();
+        ec.redirect(ec.getRequestContextPath() + "/login.xhtml");
+        //return "/login.xhtml?faces-redirect=true";
     }
 
     /*Metodos Getters y setters*/

@@ -22,6 +22,8 @@ public interface VehiculoBeanLocal {
 
     CvVehiculo updateVehiculo(CvVehiculo vehiculo);
 
+    List<CvVehiculo> ListaVehiculosByBastido(String bastidor);
+
     /*Extra vehiculo*/
     CvExtraVehiculo findExtraVehiculo(Integer idExtraVehiculo);
 
@@ -30,6 +32,8 @@ public interface VehiculoBeanLocal {
     List<CvExtraVehiculo> listExtraVehiculoByIdVehiculoByIdVehiculo(Integer idVehiculo);
 
     CvExtraVehiculo saveExtraVehiculo(CvExtraVehiculo extraVehiculo);
+    
+    List<CvExtraVehiculo> listExtraVehiculo();
 
     /*Tipo vehiculo*/
     CvTipoVehiculo findTipoVehiculo(Integer idTipoVehiculo);

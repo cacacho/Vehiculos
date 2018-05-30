@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"    
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/template.xhtml">
+
+    <ui:define name="pageTitle">
+        Consulta de ventas
+    </ui:define>
+
+    <ui:define name="content">
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{listaVentaMB.cargarDatos()}" />
+        </f:metadata>
+        <h:form id="frm_content">
+            <div align="center">
+                <ui:define name="pageTitle">
+                    <h1 style="margin: 0 0 0 0;">Consulta de Ventas</h1>            
+                </ui:define>
+                <br />
+
+                <div>
+                    <p:commandButton value="Nueva Venta" style="float:left!important; margin-left:7.5% !important; margin-top: -15px!important;" styleClass="button-16 b-greylight-16" icon="ui-icon-plus" 
+                                     action="#{listaVentaMB.linkRegistro()}" update="@all"/>
+                </div>
+                <br />
+                <p:dataTable id="dt_colaborador" var="ven" value="#{listaVentaMB.listVentas}" widgetVar="ven"
+                             emptyMessage="No hay ventas registradas" 
+                             styleClass="tabla-mp" style="width: 85%" rowIndexVar="rowId"
+                             rows="15" paginator="#{listaVentaMB.listVentas.size()>10}"  paginatorPosition="bottom">
+
+                    <p:column headerText="No." style="width: 5%;">
+                        #{rowId+1}
+                    </p:column>
+
+                    <p:column headerText="Bastidor" width="25%" >
+                        <p:outputLabel value="#{ven.idVehiculo.bastidor}"/>
+                    </p:column>
+
+                    <p:column headerText="Vendedor" width="25%" >
+                        <p:outputLabel value="#{ven.idColaborador.primerNombre} #{ven.idColaborador.primerApellido}"/>
+                    </p:column>
+
+                    <p:column headerText="Tipo Sucursal" width="25%" >
+                        <p:outputLabel value="#{ven.idTipoSucursal.nombre}"/>
+                    </p:column>
+
+                    <p:column headerText="Cantidad" width="20%" >
+                        <p:outputLabel value="#{ven.cantidad}"/>
+                    </p:column>
+
+                    <p:column headerText="Tipo pago" width="20%" >
+                        <p:outputLabel value="#{ven.idTipoPago}"/>
+                    </p:column>
+
+                    <p:column headerText="Fecha venta" width="22%" >
+                        <p:outputLabel value="#{ven.fechaCreacion}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:outputLabel>
+                    </p:column>
+
+                    <p:column width="9%" exportable="false" >
+                        <p:commandLink value="Detalle" action="#{listaVentaMB.verDetalle}" title="Ver detalle de venta">
+                            <f:setPropertyActionListener value="#{venta}" target="#{listaVentaMB.venta}"/>                                
+                        </p:commandLink>
+
+                    </p:column>
+
+                </p:dataTable>
+
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

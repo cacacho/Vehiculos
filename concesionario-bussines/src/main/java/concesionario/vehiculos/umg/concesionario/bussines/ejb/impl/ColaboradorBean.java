@@ -22,7 +22,7 @@ import javax.validation.ConstraintViolationException;
 @Singleton
 public class ColaboradorBean implements EmpleadoBeanLocal {
 
-    private static final Logger log = Logger.getLogger(EmpleadoBeanLocal.class);
+    private static final Logger log = Logger.getLogger(ColaboradorBean.class);
 
     @PersistenceContext(unitName = "ConceVehiculosPU")
     EntityManager em;
