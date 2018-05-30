@@ -74,7 +74,7 @@ public class CatalogoBean implements CatalogoBeanLocal {
 
     @Override
     public List<CvMarca> listAllMarcaVehiculo() {
-        List<CvMarca> lst = em.createQuery("SELECT marca FROM CvConcesionario marca WHERE marca.activo = true", CvMarca.class)
+        List<CvMarca> lst = em.createQuery("SELECT marca FROM CvMarca marca WHERE marca.activo = true", CvMarca.class)
                 .getResultList();
 
         if (lst == null || lst.isEmpty()) {

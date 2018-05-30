@@ -1,5 +1,6 @@
 package concesionario.vehiculos.umg.concesionario.api.ejb;
 
+import concesionario.vehiculos.umg.concesionario.api.entity.CvDetalleExtraVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvExtraVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvMarca;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoVehiculo;
@@ -32,7 +33,7 @@ public interface VehiculoBeanLocal {
     List<CvExtraVehiculo> listExtraVehiculoByIdVehiculoByIdVehiculo(Integer idVehiculo);
 
     CvExtraVehiculo saveExtraVehiculo(CvExtraVehiculo extraVehiculo);
-    
+
     List<CvExtraVehiculo> listExtraVehiculo();
 
     /*Tipo vehiculo*/
@@ -46,5 +47,8 @@ public interface VehiculoBeanLocal {
 
     /*Marca del vehiculo*/
     CvMarca saveMarcaVehiculo(CvMarca marca);
+
+    /*Detalle extra*/
+    CvDetalleExtraVehiculo saveDetalleExtra(CvDetalleExtraVehiculo detalleExtra);
 
 }

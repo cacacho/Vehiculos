@@ -28,7 +28,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "CvTipoVehiculo.findAll", query = "SELECT c FROM CvTipoVehiculo c")
     , @NamedQuery(name = "CvTipoVehiculo.findByIdTipoVehiculo", query = "SELECT c FROM CvTipoVehiculo c WHERE c.idTipoVehiculo = :idTipoVehiculo")
-    , @NamedQuery(name = "CvTipoVehiculo.findByExtras", query = "SELECT c FROM CvTipoVehiculo c WHERE c.extras = :extras")
     , @NamedQuery(name = "CvTipoVehiculo.findByDescripcionTipo", query = "SELECT c FROM CvTipoVehiculo c WHERE c.descripcionTipo = :descripcionTipo")
     , @NamedQuery(name = "CvTipoVehiculo.findByFechaCreacion", query = "SELECT c FROM CvTipoVehiculo c WHERE c.fechaCreacion = :fechaCreacion")
     , @NamedQuery(name = "CvTipoVehiculo.findByUsuarioCreacion", query = "SELECT c FROM CvTipoVehiculo c WHERE c.usuarioCreacion = :usuarioCreacion")
@@ -42,30 +41,27 @@ public class CvTipoVehiculo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_TIPO_VEHICULO")
     private Integer idTipoVehiculo;
-    
-    @Column(name = "EXTRAS")
-    private Short extras;
-    
+
     @Column(name = "DESCRIPCION_TIPO")
     private String descripcionTipo;
-    
+
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
-    
+
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
-    
+
     @Column(name = "FECHA_ELIMINACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
-    
+
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
-    
+
     @Column(name = "ACTIVO")
     private boolean activo;
-    
+
     @OneToMany(mappedBy = "idTipoVehiculo", fetch = FetchType.LAZY)
     private List<CvVehiculo> cvVehiculoList;
 
@@ -82,14 +78,6 @@ public class CvTipoVehiculo implements Serializable {
 
     public void setIdTipoVehiculo(Integer idTipoVehiculo) {
         this.idTipoVehiculo = idTipoVehiculo;
-    }
-
-    public Short getExtras() {
-        return extras;
-    }
-
-    public void setExtras(Short extras) {
-        this.extras = extras;
     }
 
     public String getDescripcionTipo() {

@@ -1,6 +1,7 @@
 package concesionario.vehiculos.umg.concesionario.bussines.ejb.impl;
 
 import concesionario.vehiculos.umg.concesionario.api.ejb.VehiculoBeanLocal;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvDetalleExtraVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvExtraVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvMarca;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoVehiculo;
@@ -255,7 +256,6 @@ public class VehiculoBean implements VehiculoBeanLocal {
             CvTipoVehiculo toUpdate = em.find(CvTipoVehiculo.class, tipo.getIdTipoVehiculo());
 
             toUpdate.setDescripcionTipo(tipo.getDescripcionTipo());
-   
 
             if (tipo.getActivo() == Boolean.FALSE) {
                 toUpdate.setFechaEliminacion(new Date());
@@ -346,7 +346,7 @@ public class VehiculoBean implements VehiculoBeanLocal {
 
     @Override
     public List<CvExtraVehiculo> listExtraVehiculo() {
-       List<CvExtraVehiculo> lst = em.createQuery("SELECT extra FROM CvExtraVehiculo extra WHERE extra.activo = true", CvExtraVehiculo.class)
+        List<CvExtraVehiculo> lst = em.createQuery("SELECT extra FROM CvExtraVehiculo extra WHERE extra.activo = true", CvExtraVehiculo.class)
                 .getResultList();
 
         if (lst == null || lst.isEmpty()) {
@@ -354,6 +354,27 @@ public class VehiculoBean implements VehiculoBeanLocal {
         }
 
         return lst;
+    }
+
+    @Override
+    public CvDetalleExtraVehiculo saveDetalleExtra(CvDetalleExtraVehiculo detalleExtra) {
+        try {
+            detalleExtra.setFechaCreacion(new Date());
+            detalleExtra.setActivo(true);
+
+            em.persist(detalleExtra);
+            em.flush();
+            return (detalleExtra);
+        } catch (ConstraintViolationException ex) {
+            String validationError = getConstraintViolationExceptionAsString(ex);
+            log.error(validationError);
+            context.setRollbackOnly();
+            return null;
+        } catch (Exception ex) {
+            processException(ex);
+            context.setRollbackOnly();
+            return null;
+        }
     }
 
 }

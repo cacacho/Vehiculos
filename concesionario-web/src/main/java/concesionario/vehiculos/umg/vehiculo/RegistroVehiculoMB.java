@@ -2,6 +2,7 @@ package concesionario.vehiculos.umg.vehiculo;
 
 import concesionario.vehiculos.umg.concesionario.api.ejb.CatalogoBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.ejb.VehiculoBeanLocal;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvDetalleExtraVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvExtraVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvMarca;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoVehiculo;
@@ -47,6 +48,7 @@ public class RegistroVehiculoMB implements Serializable {
         extraVehiculo = new CvExtraVehiculo();
         tipoVehiculo = new CvTipoVehiculo();
         marcaVehiculo = new CvMarca();
+        vehiculo = new CvVehiculo();
     }
 
     @PostConstruct
@@ -110,7 +112,7 @@ public class RegistroVehiculoMB implements Serializable {
         tipo = vehiculosBean.saveTipoVehiculo(tipoVehiculo);
         if (tipo.getIdTipoVehiculo() != null) {
             mostrarAgregarTipo = false;
-            listaMarcas();
+            listaTipo();
             JsfUtil.addSuccessMessage("Registro agregado correctamente");
         } else {
             mostrarAgregarTipo = false;
@@ -123,6 +125,7 @@ public class RegistroVehiculoMB implements Serializable {
         mar = vehiculosBean.saveMarcaVehiculo(marcaVehiculo);
         if (mar.getIdMarca() != null) {
             mostrarAgregarMarca = false;
+            listaMarcas();
             JsfUtil.addSuccessMessage("Registro agregado correctamente");
         } else {
             mostrarAgregarMarca = false;
@@ -153,32 +156,24 @@ public class RegistroVehiculoMB implements Serializable {
     }
 
     public String guardarVehiculo() {
-        if (selectedListExtraVehiculo == null || selectedListExtraVehiculo.isEmpty()) {
-            JsfUtil.addErrorMessage("Debe de seleccionar un extra");
+        CvVehiculo vehi = new CvVehiculo();
+        vehi = vehiculosBean.saveVehiculo(vehiculo);
+        if (vehi.getIdVehiculo() != null) {
+            if (selectedListExtraVehiculo != null || !selectedListExtraVehiculo.isEmpty()) {
+                CvDetalleExtraVehiculo detalleExtra = new CvDetalleExtraVehiculo();
+                for (CvExtraVehiculo extra : selectedListExtraVehiculo) {
+                    detalleExtra.setIdExtraVehiculo(extra);
+                    detalleExtra.setIdVehiculo(vehi);
+                    vehiculosBean.saveDetalleExtra(detalleExtra);
+                }
+
+            }
+
+            JsfUtil.addSuccessMessage("Registro agregado correctamente");
+        } else {
+            mostrarAgregarMarca = false;
+            JsfUtil.addErrorMessage("Sucedio un error inesperado");
         }
-        //else {
-//            Integer anio = TimeUtil.now().getYear() + 1900;
-//            anioAcuerdoActualizacionSelected = anio;
-//            List<PlazaWrapper> plazasEnEstadoCorrecto = new ArrayList();
-//            for (PlazaWrapper pl : selectedPlazas) {
-//                if (pl.getPlazaDto().getIdSituacionApartaPlaza().equals(EstadosApartaPlaza.EN_ESTUDIO_CLASAL.getValue())
-//                        && pl.getPlazaDto().getActivo() == true) {
-//                    plazasEnEstadoCorrecto.add(pl);
-//                }
-//            }
-//
-//            if (!plazasEnEstadoCorrecto.isEmpty()) {
-//                selectedPlazas.clear();
-//                selectedPlazas.addAll(plazasEnEstadoCorrecto);
-//                ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-//                listPlazasAnular = new ArrayList<>();
-//                listPlazasAnular.addAll(selectedPlazas);
-//                context.getSessionMap().put("LISTA_ANULAR_PLAZAS", listPlazasAnular);
-//                RequestContext.getCurrentInstance().execute("PF('plazasAnuladas').show()");
-//            } else {
-//                JsfUtil.addErrorMessage("No seleccionó ninguna plaza que se encuentre en proceso: EN ESTUDIO DE SUPRESIÓN, por lo que no puede anular");
-//            }
-//        }
         return "";
     }
 
