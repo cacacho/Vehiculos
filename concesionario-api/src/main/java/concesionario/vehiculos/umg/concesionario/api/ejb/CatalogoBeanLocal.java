@@ -4,6 +4,7 @@ import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionario;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvMarca;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvProveedor;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoColaborador;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoPago;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoVehiculo;
 import java.util.List;
 
@@ -22,4 +23,6 @@ public interface CatalogoBeanLocal {
     List<CvTipoVehiculo> listAllTipoVehiculo();
 
     List<CvMarca> listAllMarcaVehiculo();
+    
+    List<CvTipoPago> listAllTipoPago();
 }

@@ -5,6 +5,7 @@ import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionario;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvMarca;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvProveedor;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoColaborador;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoPago;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoVehiculo;
 import java.util.List;
 import javax.ejb.Singleton;
@@ -75,6 +76,18 @@ public class CatalogoBean implements CatalogoBeanLocal {
     @Override
     public List<CvMarca> listAllMarcaVehiculo() {
         List<CvMarca> lst = em.createQuery("SELECT marca FROM CvMarca marca WHERE marca.activo = true", CvMarca.class)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+        // return new Response(lst.get(0), ResponseStatus.OK_QUERY);
+        return lst;
+    }
+
+    @Override
+    public List<CvTipoPago> listAllTipoPago() {
+        List<CvTipoPago> lst = em.createQuery("SELECT tipo FROM CvTipoPago tipo WHERE tipo.activo = true", CvTipoPago.class)
                 .getResultList();
 
         if (lst == null || lst.isEmpty()) {

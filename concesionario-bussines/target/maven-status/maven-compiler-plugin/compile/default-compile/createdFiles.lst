@@ -1,4 +1,6 @@
 concesionario\vehiculos\umg\concesionario\bussines\ejb\impl\ConcesionarioBean.class
 concesionario\vehiculos\umg\concesionario\bussines\ejb\impl\LoginBean.class
+concesionario\vehiculos\umg\concesionario\bussines\ejb\impl\VehiculoBean.class
 concesionario\vehiculos\umg\concesionario\bussines\ejb\impl\ColaboradorBean.class
 concesionario\vehiculos\umg\concesionario\bussines\ejb\impl\CatalogoBean.class
+concesionario\vehiculos\umg\concesionario\bussines\ejb\impl\VentaBean.class

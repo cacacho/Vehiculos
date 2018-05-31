@@ -47,6 +47,9 @@ public class CvCliente implements Serializable {
     @Column(name = "ID_CLIENTE")
     private Integer idCliente;
 
+    @Column(name = "NIT")
+    private String nit;
+
     @Basic(optional = false)
     @Column(name = "NOMBRES")
     private String nombres;
@@ -183,6 +186,14 @@ public class CvCliente implements Serializable {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    public String getNit() {
+        return nit;
+    }
+
+    public void setNit(String nit) {
+        this.nit = nit;
     }
 
     @XmlTransient

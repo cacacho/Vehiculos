@@ -42,6 +42,7 @@ public class RegistroColaboradorMB implements Serializable {
     }
 
     public void saveColaborador() {
+        colaborador.setUsuarioCreacion(LoginMB.usuario);
         colaboradorBeanLocal.saveColaborador(colaborador);
         JsfUtil.addSuccessMessage("Colaborador creado con exito");
         JsfUtil.redirectTo("/colaborador/lista.xhtml");

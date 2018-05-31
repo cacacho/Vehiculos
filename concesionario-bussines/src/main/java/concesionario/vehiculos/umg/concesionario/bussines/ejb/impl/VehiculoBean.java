@@ -333,8 +333,8 @@ public class VehiculoBean implements VehiculoBeanLocal {
 
     @Override
     public List<CvVehiculo> ListaVehiculosByBastido(String bastidor) {
-        List<CvVehiculo> lst = em.createQuery("SELECT vehi FROM CvVehiculo vehi WHERE vehi.bastidor =:bastidor and vehi.activo = true", CvVehiculo.class)
-                .setParameter("bastidor", bastidor)
+        List<CvVehiculo> lst = em.createQuery("SELECT vehi FROM CvVehiculo vehi WHERE vehi.bastidor like :bastidor", CvVehiculo.class)
+                .setParameter("bastidor", "%" + bastidor + "%")
                 .getResultList();
 
         if (lst == null || lst.isEmpty()) {
@@ -375,6 +375,89 @@ public class VehiculoBean implements VehiculoBeanLocal {
             context.setRollbackOnly();
             return null;
         }
+    }
+
+    @Override
+    public List<CvVehiculo> ListaVehiculosByPlaca(String placa) {
+        List<CvVehiculo> lst = em.createQuery("SELECT vehi FROM CvVehiculo vehi WHERE vehi.matricula like :placa", CvVehiculo.class)
+                .setParameter("placa", "%" + placa + "%")
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst;
+    }
+
+    @Override
+    public List<CvVehiculo> ListaVehiculosByMarca(String marca) {
+        List<CvVehiculo> lst = em.createQuery("SELECT vehi FROM CvVehiculo vehi WHERE vehi.idMarca.nombre like :marca", CvVehiculo.class)
+                .setParameter("marca", "%" + marca + "%")
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst;
+    }
+
+    @Override
+    public List<CvVehiculo> ListaVehiculosByBastidorAndPlacaAndMarca(String bastido, String placa, String marca) {
+        List<CvVehiculo> lst = em.createQuery("SELECT vehi FROM CvVehiculo vehi WHERE vehi.bastidor like :marca AND vehi.matricula like :marca and vehi.idMarca.nombre like :marca", CvVehiculo.class)
+                .setParameter("bastido", "%" + bastido + "%")
+                .setParameter("placa", "%" + placa + "%")
+                .setParameter("marca", "%" + marca + "%")
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst;
+    }
+
+    @Override
+    public List<CvVehiculo> ListaVehiculosByBastidorAndPlaca(String bastidor, String placa) {
+        List<CvVehiculo> lst = em.createQuery("SELECT vehi FROM CvVehiculo vehi WHERE vehi.bastidor like :bastidor and vehi.matricula like :placa", CvVehiculo.class)
+                .setParameter("bastidor", "%" + bastidor + "%")
+                .setParameter("placa", "%" + placa + "%")
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst;
+    }
+
+    @Override
+    public List<CvVehiculo> ListaVehiculosByBastidorAndMarca(String bastidor, String marca) {
+        List<CvVehiculo> lst = em.createQuery("SELECT vehi FROM CvVehiculo vehi WHERE vehi.bastidor like :bastido and  vehi.idMarca.nombre like :marca", CvVehiculo.class)
+                .setParameter("bastidor", "%" + bastidor + "%")
+                .setParameter("marca", "%" + marca + "%")
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst;
+    }
+
+    @Override
+    public List<CvVehiculo> ListaVehiculosByPlacaAndMarca(String placa, String marca) {
+        List<CvVehiculo> lst = em.createQuery("SELECT vehi FROM CvVehiculo vehi WHERE vehi.matricula like :placa and vehi.idMarca.nombre like :marca", CvVehiculo.class)
+                .setParameter("placa", "%" + placa + "%")
+                .setParameter("marca", "%" + marca + "%")
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst;
     }
 
 }

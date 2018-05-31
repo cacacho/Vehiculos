@@ -53,13 +53,13 @@ public class CvVenta implements Serializable {
     private Integer cantidad;
 
     @Column(name = "PRECIO")
-    private Double precio;
+    private Integer precio;
 
     @Column(name = "TOTAL_EXTRA")
-    private Double totalExtra;
+    private Integer totalExtra;
 
     @Column(name = "TOTAL")
-    private Double total;
+    private Integer total;
 
     @Column(name = "MATRICULA")
     private String matricula;
@@ -135,27 +135,27 @@ public class CvVenta implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public Double getPrecio() {
+    public Integer getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(Integer precio) {
         this.precio = precio;
     }
 
-    public Double getTotalExtra() {
+    public Integer getTotalExtra() {
         return totalExtra;
     }
 
-    public void setTotalExtra(Double totalExtra) {
+    public void setTotalExtra(Integer totalExtra) {
         this.totalExtra = totalExtra;
     }
 
-    public Double getTotal() {
+    public Integer getTotal() {
         return total;
     }
 
-    public void setTotal(Double total) {
+    public void setTotal(Integer total) {
         this.total = total;
     }
 

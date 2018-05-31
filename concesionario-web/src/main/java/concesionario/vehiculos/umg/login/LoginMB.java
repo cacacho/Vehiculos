@@ -26,7 +26,7 @@ public class LoginMB implements Serializable {
     @EJB
     private LoginBeanLocal loginBeanLocal;
 
-    private String usuario;
+    public static String usuario;
     private String password;
 
     public LoginMB() {

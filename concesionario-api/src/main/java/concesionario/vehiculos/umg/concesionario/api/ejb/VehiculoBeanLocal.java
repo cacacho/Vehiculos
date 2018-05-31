@@ -25,6 +25,18 @@ public interface VehiculoBeanLocal {
 
     List<CvVehiculo> ListaVehiculosByBastido(String bastidor);
 
+    List<CvVehiculo> ListaVehiculosByPlaca(String placa);
+
+    List<CvVehiculo> ListaVehiculosByMarca(String marca);
+
+    List<CvVehiculo> ListaVehiculosByBastidorAndPlacaAndMarca(String bastido, String placa, String marca);
+
+    List<CvVehiculo> ListaVehiculosByBastidorAndPlaca(String bastidor, String placa);
+
+    List<CvVehiculo> ListaVehiculosByBastidorAndMarca(String bastidor, String marca);
+
+    List<CvVehiculo> ListaVehiculosByPlacaAndMarca(String placa, String marca);
+
     /*Extra vehiculo*/
     CvExtraVehiculo findExtraVehiculo(Integer idExtraVehiculo);
 

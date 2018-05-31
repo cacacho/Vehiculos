@@ -65,7 +65,7 @@ public class CvVehiculo implements Serializable {
     private String color;
 
     @Column(name = "PRECIO")
-    private Double precio;
+    private Integer precio;
 
     @Column(name = "ESTANDAR")
     private boolean estandar;
@@ -163,11 +163,11 @@ public class CvVehiculo implements Serializable {
         this.color = color;
     }
 
-    public Double getPrecio() {
+    public Integer getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(Integer precio) {
         this.precio = precio;
     }
 
