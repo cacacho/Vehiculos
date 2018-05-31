@@ -10,14 +10,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -47,9 +47,12 @@ public class CvConcesionario implements Serializable {
     private Integer idConcesionario;
 
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "NOMBRE")
     private String nombre;
 
+    @Size(max = 250)
     @Column(name = "DIRECCION")
     private String direccion;
 
@@ -57,6 +60,7 @@ public class CvConcesionario implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
 
+    @Size(max = 50)
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
 
@@ -64,6 +68,7 @@ public class CvConcesionario implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
 
+    @Size(max = 50)
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
 
@@ -73,12 +78,14 @@ public class CvConcesionario implements Serializable {
     @OneToMany(mappedBy = "idConcesionario", fetch = FetchType.LAZY)
     private List<CvServicioOficial> cvServicioOficialList;
 
-    @JoinColumn(name = "ID_PROVEEDOR", referencedColumnName = "ID_PROVEEDOR")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private CvProveedor idProveedor;
+    @OneToMany(mappedBy = "idConcesionario", fetch = FetchType.LAZY)
+    private List<CvProveedor> cvProveedorList;
 
     @OneToMany(mappedBy = "idConcesionario", fetch = FetchType.LAZY)
     private List<CvVehiculo> cvVehiculoList;
+
+    @OneToMany(mappedBy = "idConcesionarioActual", fetch = FetchType.LAZY)
+    private List<CvTraspasoVehiculo> cvTraspasoVehiculoList;
 
     @OneToMany(mappedBy = "idConcesionario", fetch = FetchType.LAZY)
     private List<CvPedido> cvPedidoList;
@@ -168,12 +175,13 @@ public class CvConcesionario implements Serializable {
         this.cvServicioOficialList = cvServicioOficialList;
     }
 
-    public CvProveedor getIdProveedor() {
-        return idProveedor;
+    @XmlTransient
+    public List<CvProveedor> getCvProveedorList() {
+        return cvProveedorList;
     }
 
-    public void setIdProveedor(CvProveedor idProveedor) {
-        this.idProveedor = idProveedor;
+    public void setCvProveedorList(List<CvProveedor> cvProveedorList) {
+        this.cvProveedorList = cvProveedorList;
     }
 
     @XmlTransient
@@ -183,6 +191,15 @@ public class CvConcesionario implements Serializable {
 
     public void setCvVehiculoList(List<CvVehiculo> cvVehiculoList) {
         this.cvVehiculoList = cvVehiculoList;
+    }
+
+    @XmlTransient
+    public List<CvTraspasoVehiculo> getCvTraspasoVehiculoList() {
+        return cvTraspasoVehiculoList;
+    }
+
+    public void setCvTraspasoVehiculoList(List<CvTraspasoVehiculo> cvTraspasoVehiculoList) {
+        this.cvTraspasoVehiculoList = cvTraspasoVehiculoList;
     }
 
     @XmlTransient

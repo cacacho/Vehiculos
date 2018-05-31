@@ -16,6 +16,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -44,28 +46,35 @@ public class CvServicioOficial implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_SERVICIO_OFICIAL")
-    private Integer idServicioOficial;
+    private Long idServicioOficial;
 
+    @Size(max = 25)
     @Column(name = "NIF")
     private String nif;
 
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "NOMBRE")
     private String nombre;
 
+    @Size(max = 500)
     @Column(name = "DIRECCION")
     private String direccion;
 
+    @Size(max = 25)
     @Column(name = "TELEFONO")
     private String telefono;
 
+    @Size(max = 100)
     @Column(name = "CORREO_ELECTRONICO")
     private String correoElectronico;
 
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
-
+    
+    @Size(max = 50)
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
 
@@ -73,6 +82,7 @@ public class CvServicioOficial implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
 
+    @Size(max = 50)
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
 
@@ -86,20 +96,20 @@ public class CvServicioOficial implements Serializable {
     public CvServicioOficial() {
     }
 
-    public CvServicioOficial(Integer idServicioOficial) {
+    public CvServicioOficial(Long idServicioOficial) {
         this.idServicioOficial = idServicioOficial;
     }
 
-    public CvServicioOficial(Integer idServicioOficial, String nombre) {
+    public CvServicioOficial(Long idServicioOficial, String nombre) {
         this.idServicioOficial = idServicioOficial;
         this.nombre = nombre;
     }
 
-    public Integer getIdServicioOficial() {
+    public Long getIdServicioOficial() {
         return idServicioOficial;
     }
 
-    public void setIdServicioOficial(Integer idServicioOficial) {
+    public void setIdServicioOficial(Long idServicioOficial) {
         this.idServicioOficial = idServicioOficial;
     }
 

@@ -3,7 +3,6 @@ package concesionario.vehiculos.umg.concesionario.api.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -31,6 +31,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "CvColaborador.findAll", query = "SELECT c FROM CvColaborador c")
     , @NamedQuery(name = "CvColaborador.findByIdColaborador", query = "SELECT c FROM CvColaborador c WHERE c.idColaborador = :idColaborador")
+    , @NamedQuery(name = "CvColaborador.findByPrimerNombre", query = "SELECT c FROM CvColaborador c WHERE c.primerNombre = :primerNombre")
+    , @NamedQuery(name = "CvColaborador.findBySegundoNombre", query = "SELECT c FROM CvColaborador c WHERE c.segundoNombre = :segundoNombre")
+    , @NamedQuery(name = "CvColaborador.findByPrimerApellido", query = "SELECT c FROM CvColaborador c WHERE c.primerApellido = :primerApellido")
+    , @NamedQuery(name = "CvColaborador.findBySegundoApellido", query = "SELECT c FROM CvColaborador c WHERE c.segundoApellido = :segundoApellido")
+    , @NamedQuery(name = "CvColaborador.findByApellidoCasada", query = "SELECT c FROM CvColaborador c WHERE c.apellidoCasada = :apellidoCasada")
     , @NamedQuery(name = "CvColaborador.findByCui", query = "SELECT c FROM CvColaborador c WHERE c.cui = :cui")
     , @NamedQuery(name = "CvColaborador.findByNif", query = "SELECT c FROM CvColaborador c WHERE c.nif = :nif")
     , @NamedQuery(name = "CvColaborador.findByDireccion", query = "SELECT c FROM CvColaborador c WHERE c.direccion = :direccion")
@@ -48,27 +53,38 @@ public class CvColaborador implements Serializable {
     @Column(name = "ID_COLABORADOR")
     private Integer idColaborador;
 
+    @Size(max = 100)
     @Column(name = "PRIMER_NOMBRE")
     private String primerNombre;
 
+    @Size(max = 100)
     @Column(name = "SEGUNDO_NOMBRE")
     private String segundoNombre;
 
+    @Size(max = 100)
     @Column(name = "PRIMER_APELLIDO")
     private String primerApellido;
 
+    @Size(max = 100)
     @Column(name = "SEGUNDO_APELLIDO")
     private String segundoApellido;
+
+    @Size(max = 100)
+    @Column(name = "APELLIDO_CASADA")
+    private String apellidoCasada;
 
     @Column(name = "CUI")
     private Long cui;
 
+    @Size(max = 50)
     @Column(name = "NIF")
     private String nif;
 
+    @Size(max = 500)
     @Column(name = "DIRECCION")
     private String direccion;
 
+    @Size(max = 25)
     @Column(name = "TELEFONO")
     private String telefono;
 
@@ -76,6 +92,7 @@ public class CvColaborador implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
 
+    @Size(max = 50)
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
 
@@ -83,6 +100,7 @@ public class CvColaborador implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
 
+    @Size(max = 50)
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
 
@@ -144,6 +162,14 @@ public class CvColaborador implements Serializable {
 
     public void setSegundoApellido(String segundoApellido) {
         this.segundoApellido = segundoApellido;
+    }
+
+    public String getApellidoCasada() {
+        return apellidoCasada;
+    }
+
+    public void setApellidoCasada(String apellidoCasada) {
+        this.apellidoCasada = apellidoCasada;
     }
 
     public Long getCui() {

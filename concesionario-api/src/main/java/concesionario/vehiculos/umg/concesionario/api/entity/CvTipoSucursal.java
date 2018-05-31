@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -44,6 +46,8 @@ public class CvTipoSucursal implements Serializable {
     private Integer idTipoSucursal;
 
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "NOMBRE")
     private String nombre;
 
@@ -51,19 +55,21 @@ public class CvTipoSucursal implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
 
+    @Size(max = 50)
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
 
     @Column(name = "FECHA_ELIMINACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
-    
+
+    @Size(max = 50)
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
-    
+
     @Column(name = "ACTIVO")
     private boolean activo;
-    
+
     @OneToMany(mappedBy = "idTipoSucursal", fetch = FetchType.LAZY)
     private List<CvVenta> cvVentaList;
 

@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -43,6 +44,7 @@ public class CvExtraVehiculo implements Serializable {
     @Column(name = "ID_EXTRA_VEHICULO")
     private Integer idExtraVehiculo;
 
+    @Size(max = 1000)
     @Column(name = "DESCRIPCION")
     private String descripcion;
 
@@ -53,6 +55,7 @@ public class CvExtraVehiculo implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
 
+    @Size(max = 50)
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
 
@@ -60,6 +63,7 @@ public class CvExtraVehiculo implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
 
+    @Size(max = 50)
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
 

@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -29,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "CvCliente.findAll", query = "SELECT c FROM CvCliente c")
     , @NamedQuery(name = "CvCliente.findByIdCliente", query = "SELECT c FROM CvCliente c WHERE c.idCliente = :idCliente")
+    , @NamedQuery(name = "CvCliente.findByNit", query = "SELECT c FROM CvCliente c WHERE c.nit = :nit")
     , @NamedQuery(name = "CvCliente.findByNombres", query = "SELECT c FROM CvCliente c WHERE c.nombres = :nombres")
     , @NamedQuery(name = "CvCliente.findByApellidos", query = "SELECT c FROM CvCliente c WHERE c.apellidos = :apellidos")
     , @NamedQuery(name = "CvCliente.findByGenero", query = "SELECT c FROM CvCliente c WHERE c.genero = :genero")
@@ -47,23 +50,31 @@ public class CvCliente implements Serializable {
     @Column(name = "ID_CLIENTE")
     private Integer idCliente;
 
+    @Size(max = 75)
     @Column(name = "NIT")
     private String nit;
 
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "NOMBRES")
     private String nombres;
 
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "APELLIDOS")
     private String apellidos;
 
+    @Size(max = 1)
     @Column(name = "GENERO")
     private String genero;
 
+    @Size(max = 100)
     @Column(name = "DIRECCION")
     private String direccion;
 
+    @Size(max = 100)
     @Column(name = "CORREO_ELECTRONICO")
     private String correoElectronico;
 
@@ -71,6 +82,7 @@ public class CvCliente implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
 
+    @Size(max = 50)
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
 
@@ -78,6 +90,7 @@ public class CvCliente implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
 
+    @Size(max = 50)
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
 
@@ -106,6 +119,14 @@ public class CvCliente implements Serializable {
 
     public void setIdCliente(Integer idCliente) {
         this.idCliente = idCliente;
+    }
+
+    public String getNit() {
+        return nit;
+    }
+
+    public void setNit(String nit) {
+        this.nit = nit;
     }
 
     public String getNombres() {
@@ -186,14 +207,6 @@ public class CvCliente implements Serializable {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
-    }
-
-    public String getNit() {
-        return nit;
-    }
-
-    public void setNit(String nit) {
-        this.nit = nit;
     }
 
     @XmlTransient

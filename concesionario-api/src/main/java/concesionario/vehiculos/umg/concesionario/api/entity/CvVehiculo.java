@@ -3,6 +3,7 @@ package concesionario.vehiculos.umg.concesionario.api.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -36,6 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "CvVehiculo.findByMotor", query = "SELECT c FROM CvVehiculo c WHERE c.motor = :motor")
     , @NamedQuery(name = "CvVehiculo.findByColor", query = "SELECT c FROM CvVehiculo c WHERE c.color = :color")
     , @NamedQuery(name = "CvVehiculo.findByPrecio", query = "SELECT c FROM CvVehiculo c WHERE c.precio = :precio")
+    , @NamedQuery(name = "CvVehiculo.findByEstandar", query = "SELECT c FROM CvVehiculo c WHERE c.estandar = :estandar")
+    , @NamedQuery(name = "CvVehiculo.findByStock", query = "SELECT c FROM CvVehiculo c WHERE c.stock = :stock")
     , @NamedQuery(name = "CvVehiculo.findByFechaCreacion", query = "SELECT c FROM CvVehiculo c WHERE c.fechaCreacion = :fechaCreacion")
     , @NamedQuery(name = "CvVehiculo.findByUsuarioCreacion", query = "SELECT c FROM CvVehiculo c WHERE c.usuarioCreacion = :usuarioCreacion")
     , @NamedQuery(name = "CvVehiculo.findByFechaEliminacion", query = "SELECT c FROM CvVehiculo c WHERE c.fechaEliminacion = :fechaEliminacion")
@@ -47,20 +52,24 @@ public class CvVehiculo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_VEHICULO")
-    private Integer idVehiculo;
+    private Long idVehiculo;
 
+    @Size(max = 1000)
     @Column(name = "BASTIDOR")
     private String bastidor;
 
+    @Size(max = 50)
     @Column(name = "MATRICULA")
     private String matricula;
 
     @Column(name = "MODELO")
     private Integer modelo;
 
+    @Size(max = 15)
     @Column(name = "MOTOR")
     private String motor;
 
+    @Size(max = 15)
     @Column(name = "COLOR")
     private String color;
 
@@ -77,6 +86,7 @@ public class CvVehiculo implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
 
+    @Size(max = 50)
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
 
@@ -84,42 +94,46 @@ public class CvVehiculo implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
 
+    @Size(max = 50)
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
 
     @Column(name = "ACTIVO")
     private boolean activo;
-
+    
     @OneToMany(mappedBy = "idVehiculo", fetch = FetchType.LAZY)
     private List<CvDetalleExtraVehiculo> cvDetalleExtraVehiculoList;
-
+    
     @JoinColumn(name = "ID_CONCESIONARIO", referencedColumnName = "ID_CONCESIONARIO")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvConcesionario idConcesionario;
-
+    
     @JoinColumn(name = "ID_MARCA", referencedColumnName = "ID_MARCA")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvMarca idMarca;
-
+    
     @JoinColumn(name = "ID_TIPO_VEHICULO", referencedColumnName = "ID_TIPO_VEHICULO")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvTipoVehiculo idTipoVehiculo;
-
+    
+    @OneToMany(mappedBy = "idVehiculo", fetch = FetchType.LAZY)
+    private List<CvTraspasoVehiculo> cvTraspasoVehiculoList;
+    
     @OneToMany(mappedBy = "idVehiculo", fetch = FetchType.LAZY)
     private List<CvVenta> cvVentaList;
 
     public CvVehiculo() {
     }
 
-    public CvVehiculo(Integer idVehiculo) {
+    public CvVehiculo(Long idVehiculo) {
         this.idVehiculo = idVehiculo;
     }
 
-    public Integer getIdVehiculo() {
+    public Long getIdVehiculo() {
         return idVehiculo;
     }
 
-    public void setIdVehiculo(Integer idVehiculo) {
+    public void setIdVehiculo(Long idVehiculo) {
         this.idVehiculo = idVehiculo;
     }
 
@@ -171,6 +185,22 @@ public class CvVehiculo implements Serializable {
         this.precio = precio;
     }
 
+    public boolean getEstandar() {
+        return estandar;
+    }
+
+    public void setEstandar(boolean estandar) {
+        this.estandar = estandar;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
     public Date getFechaCreacion() {
         return fechaCreacion;
     }
@@ -211,22 +241,6 @@ public class CvVehiculo implements Serializable {
         this.activo = activo;
     }
 
-    public boolean isEstandar() {
-        return estandar;
-    }
-
-    public void setEstandar(boolean estandar) {
-        this.estandar = estandar;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
-
     @XmlTransient
     public List<CvDetalleExtraVehiculo> getCvDetalleExtraVehiculoList() {
         return cvDetalleExtraVehiculoList;
@@ -258,6 +272,15 @@ public class CvVehiculo implements Serializable {
 
     public void setIdTipoVehiculo(CvTipoVehiculo idTipoVehiculo) {
         this.idTipoVehiculo = idTipoVehiculo;
+    }
+
+    @XmlTransient
+    public List<CvTraspasoVehiculo> getCvTraspasoVehiculoList() {
+        return cvTraspasoVehiculoList;
+    }
+
+    public void setCvTraspasoVehiculoList(List<CvTraspasoVehiculo> cvTraspasoVehiculoList) {
+        this.cvTraspasoVehiculoList = cvTraspasoVehiculoList;
     }
 
     @XmlTransient

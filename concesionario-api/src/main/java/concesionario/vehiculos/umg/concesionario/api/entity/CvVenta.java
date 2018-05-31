@@ -3,6 +3,7 @@ package concesionario.vehiculos.umg.concesionario.api.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -30,11 +33,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "CvVenta.findAll", query = "SELECT c FROM CvVenta c")
     , @NamedQuery(name = "CvVenta.findByIdVenta", query = "SELECT c FROM CvVenta c WHERE c.idVenta = :idVenta")
+    , @NamedQuery(name = "CvVenta.findByIdTipoPedido", query = "SELECT c FROM CvVenta c WHERE c.idTipoPedido = :idTipoPedido")
     , @NamedQuery(name = "CvVenta.findByCantidad", query = "SELECT c FROM CvVenta c WHERE c.cantidad = :cantidad")
     , @NamedQuery(name = "CvVenta.findByPrecio", query = "SELECT c FROM CvVenta c WHERE c.precio = :precio")
     , @NamedQuery(name = "CvVenta.findByTotalExtra", query = "SELECT c FROM CvVenta c WHERE c.totalExtra = :totalExtra")
-    , @NamedQuery(name = "CvVenta.findByTotal", query = "SELECT c FROM CvVenta c WHERE c.total = :total")
     , @NamedQuery(name = "CvVenta.findByMatricula", query = "SELECT c FROM CvVenta c WHERE c.matricula = :matricula")
+    , @NamedQuery(name = "CvVenta.findByTotal", query = "SELECT c FROM CvVenta c WHERE c.total = :total")
     , @NamedQuery(name = "CvVenta.findByFechaEntrega", query = "SELECT c FROM CvVenta c WHERE c.fechaEntrega = :fechaEntrega")
     , @NamedQuery(name = "CvVenta.findByFechaCreacion", query = "SELECT c FROM CvVenta c WHERE c.fechaCreacion = :fechaCreacion")
     , @NamedQuery(name = "CvVenta.findByUsuarioCreacion", query = "SELECT c FROM CvVenta c WHERE c.usuarioCreacion = :usuarioCreacion")
@@ -49,6 +53,9 @@ public class CvVenta implements Serializable {
     @Column(name = "ID_VENTA")
     private Integer idVenta;
 
+    @Column(name = "ID_TIPO_PEDIDO")
+    private Integer idTipoPedido;
+
     @Column(name = "CANTIDAD")
     private Integer cantidad;
 
@@ -58,56 +65,59 @@ public class CvVenta implements Serializable {
     @Column(name = "TOTAL_EXTRA")
     private Integer totalExtra;
 
-    @Column(name = "TOTAL")
-    private Integer total;
-
+    @Size(max = 30)
     @Column(name = "MATRICULA")
     private String matricula;
-
+    
+    @Column(name = "TOTAL")
+    private Integer total;
+    
     @Column(name = "FECHA_ENTREGA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEntrega;
-
+    
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
-
+    
+    @Size(max = 50)
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
-
+    
     @Column(name = "FECHA_ELIMINACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
-
+    
+    @Size(max = 50)
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
-
+    
     @Column(name = "ACTIVO")
     private boolean activo;
-
+    
     @OneToMany(mappedBy = "idVenta", fetch = FetchType.LAZY)
     private List<CvPedido> cvPedidoList;
-
+    
     @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvCliente idCliente;
-
+    
     @JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID_COLABORADOR")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvColaborador idColaborador;
-
+    
     @JoinColumn(name = "ID_DETALLE_EXTRA_VEHICULO", referencedColumnName = "ID_DETALLE_EXTRA_VEHICULO")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvDetalleExtraVehiculo idDetalleExtraVehiculo;
-
+    
     @JoinColumn(name = "ID_TIPO_PAGO", referencedColumnName = "ID_TIPO_PAGO")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvTipoPago idTipoPago;
-
+    
     @JoinColumn(name = "ID_TIPO_SUCURSAL", referencedColumnName = "ID_TIPO_SUCURSAL")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvTipoSucursal idTipoSucursal;
-
+    
     @JoinColumn(name = "ID_VEHICULO", referencedColumnName = "ID_VEHICULO")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvVehiculo idVehiculo;
@@ -125,6 +135,14 @@ public class CvVenta implements Serializable {
 
     public void setIdVenta(Integer idVenta) {
         this.idVenta = idVenta;
+    }
+
+    public Integer getIdTipoPedido() {
+        return idTipoPedido;
+    }
+
+    public void setIdTipoPedido(Integer idTipoPedido) {
+        this.idTipoPedido = idTipoPedido;
     }
 
     public Integer getCantidad() {
@@ -151,20 +169,20 @@ public class CvVenta implements Serializable {
         this.totalExtra = totalExtra;
     }
 
-    public Integer getTotal() {
-        return total;
-    }
-
-    public void setTotal(Integer total) {
-        this.total = total;
-    }
-
     public String getMatricula() {
         return matricula;
     }
 
     public void setMatricula(String matricula) {
         this.matricula = matricula;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
     public Date getFechaEntrega() {

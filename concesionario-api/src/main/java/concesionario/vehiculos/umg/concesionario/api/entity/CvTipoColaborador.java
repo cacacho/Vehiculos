@@ -3,7 +3,6 @@ package concesionario.vehiculos.umg.concesionario.api.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -43,6 +43,7 @@ public class CvTipoColaborador implements Serializable {
     @Column(name = "ID_TIPO_COLABORADOR")
     private Integer idTipoColaborador;
 
+    @Size(max = 500)
     @Column(name = "DESCRIPCION")
     private String descripcion;
 
@@ -50,16 +51,18 @@ public class CvTipoColaborador implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
 
+    @Size(max = 50)
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
 
     @Column(name = "FECHA_ELIMINACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
-    
+
+    @Size(max = 50)
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
-    
+
     @Column(name = "ACTIVO")
     private boolean activo;
 

@@ -19,6 +19,7 @@
     <class>concesionario.vehiculos.umg.concesionario.api.entity.CvUsuarios</class>
     <class>concesionario.vehiculos.umg.concesionario.api.entity.CvVehiculo</class>
     <class>concesionario.vehiculos.umg.concesionario.api.entity.CvVenta</class>
+    <class>concesionario.vehiculos.umg.concesionario.api.entity.CvTraspasoVehiculo</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <properties>
