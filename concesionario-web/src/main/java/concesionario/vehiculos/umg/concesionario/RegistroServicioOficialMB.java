@@ -4,6 +4,7 @@ import concesionario.vehiculos.umg.concesionario.api.ejb.CatalogoBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.ejb.ConcesionarioBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionario;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvServicioOficial;
+import concesionario.vehiculos.umg.login.LoginMB;
 import concesionario.vehiculos.umg.utilidades.JsfUtil;
 import java.io.Serializable;
 import java.util.List;
@@ -44,6 +45,7 @@ public class RegistroServicioOficialMB implements Serializable {
     public void saveServicioOficial() {
         CvServicioOficial of = new CvServicioOficial();
         servicioOficial.setIdConcesionario(selectedConcesionario);
+        servicioOficial.setUsuarioCreacion(LoginMB.usuario);
         of = concesionarioBeanlocal.saveServicioOficial(servicioOficial);
         if (of.getIdServicioOficial() != null) {
             JsfUtil.addSuccessMessage("Registro agregado correctamente");

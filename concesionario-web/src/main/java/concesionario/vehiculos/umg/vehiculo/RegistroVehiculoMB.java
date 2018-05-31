@@ -7,6 +7,7 @@ import concesionario.vehiculos.umg.concesionario.api.entity.CvExtraVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvMarca;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvVehiculo;
+import concesionario.vehiculos.umg.login.LoginMB;
 import concesionario.vehiculos.umg.utilidades.JsfUtil;
 import java.io.Serializable;
 import java.util.List;
@@ -96,6 +97,7 @@ public class RegistroVehiculoMB implements Serializable {
 
     public void guardarExtraVehiculo() {
         CvExtraVehiculo extra = new CvExtraVehiculo();
+        extraVehiculo.setUsuarioCreacion(LoginMB.usuario);
         extra = vehiculosBean.saveExtraVehiculo(extraVehiculo);
         if (extra.getIdExtraVehiculo() != null) {
             mostrarAgregarExtra = false;
@@ -109,6 +111,7 @@ public class RegistroVehiculoMB implements Serializable {
 
     public void guardarTipo() {
         CvTipoVehiculo tipo = new CvTipoVehiculo();
+        tipoVehiculo.setUsuarioCreacion(LoginMB.usuario);
         tipo = vehiculosBean.saveTipoVehiculo(tipoVehiculo);
         if (tipo.getIdTipoVehiculo() != null) {
             mostrarAgregarTipo = false;
@@ -122,6 +125,7 @@ public class RegistroVehiculoMB implements Serializable {
 
     public void guardarMarca() {
         CvMarca mar = new CvMarca();
+        marcaVehiculo.setUsuarioCreacion(LoginMB.usuario);
         mar = vehiculosBean.saveMarcaVehiculo(marcaVehiculo);
         if (mar.getIdMarca() != null) {
             mostrarAgregarMarca = false;
@@ -134,6 +138,8 @@ public class RegistroVehiculoMB implements Serializable {
     }
 
     public void eliminarExtra(CvExtraVehiculo extra) {
+        extra.setActivo(false);
+        extra.setUsuarioEliminacion(LoginMB.usuario);
         vehiculosBean.updateExtraVehiculoByIdVehiculo(extra);
         JsfUtil.addSuccessMessage("Registro eliminado correctamente");
     }
@@ -157,6 +163,7 @@ public class RegistroVehiculoMB implements Serializable {
 
     public String guardarVehiculo() {
         CvVehiculo vehi = new CvVehiculo();
+        vehiculo.setUsuarioCreacion(LoginMB.usuario);
         vehi = vehiculosBean.saveVehiculo(vehiculo);
         if (vehi.getIdVehiculo() != null) {
             if (selectedListExtraVehiculo != null || !selectedListExtraVehiculo.isEmpty()) {
@@ -164,6 +171,7 @@ public class RegistroVehiculoMB implements Serializable {
                 for (CvExtraVehiculo extra : selectedListExtraVehiculo) {
                     detalleExtra.setIdExtraVehiculo(extra);
                     detalleExtra.setIdVehiculo(vehi);
+                    detalleExtra.setUsuarioCreacion(LoginMB.usuario);
                     vehiculosBean.saveDetalleExtra(detalleExtra);
                 }
 

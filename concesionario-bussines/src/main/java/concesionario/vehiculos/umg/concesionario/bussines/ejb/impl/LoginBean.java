@@ -26,19 +26,19 @@ import org.apache.log4j.Logger;
  */
 @Singleton
 public class LoginBean implements LoginBeanLocal {
-
+    
     private static final Logger log = Logger.getLogger(LoginBean.class);
-
+    
     @PersistenceContext(unitName = "ConceVehiculosPU")
     EntityManager em;
-
+    
     @Resource
     private EJBContext context;
-
+    
     private void processException(Exception ex) {
         log.error(ex.getMessage(), ex);
     }
-
+    
     private String getConstraintViolationExceptionAsString(ConstraintViolationException ex) {
         StringBuilder sb = new StringBuilder();
         sb.append("Error de validación:\n");
@@ -50,13 +50,13 @@ public class LoginBean implements LoginBeanLocal {
         }
         return sb.toString();
     }
-
+    
     public static String remplazoAcentos(String palabra) {
         palabra = Normalizer.normalize(palabra, Normalizer.Form.NFD);
         palabra = palabra.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
         return palabra;
     }
-
+    
     String remplazoN(String string) {
         string = string.replace('ñ', '\001');
         string = Normalizer.normalize(string, Normalizer.Form.NFD);
@@ -64,91 +64,92 @@ public class LoginBean implements LoginBeanLocal {
         string = string.replace('\001', 'ñ');
         return string;
     }
-
+    
     public byte[] cifra(String sinCifrar) throws Exception {
         final byte[] bytes = sinCifrar.getBytes("UTF-8");
         final Cipher aes = obtieneCipher(true);
         final byte[] cifrado = aes.doFinal(bytes);
         return cifrado;
     }
-
+    
     public String descifra(byte[] cifrado) throws Exception {
         final Cipher aes = obtieneCipher(false);
         final byte[] bytes = aes.doFinal(cifrado);
         final String sinCifrar = new String(bytes, "UTF-8");
         return sinCifrar;
     }
-
+    
     private Cipher obtieneCipher(boolean paraCifrar) throws Exception {
         final String frase = "ABCDEFGHJKMNPRSTUXZabcdefghjkmnprstuxz123456789";
         final MessageDigest digest = MessageDigest.getInstance("SHA");
         digest.update(frase.getBytes("UTF-8"));
         final SecretKeySpec key = new SecretKeySpec(digest.digest(), 0, 16, "AES");
-
+        
         final Cipher aes = Cipher.getInstance("AES/ECB/PKCS5Padding");
         if (paraCifrar) {
             aes.init(Cipher.ENCRYPT_MODE, key);
         } else {
             aes.init(Cipher.DECRYPT_MODE, key);
         }
-
+        
         return aes;
     }
-
+    
     @Override
     public CvUsuarios verificarUsuario(String usuario, String password) {
         List<CvUsuarios> lst = em.createQuery("SELECT usuario FROM CvUsuarios usuario WHERE usuario.usuario =:usuario and usuario.password =:password ", CvUsuarios.class)
                 .setParameter("usuario", usuario)
                 .setParameter("password", password)
                 .getResultList();
-
+        
         if (lst == null || lst.isEmpty()) {
             return null;
         }
         // return new Response(lst.get(0), ResponseStatus.OK_QUERY);
         return lst.get(0);
     }
-
+    
     @Override
     public CvUsuarios saveUsuario(CvColaborador colaborador) {
         try {
             CvUsuarios usuarios = new CvUsuarios();
-
+            
             String caracteresMayuscula = "ABCDEFGHJKMNPRSTUXZ";
             String caracteresMinuscula = "abcdefghjkmnprstuxz";
             String caracteresNumeros = "123456789";
-
+            
             StringBuilder saltMayuscula = new StringBuilder();
             StringBuilder saltMiniscula = new StringBuilder();
             StringBuilder saltNumeros = new StringBuilder();
             String salt = null;
-
+            
             Random rndMayuscula = new Random();
             while (saltMayuscula.length() < 4) {
                 int index = (int) (rndMayuscula.nextFloat() * caracteresMayuscula.length());
                 saltMayuscula.append(caracteresMayuscula.charAt(index));
             }
-
+            
             Random rndMiniscula = new Random();
             while (saltMiniscula.length() < 4) {
                 int index = (int) (rndMiniscula.nextFloat() * caracteresMinuscula.length());
                 saltMiniscula.append(caracteresMinuscula.charAt(index));
             }
-
+            
             Random rndNumeros = new Random();
             while (saltNumeros.length() < 4) {
                 int index = (int) (rndNumeros.nextFloat() * caracteresNumeros.length());
                 saltNumeros.append(caracteresNumeros.charAt(index));
             }
-
+            
             salt = saltMayuscula.toString() + saltMiniscula.toString() + saltNumeros.toString();
-
+            
             cifra(salt);
             usuarios.setPassword(salt);
             usuarios.setFechaCreacion(new Date());
             usuarios.setActivo(true);
             usuarios.setIdColaborador(colaborador);
-
+            usuarios.setUsuarioCreacion(colaborador.getUsuarioCreacion());
+            
             String usuariosYaRegistrados = null;
             String usuario;
 
@@ -161,7 +162,7 @@ public class LoginBean implements LoginBeanLocal {
             usuario = usuario.replace("\\s", "");
             // Verifica que el usuario creado por la regla 1 no haya sido registrado con anterioridad.
             usuariosYaRegistrados = findUsuario(usuario);
-
+            
             if (usuariosYaRegistrados == null) {
                 usuarios.setUsuario(usuario);
                 em.persist(usuarios);
@@ -247,7 +248,7 @@ public class LoginBean implements LoginBeanLocal {
                     }
                 }
             }
-
+            
         } catch (ConstraintViolationException ex) {
             String validationError = getConstraintViolationExceptionAsString(ex);
             log.error(validationError);
@@ -258,33 +259,33 @@ public class LoginBean implements LoginBeanLocal {
             context.setRollbackOnly();
             return null;
         }
-
+        
     }
-
+    
     @Override
     public String findUsuario(String usuario) {
         List<CvUsuarios> lst = em.createQuery("SELECT usu FROM CvUsuarios usu WHERE usu.usuario =:usuario ", CvUsuarios.class)
                 .setParameter("usuario", usuario)
                 .getResultList();
-
+        
         if (lst == null || lst.isEmpty()) {
             return null;
         }
         // return new Response(lst.get(0), ResponseStatus.OK_QUERY);
         return lst.get(0).getUsuario();
     }
-
+    
     @Override
     public CvUsuarios findUsuarioByIdColaborador(Integer idColaborador) {
         List<CvUsuarios> lst = em.createQuery("SELECT usu FROM CvUsuarios usu WHERE usu.idColaborador.idColaborador =:idColaborador ", CvUsuarios.class)
                 .setParameter("idColaborador", idColaborador)
                 .getResultList();
-
+        
         if (lst == null || lst.isEmpty()) {
             return null;
         }
         // return new Response(lst.get(0), ResponseStatus.OK_QUERY);
         return lst.get(0);
     }
-
+    
 }
