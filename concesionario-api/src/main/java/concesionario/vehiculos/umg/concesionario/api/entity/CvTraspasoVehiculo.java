@@ -40,9 +40,6 @@ public class CvTraspasoVehiculo implements Serializable {
     @Column(name = "ID_TRASPASO_VEHICULO")
     private Integer idTraspasoVehiculo;
 
-    @Column(name = "ID_CONCESIONARIO_NUEVO")
-    private Long idConcesionarioNuevo;
-
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
@@ -54,6 +51,10 @@ public class CvTraspasoVehiculo implements Serializable {
     @Column(name = "FECHA_ELIMINACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
+
+    @JoinColumn(name = "ID_CONCESIONARIO_NUEVO", referencedColumnName = "ID_CONCESIONARIO")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CvConcesionario idConcesionarioNuevo;
 
     @JoinColumn(name = "ID_CONCESIONARIO_ACTUAL", referencedColumnName = "ID_CONCESIONARIO")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -76,14 +77,6 @@ public class CvTraspasoVehiculo implements Serializable {
 
     public void setIdTraspasoVehiculo(Integer idTraspasoVehiculo) {
         this.idTraspasoVehiculo = idTraspasoVehiculo;
-    }
-
-    public Long getIdConcesionarioNuevo() {
-        return idConcesionarioNuevo;
-    }
-
-    public void setIdConcesionarioNuevo(Long idConcesionarioNuevo) {
-        this.idConcesionarioNuevo = idConcesionarioNuevo;
     }
 
     public Date getFechaCreacion() {
@@ -116,6 +109,14 @@ public class CvTraspasoVehiculo implements Serializable {
 
     public void setIdConcesionarioActual(CvConcesionario idConcesionarioActual) {
         this.idConcesionarioActual = idConcesionarioActual;
+    }
+
+    public CvConcesionario getIdConcesionarioNuevo() {
+        return idConcesionarioNuevo;
+    }
+
+    public void setIdConcesionarioNuevo(CvConcesionario idConcesionarioNuevo) {
+        this.idConcesionarioNuevo = idConcesionarioNuevo;
     }
 
     public CvVehiculo getIdVehiculo() {

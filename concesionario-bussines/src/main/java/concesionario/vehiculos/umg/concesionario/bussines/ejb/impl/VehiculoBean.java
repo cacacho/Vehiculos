@@ -1,6 +1,7 @@
 package concesionario.vehiculos.umg.concesionario.bussines.ejb.impl;
 
 import concesionario.vehiculos.umg.concesionario.api.ejb.VehiculoBeanLocal;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionario;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvDetalleExtraVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvExtraVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvMarca;
@@ -458,6 +459,34 @@ public class VehiculoBean implements VehiculoBeanLocal {
         }
 
         return lst;
+    }
+
+    @Override
+    public CvVehiculo asignarConcesionarioVehiculo(Integer idVehiculo, CvConcesionario concesionario) {
+        if (idVehiculo == null) {
+            context.setRollbackOnly();
+            return null;
+        }
+//        if (sesion == null) {
+//            context.setRollbackOnly();
+//           
+//        }
+        try {
+            CvVehiculo toUpdate = em.find(CvVehiculo.class, idVehiculo);
+
+            toUpdate.setIdConcesionario(concesionario);
+            em.merge(toUpdate);
+
+            return toUpdate;
+        } catch (ConstraintViolationException ex) {
+            String validationError = getConstraintViolationExceptionAsString(ex);
+            log.error(validationError);
+            context.setRollbackOnly();
+            return null;
+        } catch (Exception ex) {
+            processException(ex);
+            return null;
+        }
     }
 
 }

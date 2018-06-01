@@ -9,6 +9,7 @@ import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvVehiculo;
 import concesionario.vehiculos.umg.login.LoginMB;
 import concesionario.vehiculos.umg.utilidades.JsfUtil;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -178,11 +179,23 @@ public class RegistroVehiculoMB implements Serializable {
             }
 
             JsfUtil.addSuccessMessage("Registro agregado correctamente");
+            limpiarPagina();
         } else {
             mostrarAgregarMarca = false;
             JsfUtil.addErrorMessage("Sucedio un error inesperado");
         }
         return "";
+    }
+
+    public void cancelarRegistro() {
+        JsfUtil.redirectTo("/vehiculos/lista.xhtml");
+    }
+
+    public void limpiarPagina() {
+        vehiculo = null;
+        extraVehiculo = null;
+        tipoVehiculo = null;
+        marcaVehiculo = null;
     }
 
 

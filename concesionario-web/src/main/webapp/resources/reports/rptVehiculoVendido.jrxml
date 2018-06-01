@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version last-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptVehiculoVendido" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a6de8db3-36ab-49a9-bd0b-e461723d3b89">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
-	<queryString>
-		<![CDATA[]]>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Concesionario"/>
+	<parameter name="USUARIO" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select mar.NOMBRE AS MARCA, veh.MODELO, veh.MOTOR, conce.NOMBRE CONCESIONARIO, SUM(venta.CANTIDAD) CANTIDAD
+from CV_VENTA venta
+INNER JOIN CV_VEHICULO veh on venta.ID_VEHICULO = veh.ID_VEHICULO
+INNER JOIN CV_MARCA mar on veh.ID_MARCA = mar.ID_MARCA
+INNER JOIN CV_CONCESIONARIO conce on veh.ID_CONCESIONARIO = conce.ID_CONCESIONARIO
+GROUP BY  mar.NOMBRE, veh.MODELO, veh.MOTOR, conce.NOMBRE
+ORDER BY SUM(venta.CANTIDAD) DESC]]>
 	</queryString>
+	<field name="MARCA" class="java.lang.String"/>
+	<field name="MODELO" class="java.math.BigDecimal"/>
+	<field name="MOTOR" class="java.lang.String"/>
+	<field name="CONCESIONARIO" class="java.lang.String"/>
+	<field name="CANTIDAD" class="java.lang.Integer"/>
+	<variable name="NO_FILA" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{NO_FILA}+1]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -166,7 +182,7 @@
 				</reportElement>
 				<box topPadding="2" leftPadding="5"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{noExpediente}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{MODELO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="590" y="0" width="119" height="19" uuid="74a68edf-d467-4f89-9f87-2559669d6da8">
@@ -177,13 +193,13 @@
 				</reportElement>
 				<box topPadding="2" leftPadding="5"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CANTIDAD}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="240" y="0" width="130" height="20" uuid="b072a45b-f2aa-4570-8291-b36a2ebe04cf"/>
 				<box topPadding="3" leftPadding="5"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{denunciante}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{MOTOR}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="63" y="1" width="79" height="19" uuid="28411060-f1b0-4af8-b296-7d0ac9088f33">
@@ -194,7 +210,7 @@
 				</reportElement>
 				<box topPadding="2" leftPadding="5"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{area}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{MARCA}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="370" y="1" width="220" height="19" uuid="673d2b11-aca3-42f2-a73a-a4cdceff4373">
@@ -203,7 +219,7 @@
 				</reportElement>
 				<box topPadding="3" leftPadding="6"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{denunciado}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CONCESIONARIO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="13" y="1" width="50" height="19" uuid="1773a8d9-3c63-48fa-a993-83c13edf4e81">
@@ -221,7 +237,7 @@
 	<pageFooter>
 		<band height="40" splitType="Stretch">
 			<textField isStretchWithOverflow="true" pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
-				<reportElement x="82" y="2" width="60" height="20" uuid="9e8dac63-7419-464f-a491-c6c224649491">
+				<reportElement x="82" y="2" width="78" height="20" uuid="9e8dac63-7419-464f-a491-c6c224649491">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>

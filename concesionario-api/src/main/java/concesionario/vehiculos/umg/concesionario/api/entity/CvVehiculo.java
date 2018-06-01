@@ -52,7 +52,7 @@ public class CvVehiculo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_VEHICULO")
-    private Long idVehiculo;
+    private Integer idVehiculo;
 
     @Size(max = 1000)
     @Column(name = "BASTIDOR")
@@ -125,15 +125,15 @@ public class CvVehiculo implements Serializable {
     public CvVehiculo() {
     }
 
-    public CvVehiculo(Long idVehiculo) {
+    public CvVehiculo(Integer idVehiculo) {
         this.idVehiculo = idVehiculo;
     }
 
-    public Long getIdVehiculo() {
+    public Integer getIdVehiculo() {
         return idVehiculo;
     }
 
-    public void setIdVehiculo(Long idVehiculo) {
+    public void setIdVehiculo(Integer idVehiculo) {
         this.idVehiculo = idVehiculo;
     }
 

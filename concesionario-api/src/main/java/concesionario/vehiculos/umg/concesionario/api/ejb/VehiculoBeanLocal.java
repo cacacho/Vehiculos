@@ -1,5 +1,6 @@
 package concesionario.vehiculos.umg.concesionario.api.ejb;
 
+import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionario;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvDetalleExtraVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvExtraVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvMarca;
@@ -22,6 +23,8 @@ public interface VehiculoBeanLocal {
     CvVehiculo findVehiculo(Integer idVehiculo);
 
     CvVehiculo updateVehiculo(CvVehiculo vehiculo);
+
+    CvVehiculo asignarConcesionarioVehiculo(Integer idVehiculo, CvConcesionario concesionario);
 
     List<CvVehiculo> ListaVehiculosByBastido(String bastidor);
 

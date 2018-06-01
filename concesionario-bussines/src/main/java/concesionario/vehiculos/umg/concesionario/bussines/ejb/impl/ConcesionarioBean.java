@@ -4,7 +4,7 @@ import concesionario.vehiculos.umg.concesionario.api.ejb.ConcesionarioBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionario;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvProveedor;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvServicioOficial;
-import java.util.ArrayList;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvTraspasoVehiculo;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
@@ -12,11 +12,6 @@ import javax.ejb.EJBContext;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import org.apache.log4j.Logger;
@@ -265,29 +260,15 @@ public class ConcesionarioBean implements ConcesionarioBeanLocal {
 
     @Override
     public List<CvProveedor> listaProveedoresByIdConcesionario(Integer idConcesionario) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        ArrayList<Predicate> lstPredicates = new ArrayList<>();
+        List<CvProveedor> lst = em.createQuery("SELECT prove FROM CvProveedor prove WHERE prove.idConcesionario.idConcesionario =:idConcesionario and prove.activo = true", CvProveedor.class)
+                .setParameter("idConcesionario", idConcesionario)
+                .getResultList();
 
-        CriteriaQuery<CvProveedor> query = cb.createQuery(CvProveedor.class);
-        Root<CvProveedor> proveedor = query.from(CvProveedor.class);
-
-        Join<CvProveedor, CvConcesionario> conce = proveedor.join("idProveedor");
-
-        Predicate pActivo = cb.equal(proveedor.<Boolean>get("activo"), Boolean.TRUE);
-        lstPredicates.add(pActivo);
-
-        Predicate pConce = cb.equal(conce.<Integer>get("idConcesionario"), idConcesionario);
-        lstPredicates.add(pConce);
-
-        query.where(cb.and(lstPredicates.toArray(new Predicate[lstPredicates.size()])));
-
-        List<CvProveedor> lstProveedores = em.createQuery(query).getResultList();
-
-        if (lstProveedores == null || lstProveedores.isEmpty()) {
+        if (lst == null || lst.isEmpty()) {
             return null;
         }
 
-        return lstProveedores;
+        return lst;
     }
 
     @Override
@@ -326,6 +307,114 @@ public class ConcesionarioBean implements ConcesionarioBeanLocal {
             em.merge(toUpdate);
 
             return proveedor;
+        } catch (ConstraintViolationException ex) {
+            String validationError = getConstraintViolationExceptionAsString(ex);
+            log.error(validationError);
+            context.setRollbackOnly();
+            return null;
+        } catch (Exception ex) {
+            processException(ex);
+            return null;
+        }
+    }
+
+    @Override
+    public List<CvTraspasoVehiculo> listAsignacionVehiculo() {
+        List<CvTraspasoVehiculo> lst = em.createQuery("SELECT tras FROM CvTraspasoVehiculo tras", CvTraspasoVehiculo.class)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst;
+    }
+
+    @Override
+    public CvTraspasoVehiculo saveAsignacion(CvTraspasoVehiculo asginacion) {
+        try {
+            asginacion.setFechaCreacion(new Date());
+
+            em.persist(asginacion);
+            em.flush();
+            return (asginacion);
+        } catch (ConstraintViolationException ex) {
+            String validationError = getConstraintViolationExceptionAsString(ex);
+            log.error(validationError);
+            context.setRollbackOnly();
+            return null;
+        } catch (Exception ex) {
+            processException(ex);
+            context.setRollbackOnly();
+            return null;
+        }
+    }
+
+    @Override
+    public CvTraspasoVehiculo cambiarConcesionario(CvTraspasoVehiculo asignacion) {
+        if (asignacion.getIdConcesionarioNuevo() == null) {
+            context.setRollbackOnly();
+            return null;
+        }
+
+        try {
+            CvTraspasoVehiculo toUpdate = em.find(CvTraspasoVehiculo.class, asignacion.getIdTraspasoVehiculo());
+
+            toUpdate.setIdConcesionarioNuevo(asignacion.getIdConcesionarioNuevo());
+            toUpdate.setIdConcesionarioActual(asignacion.getIdConcesionarioActual());
+
+            em.merge(toUpdate);
+            return asignacion;
+        } catch (ConstraintViolationException ex) {
+            String validationError = getConstraintViolationExceptionAsString(ex);
+            log.error(validationError);
+            context.setRollbackOnly();
+            return null;
+        } catch (Exception ex) {
+            processException(ex);
+            return null;
+        }
+    }
+
+    @Override
+    public CvTraspasoVehiculo findAsignacionByIdConcesionario(Integer idConcesionario) {
+        List<CvTraspasoVehiculo> lst = em.createQuery("SELECT asig FROM CvTraspasoVehiculo asig WHERE asig.idConcesionarioActual.idConcesionario =:idConcesionario", CvTraspasoVehiculo.class)
+                .setParameter("idConcesionario", idConcesionario)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst.get(0);
+    }
+
+    @Override
+    public CvTraspasoVehiculo findAsignacionByIdVehiculo(Integer idVehiculo) {
+        List<CvTraspasoVehiculo> lst = em.createQuery("SELECT asig FROM CvTraspasoVehiculo asig WHERE asig.idVehiculo.idVehiculo =:idVehiculo", CvTraspasoVehiculo.class)
+                .setParameter("idVehiculo", idVehiculo)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst.get(0);
+    }
+
+    @Override
+    public CvProveedor AsignarProveedorConcesionario(Integer idProveedor, CvConcesionario concesionario) {
+        if (idProveedor == null) {
+            context.setRollbackOnly();
+            return null;
+        }
+
+        try {
+            CvProveedor toUpdate = em.find(CvProveedor.class, idProveedor);
+            toUpdate.setIdConcesionario(concesionario);
+             
+            em.merge(toUpdate);
+            return toUpdate;
         } catch (ConstraintViolationException ex) {
             String validationError = getConstraintViolationExceptionAsString(ex);
             log.error(validationError);

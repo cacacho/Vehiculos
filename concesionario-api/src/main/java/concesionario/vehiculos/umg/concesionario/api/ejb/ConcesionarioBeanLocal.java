@@ -3,6 +3,7 @@ package concesionario.vehiculos.umg.concesionario.api.ejb;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionario;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvProveedor;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvServicioOficial;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvTraspasoVehiculo;
 import java.util.List;
 
 /**
@@ -38,6 +39,19 @@ public interface ConcesionarioBeanLocal {
     List<CvProveedor> listaProveedoresByIdConcesionario(Integer idConcesionario);
 
     CvProveedor findProveedor(Integer idProveedor);
-    
+
     CvProveedor updateProveedor(CvProveedor proveedor);
+    
+    CvProveedor AsignarProveedorConcesionario(Integer idProveedor, CvConcesionario concesionario);
+
+    /*Asignacion vehiculo*/
+    List<CvTraspasoVehiculo> listAsignacionVehiculo();
+
+    CvTraspasoVehiculo saveAsignacion(CvTraspasoVehiculo asginacion);
+
+    CvTraspasoVehiculo cambiarConcesionario(CvTraspasoVehiculo asignacion);
+
+    CvTraspasoVehiculo findAsignacionByIdConcesionario(Integer idConcesionario);
+
+    CvTraspasoVehiculo findAsignacionByIdVehiculo(Integer idVehiculo);
 }

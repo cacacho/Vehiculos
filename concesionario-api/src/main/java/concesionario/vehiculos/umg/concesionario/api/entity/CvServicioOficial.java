@@ -46,7 +46,7 @@ public class CvServicioOficial implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_SERVICIO_OFICIAL")
-    private Long idServicioOficial;
+    private Integer idServicioOficial;
 
     @Size(max = 25)
     @Column(name = "NIF")
@@ -96,20 +96,20 @@ public class CvServicioOficial implements Serializable {
     public CvServicioOficial() {
     }
 
-    public CvServicioOficial(Long idServicioOficial) {
+    public CvServicioOficial(Integer idServicioOficial) {
         this.idServicioOficial = idServicioOficial;
     }
 
-    public CvServicioOficial(Long idServicioOficial, String nombre) {
+    public CvServicioOficial(Integer idServicioOficial, String nombre) {
         this.idServicioOficial = idServicioOficial;
         this.nombre = nombre;
     }
 
-    public Long getIdServicioOficial() {
+    public Integer getIdServicioOficial() {
         return idServicioOficial;
     }
 
-    public void setIdServicioOficial(Long idServicioOficial) {
+    public void setIdServicioOficial(Integer idServicioOficial) {
         this.idServicioOficial = idServicioOficial;
     }
 

@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"     
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/template.xhtml"
+                xmlns:shiro="http://shiro.apache.org/tags">
+
+    <ui:define name="pageTitle">
+        Registro de Asignación Concesionario Vehículo
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="frm_content">
+
+            <table style="width: 100%; margin-top: 23px;">
+                <tr>
+                    <td style="width: 50%;">
+                        <p:outputLabel value="1. Información del vehículo" 
+                                       style="font-size: 16px !important; display: block; width: 100%; text-align: left;" />
+                    </td>
+                </tr>
+            </table>
+
+            <hr class="hr-mp" style="margin-bottom: 10px!important;"/>
+
+            <p:dataTable     value="#{registroAsignacionMB.listaVehiculos}" 
+                             id="tablaVehiculo"
+                             var="vehiculo"
+                             styleClass="tabla-mp"                   
+                             emptyMessage="No hay vehículo registrados"
+                             rowIndexVar="rowId"
+                             style=" margin-left: 20px; margin-right:  20px; margin-top: 25px; margin-bottom: 50px;" 
+                             rendered="#{registroAsignacionMB.listaVehiculos.size() > 0}"
+                             selection="#{registroAsignacionMB.selectedListaVehiculos}"
+                             editable="true"   rowKey="#{vehiculo.idVehiculo}">
+
+                <p:column selectionMode="multiple" width="3%" />
+
+                <p:column headerText="No." style="width: 5%;">
+                    #{rowId+1}
+                </p:column>
+
+                <p:column headerText="Marca" width="25%" >
+                    <p:outputLabel value="#{vehiculo.idMarca.nombre}"/>
+                </p:column>
+
+                <p:column headerText="Modelo" width="10%" >
+                    <p:outputLabel value="#{vehiculo.modelo}"/>
+                </p:column>
+
+                <p:column headerText="Motor" width="15%" >
+                    <p:outputLabel value="#{vehiculo.motor}"/>
+                </p:column>
+
+                <p:column headerText="Color" width="10%" >
+                    <p:outputLabel value="#{vehiculo.color}"/>
+                </p:column>
+
+                <p:column headerText="Tipo vehículo" width="20%" >
+                    <p:outputLabel value="#{vehiculo.idTipoVehiculo.descripcionTipo}"/>
+                </p:column>
+            </p:dataTable>
+
+            <div align="center">
+                <p:panelGrid columns="2" styleClass="no-border" rendered="#{registroVehiculoMB.mostrarAgregarExtra}" style=" margin-top: 10px; margin-bottom: 10px;" >
+                    <p:commandButton value="Agregar" icon="ui-icon-plus" action="#{registroVehiculoMB.guardarExtraVehiculo()  }" 
+                                     onstart="return confirm('¿Confirmas guardar el extra del vehículo?');" onsuccess="stop();" update="@form" process="@this pg_vehiculo"/>
+                </p:panelGrid>
+            </div>
+
+
+            <table style="width: 100%; margin-top: 23px;">
+                <tr>
+                    <td style="width: 50%;">
+                        <p:outputLabel value="2. Información del Concesionario" 
+                                       style="font-size: 16px !important; display: block; margin-top: 3%;  width: 100%; text-align: left;" />
+                    </td>
+                </tr>
+            </table>
+
+            <hr class="hr-mp" style="margin-bottom: 15px!important;"/>
+
+            <p:panelGrid id="pg_vehiculo" styleClass="no-border" style="width: 90%; margin-left: 4%;" >
+                <p:row>
+                    <p:column >
+                        <p:outputLabel value="Concesionario:" styleClass="colorTitulo" />
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <h:selectOneMenu id="concesionario"  value="#{registroAsignacionMB.selectedConcesionario}" style="width: 342px;"
+                                         converter="entityConverter" >
+                            <f:selectItem itemLabel="Seleccione un concesionario" value="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{registroAsignacionMB.listaConcesionarios}" var="conce" 
+                                           itemLabel="#{conce.nombre}" itemValue="#{conce}"  />
+                        </h:selectOneMenu>
+
+                    </p:column>
+                </p:row>
+            </p:panelGrid> 
+
+
+            <p:outputPanel  style="margin-top: 4%; margin-bottom: 20px; margin-right: 6%; margin-left: 34%;  font-size: 14px;"  >
+                <p:commandButton value="Guardar" action="#{registroAsignacionMB.guardarAsignacion()}" icon="ui-icon-disk" process="@form"  style=" margin-left: 5px; "
+                                 onstart="return confirm('¿Confirmas guardar las asignación?');" update="@form"/>
+                <p:commandButton value="Cancelar" process="@this" action="#{registroAsignacionMB.cancelarRegistro()}" icon="ui-icon-close" style="margin-left: 12px; " 
+                                 update="@form"/>
+            </p:outputPanel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
