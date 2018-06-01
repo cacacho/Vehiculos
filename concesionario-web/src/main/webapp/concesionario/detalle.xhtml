@@ -31,9 +31,6 @@
                             <f:param name="idConcesionario" value="#{detalleConcesionarioMB.idConcesionario}"/>
                         </p:link>
                     </td>
-                     <td style="width: 50%;vertical-align: bottom;text-align: left!important;font-size: 13px;">
-                        <p:link value="Regresar" outcome="lista.xhtml" styleClass="links" style="vertical-align: bottom!important; float: right; "/>
-                    </td>
                 </tr>
             </table>
 
@@ -402,6 +399,10 @@
 
             </p:dataTable>
 
+            <p:outputPanel  style="margin-top: 4%; margin-bottom: 20px; margin-right: 6%; margin-left: 34%;  font-size: 14px;"  >
+                <p:commandButton value="Regresar" process="@this" action="#{detalleConcesionarioMB.regresar()}" 
+                                 icon="ui-icon-arrowreturnthick-1-s" style="margin-left: 12px; " update="@form"/>
+            </p:outputPanel>
         </h:form>
     </ui:define>
 

@@ -32,7 +32,7 @@ ORDER BY SUM(venta.CANTIDAD) DESC]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Helvetica-Light" size="14" isBold="true"/>
+					<font fontName="Arial" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Vehículos más vendidos]]></text>
 			</staticText>
@@ -42,7 +42,7 @@ ORDER BY SUM(venta.CANTIDAD) DESC]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Helvetica-Light" size="16" isBold="true"/>
+					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CONCESIONARIO DE VEHÍCULOS]]></text>
 			</staticText>
@@ -64,7 +64,7 @@ ORDER BY SUM(venta.CANTIDAD) DESC]]>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#030000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Helvetica-Light" size="9" isBold="true"/>
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[NO.]]></text>
 			</staticText>
@@ -82,7 +82,7 @@ ORDER BY SUM(venta.CANTIDAD) DESC]]>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#030000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Helvetica-Light" size="9" isBold="true"/>
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Motor]]></text>
 			</staticText>
@@ -100,7 +100,7 @@ ORDER BY SUM(venta.CANTIDAD) DESC]]>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#030000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Helvetica-Light" size="9" isBold="true"/>
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cantidad]]></text>
 			</staticText>
@@ -118,7 +118,7 @@ ORDER BY SUM(venta.CANTIDAD) DESC]]>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#030000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Helvetica-Light" size="9" isBold="true"/>
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Concesionario]]></text>
 			</staticText>
@@ -136,7 +136,7 @@ ORDER BY SUM(venta.CANTIDAD) DESC]]>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#030000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Helvetica-Light" size="9" isBold="true"/>
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Marca]]></text>
 			</staticText>
@@ -154,7 +154,7 @@ ORDER BY SUM(venta.CANTIDAD) DESC]]>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#030000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Helvetica-Light" size="9" isBold="true"/>
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Modelo]]></text>
 			</staticText>
@@ -241,7 +241,7 @@ ORDER BY SUM(venta.CANTIDAD) DESC]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Helvetica-Light"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{USUARIO}]]></textFieldExpression>
 			</textField>
@@ -251,7 +251,7 @@ ORDER BY SUM(venta.CANTIDAD) DESC]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left">
-					<font fontName="Helvetica-Light"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
@@ -261,7 +261,7 @@ ORDER BY SUM(venta.CANTIDAD) DESC]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Helvetica-Light"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
@@ -270,7 +270,7 @@ ORDER BY SUM(venta.CANTIDAD) DESC]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Helvetica-Light"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Generación:]]></text>
 			</staticText>
@@ -280,7 +280,7 @@ ORDER BY SUM(venta.CANTIDAD) DESC]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Helvetica-Light"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Usuario:]]></text>
 			</staticText>
@@ -290,7 +290,7 @@ ORDER BY SUM(venta.CANTIDAD) DESC]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right">
-					<font fontName="Helvetica-Light"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>

@@ -180,6 +180,7 @@ public class RegistroVehiculoMB implements Serializable {
 
             JsfUtil.addSuccessMessage("Registro agregado correctamente");
             limpiarPagina();
+            JsfUtil.redirectTo("/vehiculos/detalle.xhtml?faces-redirect=true&idVehiculo=" + vehiculo.getIdVehiculo() + "&idRegresar=1");
         } else {
             mostrarAgregarMarca = false;
             JsfUtil.addErrorMessage("Sucedio un error inesperado");

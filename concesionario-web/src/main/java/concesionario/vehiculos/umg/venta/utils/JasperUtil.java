@@ -23,7 +23,7 @@ import net.sf.jasperreports.export.SimpleWriterExporterOutput;
 
 /**
  *
- * @author rcacacho
+ * @author aeruano
  */
 public class JasperUtil {
 
@@ -54,7 +54,7 @@ public class JasperUtil {
 
                 JasperPrint jasperPrint = JasperFillManager.fillReport(stream, params, conn);
 
-                fileName = nombreArchivo;
+                fileName = reportName;
 
                 JRExporter exporter = new JRPdfExporter();
                 exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -196,7 +196,10 @@ public class JasperUtil {
 
                 reporte = new ReporteJasper();
                 reporte.setFileName(fileName);
-                reporte.setPages(jasperPrint.getPages().size());
+
+                if (jasperPrint.getPages() != null) {
+                    reporte.setPages(jasperPrint.getPages().size());
+                }
 
             }
 

@@ -32,7 +32,7 @@ ORDER BY SUM(venta.CANTIDAD) ASC]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Helvetica-Light" size="16" isBold="true"/>
+					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CONCESIONARIO DE VEHÍCULOS]]></text>
 			</staticText>
@@ -42,7 +42,7 @@ ORDER BY SUM(venta.CANTIDAD) ASC]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Helvetica-Light" size="14" isBold="true"/>
+					<font fontName="Arial" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Vehículos menos vendido]]></text>
 			</staticText>
@@ -64,7 +64,7 @@ ORDER BY SUM(venta.CANTIDAD) ASC]]>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#030000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Helvetica-Light" size="9" isBold="true"/>
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cantidad]]></text>
 			</staticText>
@@ -82,7 +82,7 @@ ORDER BY SUM(venta.CANTIDAD) ASC]]>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#030000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Helvetica-Light" size="9" isBold="true"/>
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[NO.]]></text>
 			</staticText>
@@ -100,7 +100,7 @@ ORDER BY SUM(venta.CANTIDAD) ASC]]>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#030000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Helvetica-Light" size="9" isBold="true"/>
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Motor]]></text>
 			</staticText>
@@ -118,7 +118,7 @@ ORDER BY SUM(venta.CANTIDAD) ASC]]>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#030000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Helvetica-Light" size="9" isBold="true"/>
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Marca]]></text>
 			</staticText>
@@ -136,7 +136,7 @@ ORDER BY SUM(venta.CANTIDAD) ASC]]>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#030000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Helvetica-Light" size="9" isBold="true"/>
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Concesionario]]></text>
 			</staticText>
@@ -154,7 +154,7 @@ ORDER BY SUM(venta.CANTIDAD) ASC]]>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#030000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Helvetica-Light" size="9" isBold="true"/>
+					<font fontName="Arial" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Modelo]]></text>
 			</staticText>
@@ -181,7 +181,9 @@ ORDER BY SUM(venta.CANTIDAD) ASC]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box topPadding="2" leftPadding="5"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{MODELO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
@@ -192,7 +194,9 @@ ORDER BY SUM(venta.CANTIDAD) ASC]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box topPadding="2" leftPadding="5"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{NO_FILA}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
@@ -203,7 +207,9 @@ ORDER BY SUM(venta.CANTIDAD) ASC]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box topPadding="2" leftPadding="5"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{MARCA}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
@@ -212,7 +218,9 @@ ORDER BY SUM(venta.CANTIDAD) ASC]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box topPadding="3" leftPadding="6"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{CONCESIONARIO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
@@ -223,13 +231,17 @@ ORDER BY SUM(venta.CANTIDAD) ASC]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box topPadding="2" leftPadding="5"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{CANTIDAD}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="240" y="0" width="130" height="20" uuid="17203ab1-dfdb-4c8d-915d-a3373285fa98"/>
 				<box topPadding="3" leftPadding="5"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{MOTOR}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -251,7 +263,7 @@ ORDER BY SUM(venta.CANTIDAD) ASC]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Helvetica-Light"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
@@ -260,7 +272,7 @@ ORDER BY SUM(venta.CANTIDAD) ASC]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Helvetica-Light"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{USUARIO}]]></textFieldExpression>
 			</textField>
@@ -270,7 +282,7 @@ ORDER BY SUM(venta.CANTIDAD) ASC]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right">
-					<font fontName="Helvetica-Light"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
@@ -280,7 +292,7 @@ ORDER BY SUM(venta.CANTIDAD) ASC]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Helvetica-Light"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Usuario:]]></text>
 			</staticText>
@@ -290,7 +302,7 @@ ORDER BY SUM(venta.CANTIDAD) ASC]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left">
-					<font fontName="Helvetica-Light"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>

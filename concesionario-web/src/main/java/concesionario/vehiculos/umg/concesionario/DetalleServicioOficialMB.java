@@ -2,6 +2,7 @@ package concesionario.vehiculos.umg.concesionario;
 
 import concesionario.vehiculos.umg.concesionario.api.ejb.ConcesionarioBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvServicioOficial;
+import concesionario.vehiculos.umg.utilidades.JsfUtil;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -29,6 +30,10 @@ public class DetalleServicioOficialMB implements Serializable {
 
     public void cargarDatos() {
         servicio = concesionarioBean.findServicioOficial(idServicio);
+    }
+
+    public void regresar() {
+        JsfUtil.redirectTo("/concesionario/servicioOficial/lista.xhtml");
     }
 
     /*Metodos getters y setters*/

@@ -4,6 +4,7 @@ import concesionario.vehiculos.umg.concesionario.api.ejb.EmpleadoBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.ejb.LoginBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvColaborador;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvUsuarios;
+import concesionario.vehiculos.umg.utilidades.JsfUtil;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -36,6 +37,10 @@ public class DetalleColaboradorMB implements Serializable {
         colaborador = colaboradorBeanLocal.findColaborador(idColaborador);
         usuario = loginBeanLocal.findUsuarioByIdColaborador(idColaborador);
 
+    }
+
+    public void regresar() {
+        JsfUtil.redirectTo("/colaborador/lista.xhtml");
     }
 
     /*Metodos getters y setters*/

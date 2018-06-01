@@ -128,6 +128,10 @@ public class DetalleConcesionarioMB implements Serializable {
         }
     }
 
+    public void regresar() {
+        JsfUtil.redirectTo("/concesionario/lista.xhtml");
+    }
+
     /*Metodos getters y setters*/
     public Integer getIdConcesionario() {
         return idConcesionario;

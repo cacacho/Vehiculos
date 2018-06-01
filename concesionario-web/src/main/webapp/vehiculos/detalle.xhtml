@@ -9,7 +9,8 @@
                 xmlns:shiro="http://shiro.apache.org/tags">
 
     <f:metadata>
-        <f:viewParam name="idColaborador" value="#{detalleVehiculoMB.idvehiculo}"/>
+        <f:viewParam name="idVehiculo" value="#{detalleVehiculoMB.idvehiculo}"/>
+        <f:viewParam name="idRegresar" value="#{detalleVehiculoMB.idRegresar}"/>
         <f:event type="preRenderView" listener="#{detalleVehiculoMB.cargarDatos()}"/>
     </f:metadata>
 
@@ -118,6 +119,47 @@
 
             </p:panelGrid>
 
+            <table style="width: 100%; margin-top: 23px;">
+                <tr>
+                    <td style="width: 50%;">
+                        <p:outputLabel value="2. Asignación Concesionario" 
+                                       style="font-size: 16px !important; display: block; margin-top: 3%;  width: 100%; text-align: left;" />
+                    </td>
+                </tr>
+            </table>
+
+            <hr class="hr-mp" style="margin-bottom: 15px!important;"/>
+
+            <p:panelGrid id="pg_vehiculo" styleClass="no-border" style="width: 90%; margin-left: 4%;" >
+                <p:row>
+                    <p:column >
+                        <p:outputLabel value="Concesionario:" styleClass="colorTitulo" />
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <h:selectOneMenu id="concesionario"  value="#{detalleVehiculoMB.selectedConcesionario}" style="width: 342px;"
+                                         converter="entityConverter" >
+                            <f:selectItem itemLabel="Seleccione un concesionario" value="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{detalleVehiculoMB.listaConcesionarios}" var="conce" 
+                                           itemLabel="#{conce.nombre}" itemValue="#{conce}"  />
+                        </h:selectOneMenu>
+
+                    </p:column>
+                </p:row>
+            </p:panelGrid> 
+
+
+            <p:outputPanel  style="margin-top: 4%; margin-bottom: 20px; margin-right: 6%; margin-left: 34%;  font-size: 14px;"  >
+                <p:commandButton value="Asignar" action="#{registroAsignacionMB.guardarAsignacion()}" icon="ui-icon-disk" process="@form"  style=" margin-left: 5px; "
+                                 onstart="return confirm('¿Confirmas guardar las asignación?');" update="@form"/>
+            </p:outputPanel>
+
+            <p:outputPanel  style="margin-top: 4%; margin-bottom: 20px; margin-right: 6%; margin-left: 34%;  font-size: 14px;"  >
+                <p:commandButton value="Regresar" process="@this" action="#{detalleVehiculoMB.regresar()}" 
+                                 icon="ui-icon-arrowreturnthick-1-s" style="margin-left: 12px; " update="@form"/>
+            </p:outputPanel>
         </h:form>
     </ui:define>
 

@@ -45,10 +45,6 @@
                         <p:outputLabel value="#{conce.direccion}"/>
                     </p:column>
 
-                    <p:column headerText="Fabrica" width="25%" >
-                        <p:outputLabel value="#{conce.idProveedor.nombre}"/>
-                    </p:column>
-
                     <p:column width="9%" exportable="false" >
                         <p:commandLink value="Detalle" action="#{listaConcesionarioMB.verDetalle}" title="Ver detalle de Concesionario">
                             <f:setPropertyActionListener value="#{conce}" target="#{listaConcesionarioMB.selectedConcesionario}"/>                                

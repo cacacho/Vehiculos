@@ -1,12 +1,16 @@
 concesionario\vehiculos\umg\vehiculo\DetalleVehiculoMB.class
 concesionario\vehiculos\umg\vehiculo\ListaVehiculoMB.class
+concesionario\vehiculos\umg\venta\utils\ReporteJasper.class
+concesionario\vehiculos\umg\venta\utils\JasperUtil.class
 concesionario\vehiculos\umg\concesionario\EdicionServicioOficialMB.class
+concesionario\vehiculos\umg\concesionario\DetalleAsignacionMB.class
 concesionario\vehiculos\umg\concesionario\RegistroServicioOficialMB.class
 concesionario\vehiculos\umg\login\UtilMB.class
 concesionario\vehiculos\umg\utilidades\JsfUtil.class
 concesionario\vehiculos\umg\concesionario\RegistroConcesionarioMB.class
 concesionario\vehiculos\umg\concesionario\DetalleConcesionarioMB.class
 concesionario\vehiculos\umg\login\DetalleColaboradorMB.class
+concesionario\vehiculos\umg\venta\utils\GenericEntityConverter.class
 concesionario\vehiculos\umg\login\EdicionColaboradorMB.class
 concesionario\vehiculos\umg\concesionario\DetalleProveedorMB.class
 concesionario\vehiculos\umg\login\LoginMB.class
@@ -14,6 +18,10 @@ concesionario\vehiculos\umg\venta\ListaVentaMB.class
 concesionario\vehiculos\umg\concesionario\EdicionProveedorMB.class
 concesionario\vehiculos\umg\concesionario\ListaConcesionarioMB.class
 concesionario\vehiculos\umg\vehiculo\RegistroVehiculoMB.class
+concesionario\vehiculos\umg\reporte\ReporteMB.class
+concesionario\vehiculos\umg\concesionario\RegistroAsignacionMB.class
+concesionario\vehiculos\umg\venta\utils\FileUtil.class
+concesionario\vehiculos\umg\concesionario\ListaAsignacionMB.class
 concesionario\vehiculos\umg\login\RegistroColaboradorMB.class
 concesionario\vehiculos\umg\login\AuthFilter.class
 concesionario\vehiculos\umg\vehiculo\EdicionvehiculoMB.class
@@ -22,5 +30,7 @@ concesionario\vehiculos\umg\concesionario\EdicionConcesionarioMB.class
 concesionario\vehiculos\umg\login\ListaColaboradoresMB.class
 concesionario\vehiculos\umg\venta\RegistroVentaMB.class
 concesionario\vehiculos\umg\concesionario\DetalleServicioOficialMB.class
+concesionario\vehiculos\umg\venta\utils\EntityConverter.class
 concesionario\vehiculos\umg\concesionario\ListaProveedorMB.class
 concesionario\vehiculos\umg\concesionario\ListaServicioOficialMB.class
+concesionario\vehiculos\umg\venta\utils\AbstractEntityConverter.class

@@ -22,7 +22,8 @@
                 <div>
                     <p:commandButton value="Imprimir Vehículo más vendido" style="float: left; margin-left: 20px"
                                      styleClass="button-16 b-greylight-16" icon="ui-icon-print"
-                                     onclick="PrimeFaces.monitorDownload(start, stop);" update="@form">
+                                     onclick="PrimeFaces.monitorDownload(start, stop);" 
+                                     immediate="true" process="@this" update="@form" ajax="false">
                         <p:fileDownload value="#{reporteMB.generarPdfMasVendido()}"/>
                     </p:commandButton>
                 </div>

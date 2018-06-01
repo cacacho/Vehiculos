@@ -38,7 +38,7 @@ public class ListaVehiculoMB implements Serializable {
     }
 
     public String verDetalle() {
-        return "detalle.xhtml?faces-redirect=true&idVehiculo=" + selectedVehiculo.getIdVehiculo();
+        return "detalle.xhtml?faces-redirect=true&idVehiculo=" + selectedVehiculo.getIdVehiculo()+"&idRegresar=0";
     }
 
     /*Metodos getters y setters*/
