@@ -161,4 +161,9 @@ public class VentaBean implements VentaBeanLocal {
         return lst.get(0);
     }
 
+    @Override
+    public List<CvPedido> ListaPedidos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

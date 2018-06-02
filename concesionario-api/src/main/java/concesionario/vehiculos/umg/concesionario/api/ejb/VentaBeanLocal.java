@@ -27,5 +27,7 @@ public interface VentaBeanLocal {
     CvPedido savePedido(CvPedido pedido);
 
     CvTipoPedido findTipoPedido(Integer idTipoPedido);
+    
+    List<CvPedido> ListaPedidos();
 
 }

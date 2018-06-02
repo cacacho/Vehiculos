@@ -46,6 +46,9 @@ public class CvPedido implements Serializable {
     @Column(name = "ID_PROVEEDOR")
     private Integer idProveedor;
 
+    @Column(name = "CANTIDAD")
+    private Integer cantidad;
+
     @Column(name = "FECHA_ENTREGA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEntrega;
@@ -150,6 +153,14 @@ public class CvPedido implements Serializable {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
     }
 
     public CvConcesionario getIdConcesionario() {

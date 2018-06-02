@@ -97,8 +97,8 @@ public class VehiculoBean implements VehiculoBeanLocal {
 
     @Override
     public CvVehiculo findVehiculo(Integer idVehiculo) {
-        List<CvVehiculo> lst = em.createQuery("SELECT vehi FROM CvVehiculo vehi WHERE vehi.idConcesionario.idConcesionario =:idConcesionario and vehi.activo = true", CvVehiculo.class)
-                .setParameter("idConcesionario", idVehiculo)
+        List<CvVehiculo> lst = em.createQuery("SELECT vehi FROM CvVehiculo vehi WHERE vehi.idVehiculo =:idVehiculo and vehi.activo = true", CvVehiculo.class)
+                .setParameter("idVehiculo", idVehiculo)
                 .getResultList();
 
         if (lst == null || lst.isEmpty()) {
@@ -467,14 +467,36 @@ public class VehiculoBean implements VehiculoBeanLocal {
             context.setRollbackOnly();
             return null;
         }
-//        if (sesion == null) {
-//            context.setRollbackOnly();
-//           
-//        }
+
         try {
             CvVehiculo toUpdate = em.find(CvVehiculo.class, idVehiculo);
 
             toUpdate.setIdConcesionario(concesionario);
+            em.merge(toUpdate);
+
+            return toUpdate;
+        } catch (ConstraintViolationException ex) {
+            String validationError = getConstraintViolationExceptionAsString(ex);
+            log.error(validationError);
+            context.setRollbackOnly();
+            return null;
+        } catch (Exception ex) {
+            processException(ex);
+            return null;
+        }
+    }
+
+    @Override
+    public CvVehiculo actualizarStockVehiculo(Integer idVehiculo, Integer cantidad) {
+        if (idVehiculo == null) {
+            context.setRollbackOnly();
+            return null;
+        }
+
+        try {
+            CvVehiculo toUpdate = em.find(CvVehiculo.class, idVehiculo);
+
+            toUpdate.setStock(cantidad);
             em.merge(toUpdate);
 
             return toUpdate;

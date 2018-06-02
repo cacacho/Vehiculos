@@ -9,8 +9,8 @@
                 xmlns:shiro="http://shiro.apache.org/tags">
 
     <f:metadata>
-        <f:viewParam name="idVehiculo" value="#{detalleVehiculoMB.idvehiculo}"/>
         <f:viewParam name="idRegresar" value="#{detalleVehiculoMB.idRegresar}"/>
+        <f:viewParam name="idVehiculo" value="#{detalleVehiculoMB.idvehiculo}"/>
         <f:event type="preRenderView" listener="#{detalleVehiculoMB.cargarDatos()}"/>
     </f:metadata>
 
@@ -32,9 +32,6 @@
                             <f:param name="idVehiculo" value="#{detalleVehiculoMB.idvehiculo}"/>
                         </p:link>
                     </td>
-                    <td style="width: 50%;vertical-align: bottom;text-align: left!important;font-size: 13px;">
-                        <p:link value="Regresar" outcome="lista.xhtml" styleClass="links" style="vertical-align: bottom!important; float: right; "/>
-                    </td>
                 </tr>
             </table>
 
@@ -48,6 +45,9 @@
                     <p:column >
                         <p:outputLabel value="Matricula:" styleClass="colorTitulo" />
                     </p:column>
+                    <p:column >
+                        <p:outputLabel value="Modelo:" styleClass="colorTitulo" />
+                    </p:column>
                 </p:row>
 
                 <p:row>
@@ -58,28 +58,15 @@
                         <p:outputLabel value="#{detalleVehiculoMB.vehiculo.matricula}" style="font-size: 16px!important;">
                         </p:outputLabel> 
                     </p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column >
-                        <p:outputLabel value="Modelo:" styleClass="colorTitulo" />
-                    </p:column>
-                    <p:column >
-                        <p:outputLabel value="Motor:" styleClass="colorTitulo" />
-                    </p:column>
-                </p:row>
-
-                <p:row>
                     <p:column>
                         <p:outputLabel value="#{detalleVehiculoMB.vehiculo.modelo}" style="font-size: 16px!important;"/>
                     </p:column>
-                    <p:column>
-                        <p:outputLabel value="#{detalleVehiculoMB.vehiculo.motor}" style="font-size: 16px!important;" >
-                        </p:outputLabel> 
-                    </p:column>
                 </p:row>
 
                 <p:row>
+                    <p:column >
+                        <p:outputLabel value="Motor:" styleClass="colorTitulo" />
+                    </p:column>
                     <p:column >
                         <p:outputLabel value="Color:" styleClass="colorTitulo" />
                     </p:column>
@@ -89,6 +76,10 @@
                 </p:row>
 
                 <p:row>
+                    <p:column>
+                        <p:outputLabel value="#{detalleVehiculoMB.vehiculo.motor}" style="font-size: 16px!important;" >
+                        </p:outputLabel> 
+                    </p:column>
                     <p:column>
                         <p:outputLabel value="#{detalleVehiculoMB.vehiculo.color}" style="font-size: 16px!important;"/>
                     </p:column>
@@ -147,18 +138,16 @@
                         </h:selectOneMenu>
 
                     </p:column>
+                    <p:column>
+                        <p:commandButton value="Asignar" action="#{detalleVehiculoMB.guardarAsignacion()}" icon="ui-icon-check" process="@form"
+                                         onstart="return confirm('¿Confirmas guardar las asignación?');" update="@form"/>
+                    </p:column>
                 </p:row>
             </p:panelGrid> 
 
-
-            <p:outputPanel  style="margin-top: 4%; margin-bottom: 20px; margin-right: 6%; margin-left: 34%;  font-size: 14px;"  >
-                <p:commandButton value="Asignar" action="#{registroAsignacionMB.guardarAsignacion()}" icon="ui-icon-disk" process="@form"  style=" margin-left: 5px; "
-                                 onstart="return confirm('¿Confirmas guardar las asignación?');" update="@form"/>
-            </p:outputPanel>
-
             <p:outputPanel  style="margin-top: 4%; margin-bottom: 20px; margin-right: 6%; margin-left: 34%;  font-size: 14px;"  >
                 <p:commandButton value="Regresar" process="@this" action="#{detalleVehiculoMB.regresar()}" 
-                                 icon="ui-icon-arrowreturnthick-1-s" style="margin-left: 12px; " update="@form"/>
+                                 icon="ui-icon-arrowreturnthick-1-s" style="margin-left: 12px; margin-top: 25px;" update="@form"/>
             </p:outputPanel>
         </h:form>
     </ui:define>

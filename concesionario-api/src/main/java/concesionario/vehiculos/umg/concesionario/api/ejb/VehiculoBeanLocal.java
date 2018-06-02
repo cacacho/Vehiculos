@@ -39,6 +39,8 @@ public interface VehiculoBeanLocal {
     List<CvVehiculo> ListaVehiculosByBastidorAndMarca(String bastidor, String marca);
 
     List<CvVehiculo> ListaVehiculosByPlacaAndMarca(String placa, String marca);
+    
+    CvVehiculo actualizarStockVehiculo(Integer idVehiculo, Integer cantidad);
 
     /*Extra vehiculo*/
     CvExtraVehiculo findExtraVehiculo(Integer idExtraVehiculo);

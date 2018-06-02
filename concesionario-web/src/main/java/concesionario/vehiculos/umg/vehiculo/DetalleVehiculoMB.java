@@ -46,6 +46,7 @@ public class DetalleVehiculoMB implements Serializable {
         }
 
         vehiculo = vehiculosBean.findVehiculo(idvehiculo);
+        listaConcesionarios = concesionarioBeanlocal.ListaConcesionarios();
     }
 
     public void regresar() {
