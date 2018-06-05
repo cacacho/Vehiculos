@@ -33,7 +33,7 @@ public class EdicionvehiculoMB implements Serializable {
     }
 
     public void cancelarEdicion() {
-        JsfUtil.redirectTo("/vehiculos/detalle.xhtml?faces-redirect=true&idProveedor=" + idvehiculo);
+        JsfUtil.redirectTo("/vehiculos/detalle.xhtml?faces-redirect=true&idvehiculo=" + idvehiculo);
     }
 
     public void actualizarVehiculo() {
@@ -42,6 +42,7 @@ public class EdicionvehiculoMB implements Serializable {
         if (vehi.getIdVehiculo() != null) {
 
             JsfUtil.addSuccessMessage("Registro agregado correctamente");
+            JsfUtil.redirectTo("/vehiculos/detalle.xhtml?faces-redirect=true&idvehiculo=" + idvehiculo);
         } else {
             JsfUtil.addErrorMessage("Sucedio un error inesperado");
         }

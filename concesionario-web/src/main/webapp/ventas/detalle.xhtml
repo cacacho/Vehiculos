@@ -46,35 +46,68 @@
 
                 <p:row>
                     <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.primerApellido}" style="font-size: 16px!important;"/>
+                        <p:outputLabel value="#{detalleVentaMB.venta.idCliente.nit}" style="font-size: 16px!important;"/>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.segundoApellido}" style="font-size: 16px!important;" >
-                        </p:outputLabel> 
+                        <p:outputLabel value="#{detalleVentaMB.venta.idCliente.nombres}" style="font-size: 16px!important;"/>
+                        <p:outputLabel value="#{detalleVentaMB.venta.idCliente.apellidos}" style="font-size: 16px!important; margin-left: 10px!important;"/>
                     </p:column>
                 </p:row>
             </p:panelGrid>
 
-            <p:outputLabel value="2. Información del usuario" 
+            <p:outputLabel value="2. Información de la venta" 
                            style="font-size: 16px !important; display: block; margin-top: 3%;  width: 100%; text-align: left;" />
             <hr class="hr-mp" style="margin-bottom: 15px!important;"/>
 
-            <p:panelGrid id="pg_usuario" styleClass="no-border" style="width: 90%; margin-left: 4%;" >
+            <p:panelGrid id="pg_venta" styleClass="no-border" style="width: 90%; margin-left: 4%;" >
                 <p:row>
                     <p:column >
-                        <p:outputLabel value="Usuario:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Fecha venta:" styleClass="colorTitulo" />
                     </p:column>
                     <p:column >
-                        <p:outputLabel value="Contraseña:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Vendedor:" styleClass="colorTitulo" />
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.usuario.usuario}" style="font-size: 16px!important;"/>
+                        <p:outputLabel value="#{detalleVentaMB.venta.fechaCreacion}" style="font-size: 16px!important;"/>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.usuario.password}" style="font-size: 16px!important;">
+                        <p:outputLabel value="#{detalleVentaMB.venta.idColaborador.primerNombre}" style="font-size: 16px!important; "/> 
+                        <p:outputLabel value="#{detalleVentaMB.venta.idColaborador.primerApellido}" style="font-size: 16px!important; margin-left: 10px!important;"/> 
+                    </p:column>
+                </p:row>
+            </p:panelGrid> 
+
+
+            <p:outputLabel value="3. Información de la vehículo" 
+                           style="font-size: 16px !important; display: block; margin-top: 3%;  width: 100%; text-align: left;" />
+            <hr class="hr-mp" style="margin-bottom: 15px!important;"/>
+
+            <p:panelGrid id="pg_vehiculo" styleClass="no-border" style="width: 90%; margin-left: 4%;" >
+                <p:row>
+                    <p:column >
+                        <p:outputLabel value="Marca:" styleClass="colorTitulo" />
+                    </p:column>
+                    <p:column >
+                        <p:outputLabel value="Color:" styleClass="colorTitulo" />
+                    </p:column>
+                    <p:column >
+                        <p:outputLabel value="Placa:" styleClass="colorTitulo" />
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="#{detalleVentaMB.venta.idVehiculo.idMarca.nombre}" style="font-size: 16px!important;"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{detalleVentaMB.venta.idVehiculo.color}" style="font-size: 16px!important;">
+                        </p:outputLabel> 
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{detalleVentaMB.venta.idVehiculo.matricula}" style="font-size: 16px!important;">
                         </p:outputLabel> 
                     </p:column>
                 </p:row>

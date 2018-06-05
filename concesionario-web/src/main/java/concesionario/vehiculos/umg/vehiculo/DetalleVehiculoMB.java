@@ -33,7 +33,6 @@ public class DetalleVehiculoMB implements Serializable {
     private CvVehiculo vehiculo;
     private List<CvConcesionario> listaConcesionarios;
     private CvConcesionario selectedConcesionario;
-    private Integer idRegresar;
     private CvTraspasoVehiculo asignacionVehiculo;
 
     public DetalleVehiculoMB() {
@@ -41,10 +40,6 @@ public class DetalleVehiculoMB implements Serializable {
     }
 
     public void cargarDatos() {
-        if (idRegresar == 1) {
-            JsfUtil.addSuccessMessage("Vehículo registrado exitosamente");
-        }
-
         vehiculo = vehiculosBean.findVehiculo(idvehiculo);
         listaConcesionarios = concesionarioBeanlocal.ListaConcesionarios();
     }
@@ -122,14 +117,6 @@ public class DetalleVehiculoMB implements Serializable {
 
     public void setSelectedConcesionario(CvConcesionario selectedConcesionario) {
         this.selectedConcesionario = selectedConcesionario;
-    }
-
-    public Integer getIdRegresar() {
-        return idRegresar;
-    }
-
-    public void setIdRegresar(Integer idRegresar) {
-        this.idRegresar = idRegresar;
     }
 
 }

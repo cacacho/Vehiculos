@@ -30,7 +30,7 @@ public class DetalleVentaMB implements Serializable {
     }
 
     public void cargarDatos() {
-
+        venta = ventaBeanLocal.findVenta(idVenta);
     }
 
     /*Metodos getters y setters*/

@@ -28,7 +28,7 @@
                     </td>
                     <td style="width: 50%;vertical-align: bottom;text-align: right!important;font-size: 13px;">
                         <p:link value="Regresar" outcome="detalle.xhtml" styleClass="links" style="vertical-align: bottom!important; float: right; ">
-                            <f:param name="idColaborador" value="#{edicionvehiculoMB.idColaborador}"/>
+                            <f:param name="idVehiculo" value="#{edicionvehiculoMB.idvehiculo}"/>
                         </p:link>
                     </td>
                 </tr>
@@ -48,11 +48,10 @@
 
                 <p:row>
                     <p:column>
-                        <p:outputLabel value="#{edicionvehiculoMB.vehiculo.bastidor}" style="font-size: 16px!important;"/>
+                        <p:inputText value="#{edicionvehiculoMB.vehiculo.bastidor}" style="font-size: 16px!important;"/>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{edicionvehiculoMB.vehiculo.matricula}" style="font-size: 16px!important;">
-                        </p:outputLabel> 
+                        <p:inputText value="#{edicionvehiculoMB.vehiculo.matricula}" style="font-size: 16px!important;"/> 
                     </p:column>
                 </p:row>
 
@@ -67,11 +66,10 @@
 
                 <p:row>
                     <p:column>
-                        <p:outputLabel value="#{edicionvehiculoMB.vehiculo.modelo}" style="font-size: 16px!important;"/>
+                        <p:inputText value="#{edicionvehiculoMB.vehiculo.modelo}" style="font-size: 16px!important;"/>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{edicionvehiculoMB.vehiculo.motor}" style="font-size: 16px!important;" >
-                        </p:outputLabel> 
+                        <p:inputText value="#{edicionvehiculoMB.vehiculo.motor}" style="font-size: 16px!important;" />
                     </p:column>
                 </p:row>
 
@@ -86,11 +84,10 @@
 
                 <p:row>
                     <p:column>
-                        <p:outputLabel value="#{edicionvehiculoMB.vehiculo.color}" style="font-size: 16px!important;"/>
+                        <p:inputText value="#{edicionvehiculoMB.vehiculo.color}" style="font-size: 16px!important;"/>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{edicionvehiculoMB.vehiculo.precio}" style="font-size: 16px!important;">
-                        </p:outputLabel> 
+                        <p:inputText value="#{edicionvehiculoMB.vehiculo.precio}" style="font-size: 16px!important;"/>
                     </p:column>
                 </p:row>
 
@@ -105,11 +102,33 @@
 
                 <p:row>
                     <p:column>
-                        <p:outputLabel value="#{edicionvehiculoMB.vehiculo.estandar}" style="font-size: 16px!important;"/>
+                        <h:selectOneMenu id="estandar"  value="#{edicionvehiculoMB.vehiculo.estandar}" style="width: 272px;" >
+                            <f:selectItem itemLabel="Seleccione un elemento" value="#{null}" noSelectionOption="true"/>
+                            <f:selectItem itemValue="#{true}" itemLabel="Si" />
+                            <f:selectItem itemValue="#{false}" itemLabel="No" />
+                        </h:selectOneMenu>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{edicionvehiculoMB.vehiculo.stock}" style="font-size: 16px!important;">
-                        </p:outputLabel> 
+                        <p:inputText value="#{edicionvehiculoMB.vehiculo.stock}" style="font-size: 16px!important;"/> 
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="Estado:"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel  value=""/>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <h:selectOneMenu id="tipo"  value="#{edicionvehiculoMB.vehiculo.activo}" style="width: 272px;" >
+                            <f:selectItem itemLabel="Seleccione un elemento" value="#{null}" noSelectionOption="true"/>
+                            <f:selectItem itemValue="#{true}" itemLabel="Activo" />
+                            <f:selectItem itemValue="#{false}" itemLabel="Inactivo" />
+                        </h:selectOneMenu>
                     </p:column>
                 </p:row>
             </p:panelGrid>
