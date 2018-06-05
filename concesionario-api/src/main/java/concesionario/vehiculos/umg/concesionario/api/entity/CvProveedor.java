@@ -5,12 +5,9 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -83,10 +80,6 @@ public class CvProveedor implements Serializable {
 
     @Column(name = "ACTIVO")
     private boolean activo;
-
-    @JoinColumn(name = "ID_CONCESIONARIO", referencedColumnName = "ID_CONCESIONARIO")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private CvConcesionario idConcesionario;
 
     public CvProveedor() {
     }
@@ -178,14 +171,6 @@ public class CvProveedor implements Serializable {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
-    }
-
-    public CvConcesionario getIdConcesionario() {
-        return idConcesionario;
-    }
-
-    public void setIdConcesionario(CvConcesionario idConcesionario) {
-        this.idConcesionario = idConcesionario;
     }
 
     @Override

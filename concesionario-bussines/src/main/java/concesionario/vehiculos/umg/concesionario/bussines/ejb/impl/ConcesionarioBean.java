@@ -2,6 +2,7 @@ package concesionario.vehiculos.umg.concesionario.bussines.ejb.impl;
 
 import concesionario.vehiculos.umg.concesionario.api.ejb.ConcesionarioBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionario;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionarioProveedor;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvProveedor;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvServicioOficial;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvTraspasoVehiculo;
@@ -403,18 +404,17 @@ public class ConcesionarioBean implements ConcesionarioBeanLocal {
     }
 
     @Override
-    public CvProveedor AsignarProveedorConcesionario(Integer idProveedor, CvConcesionario concesionario) {
-        if (idProveedor == null) {
+    public CvConcesionarioProveedor AsignarProveedorConcesionario(CvConcesionarioProveedor concesionarioProveedor) {
+        if (concesionarioProveedor == null) {
             context.setRollbackOnly();
             return null;
         }
 
         try {
-            CvProveedor toUpdate = em.find(CvProveedor.class, idProveedor);
-            toUpdate.setIdConcesionario(concesionario);
-             
-            em.merge(toUpdate);
-            return toUpdate;
+            
+            em.persist(concesionarioProveedor);
+            em.flush();
+            return (concesionarioProveedor);
         } catch (ConstraintViolationException ex) {
             String validationError = getConstraintViolationExceptionAsString(ex);
             log.error(validationError);

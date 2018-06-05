@@ -3,6 +3,7 @@ package concesionario.vehiculos.umg.login;
 import concesionario.vehiculos.umg.concesionario.api.ejb.CatalogoBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.ejb.EmpleadoBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvColaborador;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionario;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoColaborador;
 import concesionario.vehiculos.umg.utilidades.JsfUtil;
 import java.io.Serializable;
@@ -31,6 +32,7 @@ public class RegistroColaboradorMB implements Serializable {
     private List<CvTipoColaborador> listTipoColaboradores;
     private CvTipoColaborador tipoColaboradorSelected;
     private CvColaborador colaborador;
+    private List<CvConcesionario> listconcesionario;
 
     public RegistroColaboradorMB() {
         colaborador = new CvColaborador();
@@ -39,6 +41,7 @@ public class RegistroColaboradorMB implements Serializable {
     @PostConstruct
     void initData() {
         listTipoColaboradores = catalogoBeanLocal.listAllTipoColaborador();
+        listconcesionario = catalogoBeanLocal.listAllConcesionarios();
     }
 
     public void saveColaborador() {
@@ -75,6 +78,14 @@ public class RegistroColaboradorMB implements Serializable {
 
     public void setColaborador(CvColaborador colaborador) {
         this.colaborador = colaborador;
+    }
+
+    public List<CvConcesionario> getListconcesionario() {
+        return listconcesionario;
+    }
+
+    public void setListconcesionario(List<CvConcesionario> listconcesionario) {
+        this.listconcesionario = listconcesionario;
     }
 
 }

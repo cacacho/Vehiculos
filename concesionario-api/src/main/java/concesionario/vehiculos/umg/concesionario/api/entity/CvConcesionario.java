@@ -75,9 +75,6 @@ public class CvConcesionario implements Serializable {
     private List<CvServicioOficial> cvServicioOficialList;
 
     @OneToMany(mappedBy = "idConcesionario", fetch = FetchType.LAZY)
-    private List<CvProveedor> cvProveedorList;
-
-    @OneToMany(mappedBy = "idConcesionario", fetch = FetchType.LAZY)
     private List<CvVehiculo> cvVehiculoList;
 
     @OneToMany(mappedBy = "idConcesionarioActual", fetch = FetchType.LAZY)
@@ -169,15 +166,6 @@ public class CvConcesionario implements Serializable {
 
     public void setCvServicioOficialList(List<CvServicioOficial> cvServicioOficialList) {
         this.cvServicioOficialList = cvServicioOficialList;
-    }
-
-    @XmlTransient
-    public List<CvProveedor> getCvProveedorList() {
-        return cvProveedorList;
-    }
-
-    public void setCvProveedorList(List<CvProveedor> cvProveedorList) {
-        this.cvProveedorList = cvProveedorList;
     }
 
     @XmlTransient

@@ -44,7 +44,7 @@
                         <p:inputText id="telefono" value="#{registroColaboradorMB.colaborador.telefono}" style="width: 350px;"  placeholder="Ingrese segundo apellido" />
 
                         <p:outputLabel for="tipo" value="Tipo:"/>
-                        <p:outputLabel  value="cone" value="Concesionario:"/>
+                        <p:outputLabel  for="conce" value="Concesionario:"/>
 
                         <h:selectOneMenu id="tipo"  value="#{registroColaboradorMB.colaborador.idTipoColaborador}" style="width: 342px;"
                                          converter="entityConverter" 
@@ -52,6 +52,14 @@
                             <f:selectItem itemLabel="Seleccione un Tipo de colaborador" value="#{null}" noSelectionOption="true"/>
                             <f:selectItems value="#{registroColaboradorMB.listTipoColaboradores}" var="tipo" 
                                            itemLabel="#{tipo.descripcion}" itemValue="#{tipo}"  />
+                        </h:selectOneMenu>
+                        
+                        <h:selectOneMenu id="conce"  value="#{registroColaboradorMB.colaborador.idConcesionario}" style="width: 342px;"
+                                         converter="entityConverter" 
+                                         required="true" requiredMessage="Debe seleccionar un concesionario">
+                            <f:selectItem itemLabel="Seleccione un concesionario" value="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{registroColaboradorMB.listconcesionario}" var="conce" 
+                                           itemLabel="#{conce.nombre}" itemValue="#{conce}"  />
                         </h:selectOneMenu>
 
                     </p:panelGrid>

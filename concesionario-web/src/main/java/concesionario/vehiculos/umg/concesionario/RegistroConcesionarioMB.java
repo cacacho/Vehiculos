@@ -3,6 +3,7 @@ package concesionario.vehiculos.umg.concesionario;
 import concesionario.vehiculos.umg.concesionario.api.ejb.CatalogoBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.ejb.ConcesionarioBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionario;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionarioProveedor;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvProveedor;
 import concesionario.vehiculos.umg.login.LoginMB;
 import concesionario.vehiculos.umg.utilidades.JsfUtil;
@@ -40,7 +41,7 @@ public class RegistroConcesionarioMB implements Serializable {
     }
 
     @PostConstruct
-    void initData() {
+    void cargarDatos() {
         listProveedor = catalogoBeanLocal.listAllProveedor();
     }
 
@@ -52,6 +53,7 @@ public class RegistroConcesionarioMB implements Serializable {
         proveedor.setUsuarioCreacion(LoginMB.usuario);
         concesionarioBeanlocal.saveProveedor(proveedor);
         JsfUtil.addSuccessMessage("Proveedor guardado exitosamente");
+        listProveedor = catalogoBeanLocal.listAllProveedor();
     }
 
     public void guardarConcesionario() {
@@ -59,7 +61,10 @@ public class RegistroConcesionarioMB implements Serializable {
         concesionario.setUsuarioCreacion(LoginMB.usuario);
         con = concesionarioBeanlocal.saveConcesionario(concesionario);
         if (con != null) {
-            concesionarioBeanlocal.AsignarProveedorConcesionario(proveedor.getIdProveedor(), concesionario);
+            CvConcesionarioProveedor conPro = new CvConcesionarioProveedor();
+            conPro.setIdProveedor(proveedor);
+            conPro.setIdConcesionario(concesionario);
+            concesionarioBeanlocal.AsignarProveedorConcesionario(conPro);
             JsfUtil.addSuccessMessage("Concesionario de vehículos guardado exitosamente");
             limpiaarPagina();
         } else {

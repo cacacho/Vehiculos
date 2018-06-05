@@ -101,7 +101,7 @@
                                     <p:commandButton value="Limpiar" style="float: right; margin-left: 20px" update="proveedores" action="#{registroConcesionarioMB.limpiarDialog()}"
                                                      styleClass="button-16 b-greylight-16" icon="ui-icon-refresh"/>
                                     <p:commandButton value="Guardar" action="#{registroConcesionarioMB.guadarProveedor()}" icon="ui-icon-disk" process="proveedores"   
-                                                     style="float: right; margin-left: 20px" onstart="return confirm('¿Confirmas guardar el proveedor?');" update="proveedores"/>
+                                                     style="float: right; margin-left: 20px" onstart="return confirm('¿Confirmas guardar el proveedor?');" update="@form"/>
                                 </div>
                             </p:column>
                         </p:row>

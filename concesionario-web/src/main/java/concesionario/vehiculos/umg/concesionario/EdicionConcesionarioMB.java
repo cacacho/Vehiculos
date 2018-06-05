@@ -46,6 +46,7 @@ public class EdicionConcesionarioMB implements Serializable {
 
         if (conce.getIdConcesionario() != null) {
             JsfUtil.addSuccessMessage("Registro agregado correctamente");
+            JsfUtil.redirectTo("/concesionario/detalle.xhtml?faces-redirect=true&idConcesionario=" + idConcesionario);
         } else {
             JsfUtil.addSuccessMessage("Sucedio un error inesperado");
         }
