@@ -3,7 +3,6 @@ package concesionario.vehiculos.umg.concesionario.api.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,7 +17,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -68,59 +66,59 @@ public class CvVenta implements Serializable {
     @Size(max = 30)
     @Column(name = "MATRICULA")
     private String matricula;
-    
+
     @Column(name = "TOTAL")
     private Integer total;
-    
+
     @Column(name = "FECHA_ENTREGA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEntrega;
-    
+
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
-    
+
     @Size(max = 50)
     @Column(name = "USUARIO_CREACION")
     private String usuarioCreacion;
-    
+
     @Column(name = "FECHA_ELIMINACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEliminacion;
-    
+
     @Size(max = 50)
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
-    
+
     @Column(name = "ACTIVO")
     private boolean activo;
-    
+
     @OneToMany(mappedBy = "idVenta", fetch = FetchType.LAZY)
     private List<CvPedido> cvPedidoList;
-    
+
     @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvCliente idCliente;
-    
+
     @JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID_COLABORADOR")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvColaborador idColaborador;
-    
+
     @JoinColumn(name = "ID_DETALLE_EXTRA_VEHICULO", referencedColumnName = "ID_DETALLE_EXTRA_VEHICULO")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvDetalleExtraVehiculo idDetalleExtraVehiculo;
-    
+
     @JoinColumn(name = "ID_TIPO_PAGO", referencedColumnName = "ID_TIPO_PAGO")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvTipoPago idTipoPago;
-    
-    @JoinColumn(name = "ID_TIPO_SUCURSAL", referencedColumnName = "ID_TIPO_SUCURSAL")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private CvTipoSucursal idTipoSucursal;
-    
+
     @JoinColumn(name = "ID_VEHICULO", referencedColumnName = "ID_VEHICULO")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvVehiculo idVehiculo;
+
+    @JoinColumn(name = "ID_CONCESIONARIO", referencedColumnName = "ID_CONCESIONARIO")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CvConcesionario idConcesionario;
 
     public CvVenta() {
     }
@@ -233,6 +231,14 @@ public class CvVenta implements Serializable {
         this.activo = activo;
     }
 
+    public CvConcesionario getIdConcesionario() {
+        return idConcesionario;
+    }
+
+    public void setIdConcesionario(CvConcesionario idConcesionario) {
+        this.idConcesionario = idConcesionario;
+    }
+
     @XmlTransient
     public List<CvPedido> getCvPedidoList() {
         return cvPedidoList;
@@ -272,14 +278,6 @@ public class CvVenta implements Serializable {
 
     public void setIdTipoPago(CvTipoPago idTipoPago) {
         this.idTipoPago = idTipoPago;
-    }
-
-    public CvTipoSucursal getIdTipoSucursal() {
-        return idTipoSucursal;
-    }
-
-    public void setIdTipoSucursal(CvTipoSucursal idTipoSucursal) {
-        this.idTipoSucursal = idTipoSucursal;
     }
 
     public CvVehiculo getIdVehiculo() {

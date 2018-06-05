@@ -9,12 +9,12 @@
                 xmlns:shiro="http://shiro.apache.org/tags">
 
     <f:metadata>
-        <f:viewParam name="idColaborador" value="#{detalleColaboradorMB.idColaborador}"/>
-        <f:event type="preRenderView" listener="#{detalleColaboradorMB.cargarDatos()}"/>
+        <f:viewParam name="idVenta" value="#{detalleVentaMB.idVenta}"/>
+        <f:event type="preRenderView" listener="#{detalleVentaMB.cargarDatos()}"/>
     </f:metadata>
 
     <ui:define name="pageTitle">
-        Detalle del Colaborador
+        Detalle del la venta
     </ui:define>
 
     <ui:define name="content">
@@ -23,15 +23,9 @@
             <table style="width: 100%; margin-top: 23px;">
                 <tr>
                     <td style="width: 50%;">
-                        <p:outputLabel value="1. Información del Colaborador" 
+                        <p:outputLabel value="1. Información del cliente" 
                                        style="font-size: 16px !important; display: block; width: 100%; text-align: left;" />
                     </td>
-                    <td style="width: 50%;vertical-align: bottom;text-align: right!important;font-size: 13px;">
-                        <p:link value="Editar" outcome="editar.xhtml" styleClass="links" style="vertical-align: bottom!important; float: right; ">
-                            <f:param name="idColaborador" value="#{detalleColaboradorMB.idColaborador}"/>
-                        </p:link>
-                    </td>
-
                     <td style="width: 50%;vertical-align: bottom;text-align: left!important;font-size: 13px;">
                         <p:link value="Regresar" outcome="lista.xhtml" styleClass="links" style="vertical-align: bottom!important; float: right; "/>
                     </td>
@@ -43,29 +37,10 @@
             <p:panelGrid  id="pg_info" styleClass="no-border" style="width: 90%; margin-left: 4%;">
                 <p:row>
                     <p:column >
-                        <p:outputLabel value="Primer Nombre:" styleClass="colorTitulo" />
+                        <p:outputLabel value="NIT:" styleClass="colorTitulo" />
                     </p:column>
                     <p:column >
-                        <p:outputLabel value="Segundo Nombre:" styleClass="colorTitulo" />
-                    </p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.primerNombre}" style="font-size: 16px!important;"/>
-                    </p:column>
-                    <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.segundoNombre}" style="font-size: 16px!important;">
-                        </p:outputLabel> 
-                    </p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column >
-                        <p:outputLabel value="Primer Apellido:" styleClass="colorTitulo" />
-                    </p:column>
-                    <p:column >
-                        <p:outputLabel value="Segundo Apellido:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Nombres:" styleClass="colorTitulo" />
                     </p:column>
                 </p:row>
 
@@ -78,26 +53,6 @@
                         </p:outputLabel> 
                     </p:column>
                 </p:row>
-
-                <p:row>
-                    <p:column >
-                        <p:outputLabel value="Teléfono:" styleClass="colorTitulo" />
-                    </p:column>
-                    <p:column >
-                        <p:outputLabel value="Dirección:" styleClass="colorTitulo" />
-                    </p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.telefono}" style="font-size: 16px!important;"/>
-                    </p:column>
-                    <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.direccion}" style="font-size: 16px!important;">
-                        </p:outputLabel> 
-                    </p:column>
-                </p:row>
-
             </p:panelGrid>
 
             <p:outputLabel value="2. Información del usuario" 

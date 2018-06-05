@@ -11,6 +11,7 @@ concesionario\vehiculos\umg\concesionario\RegistroConcesionarioMB.class
 concesionario\vehiculos\umg\concesionario\DetalleConcesionarioMB.class
 concesionario\vehiculos\umg\login\DetalleColaboradorMB.class
 concesionario\vehiculos\umg\venta\utils\GenericEntityConverter.class
+concesionario\vehiculos\umg\venta\DetalleVentaMB.class
 concesionario\vehiculos\umg\login\EdicionColaboradorMB.class
 concesionario\vehiculos\umg\concesionario\DetalleProveedorMB.class
 concesionario\vehiculos\umg\login\LoginMB.class

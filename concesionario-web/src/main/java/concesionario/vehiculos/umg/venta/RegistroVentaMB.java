@@ -1,15 +1,18 @@
 package concesionario.vehiculos.umg.venta;
 
 import concesionario.vehiculos.umg.concesionario.api.ejb.CatalogoBeanLocal;
+import concesionario.vehiculos.umg.concesionario.api.ejb.LoginBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.ejb.VehiculoBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.ejb.VentaBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvCliente;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvColaborador;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvExtraVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvPedido;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoPago;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoPedido;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvVenta;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvVentaVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.enums.TipoPedidoEnum;
 import concesionario.vehiculos.umg.login.LoginMB;
 import concesionario.vehiculos.umg.utilidades.JsfUtil;
@@ -40,6 +43,8 @@ public class RegistroVentaMB implements Serializable {
     private VehiculoBeanLocal vehiculoBeanLocal;
     @EJB
     private CatalogoBeanLocal catalogoBean;
+    @EJB
+    private LoginBeanLocal loginBeanLocal;
 
     private List<CvVehiculo> listSelectedVehiculo;
     private List<CvVehiculo> listVehiculo;
@@ -59,11 +64,13 @@ public class RegistroVentaMB implements Serializable {
     private List<CvExtraVehiculo> listExtraVehiculo;
     private List<CvExtraVehiculo> selectedListExtraVehiculo;
     private Integer totalExtras;
+    private List<CvVentaVehiculo> listVentaVehiculo;
 
     public RegistroVentaMB() {
         listVenta = new ArrayList<>();
         cliente = new CvCliente();
         clienteNuevo = new CvCliente();
+        listVentaVehiculo = new ArrayList<>();
     }
 
     @PostConstruct
@@ -76,24 +83,45 @@ public class RegistroVentaMB implements Serializable {
         if (bastidor != null && placa != null && marca != null) {
             listVehiculo = vehiculoBeanLocal.ListaVehiculosByBastidorAndPlacaAndMarca(bastidor, placa, marca);
             limpiarCampos();
+            if (listVehiculo == null) {
+                JsfUtil.addErrorMessage("No se encontraron vehículos");
+            }
         } else if (bastidor != null && placa != null) {
             listVehiculo = vehiculoBeanLocal.ListaVehiculosByBastidorAndPlaca(bastidor, placa);
             limpiarCampos();
+            if (listVehiculo == null) {
+                JsfUtil.addErrorMessage("No se encontraron vehículos");
+            }
         } else if (bastidor != null && marca != null) {
             listVehiculo = vehiculoBeanLocal.ListaVehiculosByBastidorAndMarca(bastidor, marca);
             limpiarCampos();
+            if (listVehiculo == null) {
+                JsfUtil.addErrorMessage("No se encontraron vehículos");
+            }
         } else if (placa != null && marca != null) {
             listVehiculo = vehiculoBeanLocal.ListaVehiculosByPlacaAndMarca(placa, marca);
             limpiarCampos();
+            if (listVehiculo == null) {
+                JsfUtil.addErrorMessage("No se encontraron vehículos");
+            }
         } else if (bastidor != null) {
             listVehiculo = vehiculoBeanLocal.ListaVehiculosByBastido(bastidor);
             limpiarCampos();
+            if (listVehiculo == null) {
+                JsfUtil.addErrorMessage("No se encontraron vehículos");
+            }
         } else if (placa != null) {
             listVehiculo = vehiculoBeanLocal.ListaVehiculosByPlaca(placa);
             limpiarCampos();
+            if (listVehiculo == null) {
+                JsfUtil.addErrorMessage("No se encontraron vehículos");
+            }
         } else if (marca != null) {
             listVehiculo = vehiculoBeanLocal.ListaVehiculosByMarca(marca);
             limpiarCampos();
+            if (listVehiculo == null) {
+                JsfUtil.addErrorMessage("No se encontraron vehículos");
+            }
         } else {
             JsfUtil.addErrorMessage("Debe ingresar un filro");
         }
@@ -160,6 +188,7 @@ public class RegistroVentaMB implements Serializable {
             visualizarAgregarCliente();
             limpiarCampoCliente();
             ocultarCliente = true;
+            JsfUtil.addErrorMessage("No se encontro el cliente con el nit ingresado");
         }
     }
 
@@ -199,7 +228,12 @@ public class RegistroVentaMB implements Serializable {
         CvTipoPedido tipoPedido = new CvTipoPedido();
 
         totalCantindad = venta.getPrecio() * venta.getCantidad();
-        totalVenta = totalCantindad + venta.getTotalExtra();
+        if (venta.getTotalExtra() != null) {
+            totalVenta = totalCantindad + venta.getTotalExtra();
+        } else {
+            totalVenta = totalCantindad;
+        }
+
         venta.setTotal(totalVenta);
         totalPedido = venta.getCantidad() - venta.getIdVehiculo().getStock();
         if (totalPedido < 0) {
@@ -207,7 +241,7 @@ public class RegistroVentaMB implements Serializable {
             calFechaEntrega.setTime(fechaHoy);
             calFechaEntrega.add(Calendar.MONTH, 1);
             pedido.setFechaEntrega(calFechaEntrega.getTime());
-            
+
             totalPedidoPositivo = venta.getCantidad() - totalPedido;
             totalPedido = totalPedido * -1;
             pedido.setCantidad(totalPedido);
@@ -242,14 +276,27 @@ public class RegistroVentaMB implements Serializable {
         CvVenta vent = new CvVenta();
         for (CvVenta v : listVenta) {
             v.setUsuarioCreacion(LoginMB.usuario);
+            CvColaborador cola = loginBeanLocal.findIdColaborador(LoginMB.usuario);
+            v.setIdColaborador(cola);
+            v.setIdConcesionario(cola.getIdConcesionario());
             vent = ventaBeanLocal.saveVentas(v);
         }
 
         if (vent.getIdVehiculo() != null) {
             JsfUtil.addSuccessMessage("Registro agregado correctamente");
+            limpiarDatos();
         } else {
             JsfUtil.addErrorMessage("Sucedio un error inesperado");
         }
+    }
+
+    public void limpiarDatos() {
+        cliente = null;
+        clienteNuevo = null;
+        listVehiculo = null;
+        listVenta = null;
+        selectedListExtraVehiculo = null;
+        listSelectedVehiculo = null;
     }
 
     /*Metodos getters y setters*/

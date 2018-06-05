@@ -26,7 +26,116 @@
                                      immediate="true" process="@this" update="@form" ajax="false">
                         <p:fileDownload value="#{reporteMB.generarPdfMasVendido()}"/>
                     </p:commandButton>
+                    <p:commandButton value="Imprimir Vehículo menos vendido" style="float: left; margin-left: 20px"
+                                     styleClass="button-16 b-greylight-16" icon="ui-icon-print"
+                                     onclick="PrimeFaces.monitorDownload(start, stop);" 
+                                     immediate="true" process="@this" update="@form" ajax="false">
+                        <p:fileDownload value="#{reporteMB.generarPdfMenosVendido()}"/>
+                    </p:commandButton>
+                    <p:commandButton value="Nuevos vehículos" style="float: left; margin-left: 20px"
+                                     styleClass="button-16 b-greylight-16" icon="ui-icon-print"
+                                     onclick="PrimeFaces.monitorDownload(start, stop);" 
+                                     immediate="true" process="@this" update="@form" ajax="false">
+                        <p:fileDownload value="#{reporteMB.generarPdfMenosVendido()}"/>
+                    </p:commandButton>
+                    <p:commandButton value="Asignación vehículos" style="float: left; margin-left: 20px"
+                                     styleClass="button-16 b-greylight-16" icon="ui-icon-print"
+                                     onclick="PrimeFaces.monitorDownload(start, stop);" 
+                                     immediate="true" process="@this" update="@form" ajax="false">
+                        <p:fileDownload value="#{reporteMB.generarPdfMenosVendido()}"/>
+                    </p:commandButton>
                 </div>
+
+
+                <p:panelGrid  id="pg_info" styleClass="no-border" style="width: 90%; margin-left: 4%;">
+                    <p:row>
+                        <p:column >
+                            <p:outputLabel value="Fecha inicial:" styleClass="colorTitulo" />
+                        </p:column>
+                        <p:column >
+                            <p:outputLabel value="Fecha final:" styleClass="colorTitulo" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:calendar id="cal_fechasus" placeholder="(elige una fecha)" locale="es" timeZone="America/Guatemala" pattern="dd/MM/yyyy" mask ="true"                          
+                                        value="#{registroAccionesBean.fechaAcuerdo}" navigator="true" required="true" requiredMessage="Debe elegir una fecha de acuerdo">  
+                                <p:ajax event="dateSelect" />
+                            </p:calendar>
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="cal_fechasus" placeholder="(elige una fecha)" locale="es" timeZone="America/Guatemala" pattern="dd/MM/yyyy" mask ="true"                          
+                                        value="#{registroAccionesBean.fechaAcuerdo}" navigator="true" required="true" requiredMessage="Debe elegir una fecha de acuerdo">  
+                                <p:ajax event="dateSelect" />
+                            </p:calendar>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column >
+                            <p:outputLabel value="Primer Apellido:" styleClass="colorTitulo" />
+                        </p:column>
+                        <p:column >
+                            <p:outputLabel value="Segundo Apellido:" styleClass="colorTitulo" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel value="#{detalleColaboradorMB.colaborador.primerApellido}" style="font-size: 16px!important;"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="#{detalleColaboradorMB.colaborador.segundoApellido}" style="font-size: 16px!important;" >
+                            </p:outputLabel> 
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column >
+                            <p:outputLabel value="Teléfono:" styleClass="colorTitulo" />
+                        </p:column>
+                        <p:column >
+                            <p:outputLabel value="Dirección:" styleClass="colorTitulo" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel value="#{detalleColaboradorMB.colaborador.telefono}" style="font-size: 16px!important;"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="#{detalleColaboradorMB.colaborador.direccion}" style="font-size: 16px!important;">
+                            </p:outputLabel> 
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+
+                <p:outputLabel value="2. Información del usuario" 
+                               style="font-size: 16px !important; display: block; margin-top: 3%;  width: 100%; text-align: left;" />
+                <hr class="hr-mp" style="margin-bottom: 15px!important;"/>
+
+                <p:panelGrid id="pg_usuario" styleClass="no-border" style="width: 90%; margin-left: 4%;" >
+                    <p:row>
+                        <p:column >
+                            <p:outputLabel value="Usuario:" styleClass="colorTitulo" />
+                        </p:column>
+                        <p:column >
+                            <p:outputLabel value="Contraseña:" styleClass="colorTitulo" />
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel value="#{detalleColaboradorMB.usuario.usuario}" style="font-size: 16px!important;"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="#{detalleColaboradorMB.usuario.password}" style="font-size: 16px!important;">
+                            </p:outputLabel> 
+                        </p:column>
+                    </p:row>
+                </p:panelGrid> 
             </div>
         </h:form>
     </ui:define>

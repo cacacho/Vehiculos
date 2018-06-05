@@ -1,6 +1,5 @@
 package concesionario.vehiculos.umg.concesionario.bussines.ejb.impl;
 
-import concesionario.vehiculos.umg.concesionario.api.ejb.EmpleadoBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.ejb.LoginBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvColaborador;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvUsuarios;
@@ -286,6 +285,19 @@ public class LoginBean implements LoginBeanLocal {
         }
         // return new Response(lst.get(0), ResponseStatus.OK_QUERY);
         return lst.get(0);
+    }
+
+    @Override
+    public CvColaborador findIdColaborador(String usuario) {
+        List<CvUsuarios> lst = em.createQuery("SELECT usu FROM CvUsuarios usu WHERE usu.usuario =:usuario ", CvUsuarios.class)
+                .setParameter("usuario", usuario)
+                .getResultList();
+        
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+        // return new Response(lst.get(0), ResponseStatus.OK_QUERY);
+        return lst.get(0).getIdColaborador();
     }
     
 }

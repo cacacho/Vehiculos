@@ -38,7 +38,7 @@ public class ListaVentaMB implements Serializable {
     }
 
     public String verDetalle() {
-        return "detalle.xhtml?faces-redirect=true&idVenta=" + venta.getIdVenta();
+        return "/ventas/detalle.xhtml?faces-redirect=true&idVenta=" + venta.getIdVenta();
     }
 
 

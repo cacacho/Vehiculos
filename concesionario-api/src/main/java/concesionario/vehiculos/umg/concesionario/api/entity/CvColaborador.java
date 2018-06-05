@@ -117,6 +117,10 @@ public class CvColaborador implements Serializable {
     @OneToMany(mappedBy = "idColaborador", fetch = FetchType.LAZY)
     private List<CvVenta> cvVentaList;
 
+    @JoinColumn(name = "ID_CONCESIONARIO", referencedColumnName = "ID_CONCESIONARIO")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CvConcesionario idConcesionario;
+
     public CvColaborador() {
     }
 
@@ -242,6 +246,14 @@ public class CvColaborador implements Serializable {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    public CvConcesionario getIdConcesionario() {
+        return idConcesionario;
+    }
+
+    public void setIdConcesionario(CvConcesionario idConcesionario) {
+        this.idConcesionario = idConcesionario;
     }
 
     @XmlTransient

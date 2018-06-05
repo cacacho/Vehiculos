@@ -43,12 +43,6 @@ public class CvPedido implements Serializable {
     @Column(name = "ID_PEDIDO")
     private Integer idPedido;
 
-    @Column(name = "ID_PROVEEDOR")
-    private Integer idProveedor;
-
-    @Column(name = "CANTIDAD")
-    private Integer cantidad;
-
     @Column(name = "FECHA_ENTREGA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEntrega;
@@ -56,6 +50,15 @@ public class CvPedido implements Serializable {
     @Column(name = "FECHA_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
+
+    @Column(name = "ID_PROVEEDOR")
+    private Integer idProveedor;
+
+    @Column(name = "CANTIDAD")
+    private Integer cantidad;
+
+    @Column(name = "ACTIVO")
+    private boolean activo;
 
     @Size(max = 50)
     @Column(name = "USUARIO_CREACION")
@@ -68,9 +71,6 @@ public class CvPedido implements Serializable {
     @Size(max = 50)
     @Column(name = "USUARIO_ELIMINACION")
     private String usuarioEliminacion;
-
-    @Column(name = "ACTIVO")
-    private boolean activo;
 
     @JoinColumn(name = "ID_CONCESIONARIO", referencedColumnName = "ID_CONCESIONARIO")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -97,14 +97,6 @@ public class CvPedido implements Serializable {
 
     public void setIdPedido(Integer idPedido) {
         this.idPedido = idPedido;
-    }
-
-    public Integer getIdProveedor() {
-        return idProveedor;
-    }
-
-    public void setIdProveedor(Integer idProveedor) {
-        this.idProveedor = idProveedor;
     }
 
     public Date getFechaEntrega() {
@@ -147,12 +139,12 @@ public class CvPedido implements Serializable {
         this.usuarioEliminacion = usuarioEliminacion;
     }
 
-    public boolean getActivo() {
-        return activo;
+    public Integer getIdProveedor() {
+        return idProveedor;
     }
 
-    public void setActivo(boolean activo) {
-        this.activo = activo;
+    public void setIdProveedor(Integer idProveedor) {
+        this.idProveedor = idProveedor;
     }
 
     public Integer getCantidad() {
@@ -161,6 +153,14 @@ public class CvPedido implements Serializable {
 
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 
     public CvConcesionario getIdConcesionario() {

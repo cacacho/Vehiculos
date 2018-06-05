@@ -30,7 +30,7 @@
                 <p:dataTable id="dt_colaborador" var="ven" value="#{listaVentaMB.listVentas}" widgetVar="ven"
                              emptyMessage="No hay ventas registradas" 
                              styleClass="tabla-mp" style="width: 85%" rowIndexVar="rowId"
-                             rows="15" paginator="#{listaVentaMB.listVentas.size()>10}"  paginatorPosition="bottom">
+                             rows="10" paginator="#{listaVentaMB.listVentas.size()>10}"  paginatorPosition="bottom">
 
                     <p:column headerText="No." style="width: 5%;">
                         #{rowId+1}
@@ -44,8 +44,8 @@
                         <p:outputLabel value="#{ven.idColaborador.primerNombre} #{ven.idColaborador.primerApellido}"/>
                     </p:column>
 
-                    <p:column headerText="Tipo Sucursal" width="25%" >
-                        <p:outputLabel value="#{ven.idTipoSucursal.nombre}"/>
+                    <p:column headerText="Concesecionario" width="25%" >
+                        <p:outputLabel value="#{ven.idConcesionario.nombre}"/>
                     </p:column>
 
                     <p:column headerText="Cantidad" width="20%" >
@@ -64,7 +64,7 @@
 
                     <p:column width="9%" exportable="false" >
                         <p:commandLink value="Detalle" action="#{listaVentaMB.verDetalle}" title="Ver detalle de venta">
-                            <f:setPropertyActionListener value="#{venta}" target="#{listaVentaMB.venta}"/>                                
+                            <f:setPropertyActionListener value="#{ven}" target="#{listaVentaMB.venta}"/>                                
                         </p:commandLink>
 
                     </p:column>

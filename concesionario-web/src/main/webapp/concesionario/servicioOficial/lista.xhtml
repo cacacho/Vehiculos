@@ -30,7 +30,7 @@
                 <p:dataTable id="dt_colaborador" var="servicio" value="#{listaServicioOficialMB.listaServicioOficial}" widgetVar="servicio"
                              emptyMessage="No hay servicio oficial registrados" 
                              styleClass="tabla-mp" style="width: 85%" rowIndexVar="rowId"
-                             rows="15" paginator="#{listaServicioOficialMB.listaServicioOficial.size()>10}"  paginatorPosition="bottom">
+                             rows="10" paginator="#{listaServicioOficialMB.listaServicioOficial.size()>10}"  paginatorPosition="bottom">
 
                     <p:column headerText="No." style="width: 5%;">
                         #{rowId+1}

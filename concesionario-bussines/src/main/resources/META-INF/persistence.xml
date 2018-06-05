@@ -14,12 +14,13 @@
     <class>concesionario.vehiculos.umg.concesionario.api.entity.CvTipoColaborador</class>
     <class>concesionario.vehiculos.umg.concesionario.api.entity.CvTipoPago</class>
     <class>concesionario.vehiculos.umg.concesionario.api.entity.CvTipoPedido</class>
-    <class>concesionario.vehiculos.umg.concesionario.api.entity.CvTipoSucursal</class>
     <class>concesionario.vehiculos.umg.concesionario.api.entity.CvTipoVehiculo</class>
     <class>concesionario.vehiculos.umg.concesionario.api.entity.CvUsuarios</class>
     <class>concesionario.vehiculos.umg.concesionario.api.entity.CvVehiculo</class>
     <class>concesionario.vehiculos.umg.concesionario.api.entity.CvVenta</class>
     <class>concesionario.vehiculos.umg.concesionario.api.entity.CvTraspasoVehiculo</class>
+    <class>concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionarioProveedor</class>
+    <class>concesionario.vehiculos.umg.concesionario.api.entity.CvVentaVehiculo</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <properties>
