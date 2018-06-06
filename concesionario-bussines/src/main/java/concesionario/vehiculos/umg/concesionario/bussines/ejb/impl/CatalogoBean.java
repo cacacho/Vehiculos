@@ -2,6 +2,7 @@ package concesionario.vehiculos.umg.concesionario.bussines.ejb.impl;
 
 import concesionario.vehiculos.umg.concesionario.api.ejb.CatalogoBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionario;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionarioProveedor;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvMarca;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvProveedor;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoColaborador;
@@ -95,6 +96,23 @@ public class CatalogoBean implements CatalogoBeanLocal {
         }
         // return new Response(lst.get(0), ResponseStatus.OK_QUERY);
         return lst;
+    }
+
+    @Override
+    public CvConcesionarioProveedor findConcesionarioProveedor(Integer idConcesionario) {
+       if (idConcesionario == null) {
+           return null;
+        }
+
+        List<CvConcesionarioProveedor> lst = em.createQuery("SELECT conce FROM CvConcesionarioProveedor conce WHERE conce.idConcesionario.idConcesionario =:idConcesionario", CvConcesionarioProveedor.class)
+                .setParameter("idConcesionario", idConcesionario)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            //return new Response(ResponseStatus.ERROR_NO_DATA, String.format("No se encontró información relacionada con el puesto"));
+        }
+        // return new Response(lst.get(0), ResponseStatus.OK_QUERY);
+        return lst.get(0);
     }
 
 }

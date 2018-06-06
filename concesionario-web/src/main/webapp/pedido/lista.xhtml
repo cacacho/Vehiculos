@@ -8,63 +8,55 @@
                 template="/templates/template.xhtml">
 
     <ui:define name="pageTitle">
-        Consulta de Colaboradores
+        Consulta de Pedidos
     </ui:define>
 
     <ui:define name="content">
         <f:metadata>
-            <f:event type="preRenderView" listener="#{listaColaboradoresMB.cargarDatos()}" />
+            <f:event type="preRenderView" listener="#{listaPedidoMB.cargarDatos()}" />
         </f:metadata>
         <h:form id="frm_content">
             <div align="center">
                 <ui:define name="pageTitle">
-                    <h1 style="margin: 0 0 0 0;">Consulta de Colaboradores</h1>            
+                    <h1 style="margin: 0 0 0 0;">Consulta de Pedidos</h1>            
                 </ui:define>
                 <br />
 
-                <div>
-                    <p:commandButton value="Agregar Colaborador" style="float:left!important; margin-left:7.5% !important; margin-top: -15px!important;" styleClass="button-16 b-greylight-16" icon="ui-icon-plus" 
-                                     action="#{listaColaboradoresMB.linkRegistro()}" update="@all"/>
-                </div>
                 <br />
-                <p:dataTable id="dt_colaborador" var="col" value="#{listaColaboradoresMB.listColaboradores}" widgetVar="asuetos"
+                <p:dataTable id="dt_colaborador" var="pedido" value="#{listaPedidoMB.listPedido}" widgetVar="pedido"
                              emptyMessage="No hay colaboradores registrados" 
                              styleClass="tabla-mp" style="width: 85%" rowIndexVar="rowId"
-                             rows="10" paginator="#{listaColaboradoresMB.listColaboradores.size()>10}"  paginatorPosition="bottom">
+                             rows="10" paginator="#{listaPedidoMB.listPedido.size()>10}"  paginatorPosition="bottom">
 
                     <p:column headerText="No." style="width: 5%;">
                         #{rowId+1}
                     </p:column>
 
-                    <p:column headerText="Primer Nombre" width="25%" >
-                        <p:outputLabel value="#{col.primerNombre}"/>
-                    </p:column>
-
-                    <p:column headerText="Primer Apellido" width="25%" >
-                        <p:outputLabel value="#{col.primerApellido}"/>
-                    </p:column>
-
-                    <p:column headerText="Segundo Apellido" width="25%" >
-                        <p:outputLabel value="#{col.segundoApellido}"/>
-                    </p:column>
-
-                    <p:column headerText="Dirección" width="20%" >
-                        <p:outputLabel value="#{col.direccion}"/>
-                    </p:column>
-
-                    <p:column headerText="Teléfono" width="15%" >
-                        <p:outputLabel value="#{col.telefono}"/>
-                    </p:column>
-
-                    <p:column headerText="Fecha de Inicio" width="17%" >
-                        <p:outputLabel value="#{col.fechaCreacion}">
+                    <p:column headerText="Fecha entrega" width="25%" >
+                        <p:outputLabel value="#{pedido.fechaEntrega}">
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:outputLabel>
                     </p:column>
 
+                    <p:column headerText="Fabrica" width="25%" >
+                        <p:outputLabel value="#{pedido.idProveedor.nombre}"/>
+                    </p:column>
+
+                    <p:column headerText="Tipo pedido" width="25%" >
+                        <p:outputLabel value="#{pedido.idTipoPedido.nombre}"/>
+                    </p:column>
+
+                    <p:column headerText="Concesionario" width="25%" >
+                        <p:outputLabel value="#{pedido.idConcesionario.nombre}"/>
+                    </p:column>
+
+                    <p:column headerText="Cantidad" width="25%" >
+                        <p:outputLabel value="#{pedido.cantidad}"/>
+                    </p:column>
+
                     <p:column width="9%" exportable="false" >
-                        <p:commandLink value="Detalle" action="#{listaColaboradoresMB.verDetalle}" title="Ver detalle de Colaborador">
-                            <f:setPropertyActionListener value="#{col}" target="#{listaColaboradoresMB.selectedColaborador}"/>                                
+                        <p:commandLink value="Detalle" action="#{listaPedidoMB.verDetalle}" title="Ver detalle del pedido">
+                            <f:setPropertyActionListener value="#{pedido}" target="#{listaPedidoMB.pedido}"/>                                
                         </p:commandLink>
 
                     </p:column>

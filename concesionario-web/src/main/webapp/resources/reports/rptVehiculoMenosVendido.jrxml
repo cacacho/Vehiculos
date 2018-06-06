@@ -253,7 +253,7 @@ ORDER BY SUM(venta.CANTIDAD) ASC]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Helvetica-Light"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<text><![CDATA[Generación:]]></text>
 			</staticText>

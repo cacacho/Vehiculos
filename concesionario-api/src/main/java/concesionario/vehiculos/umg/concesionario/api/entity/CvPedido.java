@@ -51,9 +51,6 @@ public class CvPedido implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
 
-    @Column(name = "ID_PROVEEDOR")
-    private Integer idProveedor;
-
     @Column(name = "CANTIDAD")
     private Integer cantidad;
 
@@ -83,6 +80,10 @@ public class CvPedido implements Serializable {
     @JoinColumn(name = "ID_VENTA", referencedColumnName = "ID_VENTA")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvVenta idVenta;
+
+    @JoinColumn(name = "ID_PROVEEDOR", referencedColumnName = "ID_PROVEEDOR")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CvProveedor idProveedor;
 
     public CvPedido() {
     }
@@ -139,11 +140,11 @@ public class CvPedido implements Serializable {
         this.usuarioEliminacion = usuarioEliminacion;
     }
 
-    public Integer getIdProveedor() {
+    public CvProveedor getIdProveedor() {
         return idProveedor;
     }
 
-    public void setIdProveedor(Integer idProveedor) {
+    public void setIdProveedor(CvProveedor idProveedor) {
         this.idProveedor = idProveedor;
     }
 

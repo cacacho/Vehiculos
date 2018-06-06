@@ -42,20 +42,13 @@
                         <p:outputLabel value="#{asig.idConcesionarioNuevo != nul ? asig.idConcesionarioNuevo.nombre : asig.idConcesionarioActual.nombre}"/>
                     </p:column>
 
-                    <p:column headerText="Vehiculo" width="25%" >
+                    <p:column headerText="Vehiculo" width="25%" filterBy="#{asig.idVehiculo.idMarca.nombre}" sortBy="#{asig.idVehiculo.idMarca.nombre}" filterMatchMode="contains" 
+                          filterStyle="width:100%">
                         <p:outputLabel value="- #{asig.idVehiculo.idMarca.nombre}"/>
                         <br />
                         <p:outputLabel value="- #{asig.idVehiculo.modelo}"/>
                         <br />
                         <p:outputLabel value="- #{asig.idVehiculo.color}"/>
-                    </p:column>
-
-
-                    <p:column width="9%" exportable="false" >
-                        <p:commandLink value="Detalle" action="#{listaAsignacionMB.verDetalle}" title="Ver detalle de Asignación">
-                            <f:setPropertyActionListener value="#{asig}" target="#{listaAsignacionMB.selectedAsignacionVehiculo}"/>                                
-                        </p:commandLink>
-
                     </p:column>
 
                 </p:dataTable>

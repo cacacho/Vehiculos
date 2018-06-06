@@ -71,7 +71,9 @@
 
                 <p:row>
                     <p:column>
-                        <p:outputLabel value="#{detalleVentaMB.venta.fechaCreacion}" style="font-size: 16px!important;"/>
+                        <p:outputLabel value="#{detalleVentaMB.venta.fechaCreacion}" style="font-size: 16px!important;">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:outputLabel>
                     </p:column>
                     <p:column>
                         <p:outputLabel value="#{detalleVentaMB.venta.idColaborador.primerNombre}" style="font-size: 16px!important; "/> 

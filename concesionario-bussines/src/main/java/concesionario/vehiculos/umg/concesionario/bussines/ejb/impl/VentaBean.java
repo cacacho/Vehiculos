@@ -70,7 +70,7 @@ public class VentaBean implements VentaBeanLocal {
 
     @Override
     public List<CvVenta> ListaVentas() {
-        List<CvVenta> lst = em.createQuery("SELECT venta FROM CvVenta venta WHERE venta.activo = true", CvVenta.class)
+        List<CvVenta> lst = em.createQuery("SELECT venta FROM CvVenta venta WHERE venta.activo = true order by venta.fechaCreacion desc", CvVenta.class)
                 .getResultList();
 
         if (lst == null || lst.isEmpty()) {
@@ -163,7 +163,27 @@ public class VentaBean implements VentaBeanLocal {
 
     @Override
     public List<CvPedido> ListaPedidos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       List<CvPedido> lst = em.createQuery("SELECT pedido FROM CvPedido pedido WHERE  pedido.activo = true order by pedido.fechaCreacion", CvPedido.class)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst;
+    }
+
+    @Override
+    public CvPedido findPedido(Integer idPedido) {
+          List<CvPedido> lst = em.createQuery("SELECT pedido FROM CvPedido pedido WHERE pedido.idPedido =:idPedido and pedido.activo = true", CvPedido.class)
+                .setParameter("idPedido", idPedido)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst.get(0);
     }
 
 }

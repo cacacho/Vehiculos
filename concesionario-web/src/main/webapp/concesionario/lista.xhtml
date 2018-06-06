@@ -37,7 +37,8 @@
                         #{rowId+1}
                     </p:column>
                     
-                    <p:column headerText="Nombre" width="25%" >
+                    <p:column headerText="Nombre" width="25%"  filterBy="#{conce.nombre}" sortBy="#{conce.nombre}" filterMatchMode="contains" 
+                          filterStyle="width:100%" >
                         <p:outputLabel value="#{conce.nombre}"/>
                     </p:column>
 

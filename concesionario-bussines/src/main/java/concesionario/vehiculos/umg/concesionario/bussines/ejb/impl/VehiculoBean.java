@@ -51,7 +51,7 @@ public class VehiculoBean implements VehiculoBeanLocal {
 
     @Override
     public List<CvVehiculo> ListaVehiculos() {
-        List<CvVehiculo> lst = em.createQuery("SELECT vehi FROM CvVehiculo vehi WHERE vehi.activo = true", CvVehiculo.class)
+        List<CvVehiculo> lst = em.createQuery("SELECT vehi FROM CvVehiculo vehi WHERE vehi.activo = true order by vehi.fechaCreacion desc", CvVehiculo.class)
                 .getResultList();
 
         if (lst == null || lst.isEmpty()) {

@@ -131,7 +131,7 @@ public class ConcesionarioBean implements ConcesionarioBeanLocal {
 
     @Override
     public List<CvServicioOficial> ListaServiciosOficiales() {
-        List<CvServicioOficial> lst = em.createQuery("SELECT oficial FROM CvServicioOficial oficial WHERE oficial.activo = true", CvServicioOficial.class)
+        List<CvServicioOficial> lst = em.createQuery("SELECT oficial FROM CvServicioOficial oficial WHERE oficial.activo = true order by oficial.fechaCreacion desc", CvServicioOficial.class)
                 .getResultList();
 
         if (lst == null || lst.isEmpty()) {
@@ -321,7 +321,7 @@ public class ConcesionarioBean implements ConcesionarioBeanLocal {
 
     @Override
     public List<CvTraspasoVehiculo> listAsignacionVehiculo() {
-        List<CvTraspasoVehiculo> lst = em.createQuery("SELECT tras FROM CvTraspasoVehiculo tras", CvTraspasoVehiculo.class)
+        List<CvTraspasoVehiculo> lst = em.createQuery("SELECT tras FROM CvTraspasoVehiculo tras order by tras.fechaCreacion desc", CvTraspasoVehiculo.class)
                 .getResultList();
 
         if (lst == null || lst.isEmpty()) {

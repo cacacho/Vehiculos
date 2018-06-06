@@ -53,7 +53,7 @@ public class ReporteMB implements Serializable {
         return null;
     }
 
-      public StreamedContent generarPdfMenosVendido() {
+    public StreamedContent generarPdfMenosVendido() {
         try {
             ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
             String realPath = servletContext.getRealPath("/");
@@ -74,6 +74,49 @@ public class ReporteMB implements Serializable {
         }
         return null;
     }
+
+    public StreamedContent generarPdfNuevosVehiculos() {
+        try {
+            ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+            String realPath = servletContext.getRealPath("/");
+            String nombreReporte = "rptNuevos";
+            String nombreArchivo = "Nuevos_vehiculos.pdf";
+            HashMap parametros = new HashMap();
+            parametros.put("IMAGE", "umg.png");
+            parametros.put("DIRECTORIO", realPath + File.separator + "resources" + File.separator + "images" + File.separator);
+            parametros.put("USUARIO", LoginMB.usuario);
+            ReporteJasper reporteJasper = JasperUtil.jasperReportPDF(nombreReporte, nombreArchivo, parametros, dataSource);
+            StreamedContent streamedContent;
+            FileInputStream stream = new FileInputStream(realPath + "resources/reports/" + reporteJasper.getFileName());
+            streamedContent = new DefaultStreamedContent(stream, "application/pdf", reporteJasper.getFileName());
+            return streamedContent;
+        } catch (Exception ex) {
+            log.error(ex);
+            JsfUtil.addErrorMessage("Ocurrio un error al generar el pdf del reporte");
+        }
+        return null;
+    }
     
-    
+    public StreamedContent generarPdfAsignacion() {
+        try {
+            ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+            String realPath = servletContext.getRealPath("/");
+            String nombreReporte = "AsignacionVehiculo";
+            String nombreArchivo = "Asignacion_vehiculos.pdf";
+            HashMap parametros = new HashMap();
+            parametros.put("IMAGE", "umg.png");
+            parametros.put("DIRECTORIO", realPath + File.separator + "resources" + File.separator + "images" + File.separator);
+            parametros.put("USUARIO", LoginMB.usuario);
+            ReporteJasper reporteJasper = JasperUtil.jasperReportPDF(nombreReporte, nombreArchivo, parametros, dataSource);
+            StreamedContent streamedContent;
+            FileInputStream stream = new FileInputStream(realPath + "resources/reports/" + reporteJasper.getFileName());
+            streamedContent = new DefaultStreamedContent(stream, "application/pdf", reporteJasper.getFileName());
+            return streamedContent;
+        } catch (Exception ex) {
+            log.error(ex);
+            JsfUtil.addErrorMessage("Ocurrio un error al generar el pdf del reporte");
+        }
+        return null;
+    }
+
 }

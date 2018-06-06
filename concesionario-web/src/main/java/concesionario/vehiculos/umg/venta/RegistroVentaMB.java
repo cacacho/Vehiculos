@@ -6,6 +6,7 @@ import concesionario.vehiculos.umg.concesionario.api.ejb.VehiculoBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.ejb.VentaBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvCliente;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvColaborador;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionarioProveedor;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvExtraVehiculo;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvPedido;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvTipoPago;
@@ -64,13 +65,13 @@ public class RegistroVentaMB implements Serializable {
     private List<CvExtraVehiculo> listExtraVehiculo;
     private List<CvExtraVehiculo> selectedListExtraVehiculo;
     private Integer totalExtras;
-    private List<CvVentaVehiculo> listVentaVehiculo;
+    private CvPedido pedidoConcesionario;
 
     public RegistroVentaMB() {
         listVenta = new ArrayList<>();
         cliente = new CvCliente();
         clienteNuevo = new CvCliente();
-        listVentaVehiculo = new ArrayList<>();
+        pedidoConcesionario = new CvPedido();
     }
 
     @PostConstruct
@@ -250,16 +251,15 @@ public class RegistroVentaMB implements Serializable {
 
             vehiculoBeanLocal.actualizarStockVehiculo(venta.getIdVehiculo().getIdVehiculo(), 0);
             ventaBeanLocal.savePedido(pedido);
-            CvPedido pedidoConcesionario = new CvPedido();
             pedidoConcesionario.setFechaEntrega(fechaHoy);
             pedidoConcesionario.setCantidad(totalPedidoPositivo);
-            ventaBeanLocal.savePedido(pedidoConcesionario);
 
         } else {
+            tipoPedido = ventaBeanLocal.findTipoPedido(TipoPedidoEnum.CONCESIONARIO.getValue());
             pedido.setFechaEntrega(fechaHoy);
             pedido.setCantidad(totalPedido);
+            pedido.setIdTipoPedido(tipoPedido);
             vehiculoBeanLocal.actualizarStockVehiculo(venta.getIdVehiculo().getIdVehiculo(), totalPedido);
-            ventaBeanLocal.savePedido(pedido);
         }
         listVenta.set(0, venta);
     }
@@ -274,6 +274,11 @@ public class RegistroVentaMB implements Serializable {
 
     public void guardarVenta() {
         CvVenta vent = new CvVenta();
+        if (listVenta == null) {
+            JsfUtil.addErrorMessage("Debe selecciona un vehículo");
+            return;
+        }
+
         for (CvVenta v : listVenta) {
             v.setUsuarioCreacion(LoginMB.usuario);
             CvColaborador cola = loginBeanLocal.findIdColaborador(LoginMB.usuario);
@@ -283,6 +288,11 @@ public class RegistroVentaMB implements Serializable {
         }
 
         if (vent.getIdVehiculo() != null) {
+            CvConcesionarioProveedor concePro = catalogoBean.findConcesionarioProveedor(vent.getIdConcesionario().getIdConcesionario());
+            pedidoConcesionario.setIdConcesionario(vent.getIdConcesionario());
+            pedidoConcesionario.setIdVenta(vent);
+            pedidoConcesionario.setIdProveedor(concePro.getIdProveedor());
+            ventaBeanLocal.savePedido(pedidoConcesionario);
             JsfUtil.addSuccessMessage("Registro agregado correctamente");
             limpiarDatos();
         } else {

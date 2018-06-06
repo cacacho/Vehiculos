@@ -52,7 +52,7 @@ public class ColaboradorBean implements EmpleadoBeanLocal {
     @Override
     public List<CvColaborador> ListaColaboradores() {
 
-        List<CvColaborador> lst = em.createQuery("SELECT col FROM CvColaborador col WHERE col.activo = true", CvColaborador.class)
+        List<CvColaborador> lst = em.createQuery("SELECT col FROM CvColaborador col WHERE col.activo = true  order by col.fechaCreacion desc", CvColaborador.class)
                 .getResultList();
 
         if (lst == null || lst.isEmpty()) {

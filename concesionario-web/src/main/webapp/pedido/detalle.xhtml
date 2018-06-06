@@ -9,12 +9,12 @@
                 xmlns:shiro="http://shiro.apache.org/tags">
 
     <f:metadata>
-        <f:viewParam name="idColaborador" value="#{detalleColaboradorMB.idColaborador}"/>
-        <f:event type="preRenderView" listener="#{detalleColaboradorMB.cargarDatos()}"/>
+        <f:viewParam name="idPedido" value="#{detallePedidoMB.idPedido}"/>
+        <f:event type="preRenderView" listener="#{detallePedidoMB.cargarDatos()}"/>
     </f:metadata>
 
     <ui:define name="pageTitle">
-        Detalle del Colaborador
+        Detalle del Pedido
     </ui:define>
 
     <ui:define name="content">
@@ -23,15 +23,10 @@
             <table style="width: 100%; margin-top: 23px;">
                 <tr>
                     <td style="width: 50%;">
-                        <p:outputLabel value="1. Información del Colaborador" 
+                        <p:outputLabel value="1. Información del pedido" 
                                        style="font-size: 16px !important; display: block; width: 100%; text-align: left;" />
                     </td>
-                    <td style="width: 50%;vertical-align: bottom;text-align: right!important;font-size: 13px;">
-                        <p:link value="Editar" outcome="editar.xhtml" styleClass="links" style="vertical-align: bottom!important; float: right; ">
-                            <f:param name="idColaborador" value="#{detalleColaboradorMB.idColaborador}"/>
-                        </p:link>
-                    </td>
-
+                   
                     <td style="width: 50%;vertical-align: bottom;text-align: left!important;font-size: 13px;">
                         <p:link value="Regresar" outcome="lista.xhtml" styleClass="links" style="vertical-align: bottom!important; float: right; "/>
                     </td>
