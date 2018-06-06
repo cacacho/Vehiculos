@@ -17,7 +17,9 @@ concesionario\vehiculos\umg\concesionario\DetalleProveedorMB.class
 concesionario\vehiculos\umg\login\LoginMB.class
 concesionario\vehiculos\umg\venta\ListaVentaMB.class
 concesionario\vehiculos\umg\concesionario\EdicionProveedorMB.class
+concesionario\vehiculos\umg\venta\ListaPedidoMB.class
 concesionario\vehiculos\umg\concesionario\ListaConcesionarioMB.class
+concesionario\vehiculos\umg\venta\DetallePedidoMB.class
 concesionario\vehiculos\umg\vehiculo\RegistroVehiculoMB.class
 concesionario\vehiculos\umg\reporte\ReporteMB.class
 concesionario\vehiculos\umg\concesionario\RegistroAsignacionMB.class

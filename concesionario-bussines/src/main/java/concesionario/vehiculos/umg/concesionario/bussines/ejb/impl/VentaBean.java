@@ -70,7 +70,7 @@ public class VentaBean implements VentaBeanLocal {
 
     @Override
     public List<CvVenta> ListaVentas() {
-        List<CvVenta> lst = em.createQuery("SELECT venta FROM CvVenta venta WHERE venta.activo = true order by venta.fechaCreacion desc", CvVenta.class)
+        List<CvVenta> lst = em.createQuery("SELECT venta FROM CvVenta venta WHERE venta.activo = true ORDER BY venta.fechaCreacion DESC", CvVenta.class)
                 .getResultList();
 
         if (lst == null || lst.isEmpty()) {
@@ -163,7 +163,7 @@ public class VentaBean implements VentaBeanLocal {
 
     @Override
     public List<CvPedido> ListaPedidos() {
-       List<CvPedido> lst = em.createQuery("SELECT pedido FROM CvPedido pedido WHERE  pedido.activo = true order by pedido.fechaCreacion", CvPedido.class)
+       List<CvPedido> lst = em.createQuery("SELECT pedido FROM CvPedido pedido WHERE  pedido.activo = true order by pedido.fechaCreacion DESC", CvPedido.class)
                 .getResultList();
 
         if (lst == null || lst.isEmpty()) {

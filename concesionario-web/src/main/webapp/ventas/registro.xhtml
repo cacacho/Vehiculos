@@ -357,7 +357,7 @@
                             <p:outputLabel value="#{ven.cantidad}"/>
                         </f:facet>
                         <f:facet name="input">     
-                            <p:inputText value="#{ven.cantidad}"  style=" font-weight: bold;"/>
+                            <p:inputText value="#{ven.cantidad}"  style="width: 40%; font-weight: bold;"/>
                         </f:facet>
                     </p:cellEditor>                                         
                 </p:column>
@@ -368,7 +368,7 @@
                             <p:outputLabel value="#{ven.idTipoPago.nombre}"/>
                         </f:facet>
                         <f:facet name="input">     
-                            <h:selectOneMenu id="tipoVenta"  value="#{ven.idTipoPago}" style="width: 122px;"
+                            <h:selectOneMenu id="tipoVenta"  value="#{ven.idTipoPago}" style="width: 122px; margin-left:15px;"
                                              converter="entityConverter" 
                                              required="true" requiredMessage="Debe seleccionar un tipo de pago">
                                 <f:selectItem itemLabel="Seleccione un tipo de pago" value="#{null}" noSelectionOption="true"/>

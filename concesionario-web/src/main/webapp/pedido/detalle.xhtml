@@ -38,87 +38,60 @@
             <p:panelGrid  id="pg_info" styleClass="no-border" style="width: 90%; margin-left: 4%;">
                 <p:row>
                     <p:column >
-                        <p:outputLabel value="Primer Nombre:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Fecha de entrega:" styleClass="colorTitulo" />
                     </p:column>
                     <p:column >
-                        <p:outputLabel value="Segundo Nombre:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Fabrica:" styleClass="colorTitulo" />
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.primerNombre}" style="font-size: 16px!important;"/>
+                        <p:outputLabel value="#{detallePedidoMB.pedido.fechaEntrega}" style="font-size: 16px!important;">
+                         <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:outputLabel>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.segundoNombre}" style="font-size: 16px!important;">
+                        <p:outputLabel value="#{detallePedidoMB.pedido.idProveedor.nombre}" style="font-size: 16px!important;"/>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column >
+                        <p:outputLabel value="Tipo pedido:" styleClass="colorTitulo" />
+                    </p:column>
+                    <p:column >
+                        <p:outputLabel value="Concesionario:" styleClass="colorTitulo" />
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="#{detallePedidoMB.pedido.idTipoPedido.nombre}" style="font-size: 16px!important;"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{detallePedidoMB.pedido.idConcesionario.nombre}" style="font-size: 16px!important;" >
                         </p:outputLabel> 
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column >
-                        <p:outputLabel value="Primer Apellido:" styleClass="colorTitulo" />
+                        <p:outputLabel value="Cantidad:" styleClass="colorTitulo" />
                     </p:column>
                     <p:column >
-                        <p:outputLabel value="Segundo Apellido:" styleClass="colorTitulo" />
+                        <p:outputLabel value="" styleClass="colorTitulo" />
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.primerApellido}" style="font-size: 16px!important;"/>
+                        <p:outputLabel value="#{detallePedidoMB.pedido.cantidad}" style="font-size: 16px!important;"/>
                     </p:column>
-                    <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.segundoApellido}" style="font-size: 16px!important;" >
-                        </p:outputLabel> 
-                    </p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column >
-                        <p:outputLabel value="Teléfono:" styleClass="colorTitulo" />
-                    </p:column>
-                    <p:column >
-                        <p:outputLabel value="Dirección:" styleClass="colorTitulo" />
-                    </p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.telefono}" style="font-size: 16px!important;"/>
-                    </p:column>
-                    <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.colaborador.direccion}" style="font-size: 16px!important;">
-                        </p:outputLabel> 
-                    </p:column>
+                   
                 </p:row>
 
             </p:panelGrid>
-
-            <p:outputLabel value="2. Información del usuario" 
-                           style="font-size: 16px !important; display: block; margin-top: 3%;  width: 100%; text-align: left;" />
-            <hr class="hr-mp" style="margin-bottom: 15px!important;"/>
-
-            <p:panelGrid id="pg_usuario" styleClass="no-border" style="width: 90%; margin-left: 4%;" >
-                <p:row>
-                    <p:column >
-                        <p:outputLabel value="Usuario:" styleClass="colorTitulo" />
-                    </p:column>
-                    <p:column >
-                        <p:outputLabel value="Contraseña:" styleClass="colorTitulo" />
-                    </p:column>
-                </p:row>
-
-                <p:row>
-                    <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.usuario.usuario}" style="font-size: 16px!important;"/>
-                    </p:column>
-                    <p:column>
-                        <p:outputLabel value="#{detalleColaboradorMB.usuario.password}" style="font-size: 16px!important;">
-                        </p:outputLabel> 
-                    </p:column>
-                </p:row>
-            </p:panelGrid> 
 
         </h:form>
     </ui:define>

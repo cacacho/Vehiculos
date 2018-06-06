@@ -75,12 +75,12 @@ public class ReporteMB implements Serializable {
         return null;
     }
 
-    public StreamedContent generarPdfNuevosVehiculos() {
+    public StreamedContent generarPdfNuevos() {
         try {
             ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
             String realPath = servletContext.getRealPath("/");
-            String nombreReporte = "rptNuevos";
-            String nombreArchivo = "Nuevos_vehiculos.pdf";
+            String nombreReporte = "rptVehiculoNuevo";
+            String nombreArchivo = "Nuevosvehiculos.pdf";
             HashMap parametros = new HashMap();
             parametros.put("IMAGE", "umg.png");
             parametros.put("DIRECTORIO", realPath + File.separator + "resources" + File.separator + "images" + File.separator);

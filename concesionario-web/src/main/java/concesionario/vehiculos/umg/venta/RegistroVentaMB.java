@@ -224,7 +224,6 @@ public class RegistroVentaMB implements Serializable {
         Integer totalCantindad = 0;
         Integer totalPedido = 0;
         Integer totalPedidoPositivo = 0;
-        CvPedido pedido = new CvPedido();
         Date fechaHoy = new Date();
         CvTipoPedido tipoPedido = new CvTipoPedido();
 
@@ -241,24 +240,22 @@ public class RegistroVentaMB implements Serializable {
             Calendar calFechaEntrega = Calendar.getInstance();
             calFechaEntrega.setTime(fechaHoy);
             calFechaEntrega.add(Calendar.MONTH, 1);
-            pedido.setFechaEntrega(calFechaEntrega.getTime());
+            pedidoConcesionario.setFechaEntrega(calFechaEntrega.getTime());
 
             totalPedidoPositivo = venta.getCantidad() - totalPedido;
             totalPedido = totalPedido * -1;
-            pedido.setCantidad(totalPedido);
+            pedidoConcesionario.setCantidad(totalPedido);
             tipoPedido = ventaBeanLocal.findTipoPedido(TipoPedidoEnum.FABRICA.getValue());
-            pedido.setIdTipoPedido(tipoPedido);
-
+            pedidoConcesionario.setIdTipoPedido(tipoPedido);
             vehiculoBeanLocal.actualizarStockVehiculo(venta.getIdVehiculo().getIdVehiculo(), 0);
-            ventaBeanLocal.savePedido(pedido);
             pedidoConcesionario.setFechaEntrega(fechaHoy);
             pedidoConcesionario.setCantidad(totalPedidoPositivo);
 
         } else {
             tipoPedido = ventaBeanLocal.findTipoPedido(TipoPedidoEnum.CONCESIONARIO.getValue());
-            pedido.setFechaEntrega(fechaHoy);
-            pedido.setCantidad(totalPedido);
-            pedido.setIdTipoPedido(tipoPedido);
+            pedidoConcesionario.setFechaEntrega(fechaHoy);
+            pedidoConcesionario.setCantidad(totalPedido);
+            pedidoConcesionario.setIdTipoPedido(tipoPedido);
             vehiculoBeanLocal.actualizarStockVehiculo(venta.getIdVehiculo().getIdVehiculo(), totalPedido);
         }
         listVenta.set(0, venta);
