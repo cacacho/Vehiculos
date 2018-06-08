@@ -85,7 +85,7 @@
 
                 <p:row>
                     <p:column>
-                        <h:selectOneMenu id="marca"  value="#{registroConcesionarioMB.concesionario.idProveedor}" style="width: 342px;"
+                        <h:selectOneMenu id="marca"  value="#{registroConcesionarioMB.proveedor.idProveedor}" style="width: 342px;"
                                          converter="entityConverter" >
                             <f:selectItem itemLabel="Seleccione una marca" value="#{null}" noSelectionOption="true"/>
                             <f:selectItems value="#{registroConcesionarioMB.listProveedor}" var="prove" 
