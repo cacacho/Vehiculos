@@ -75,6 +75,7 @@ public class DetalleVehiculoMB implements Serializable {
 
             if (tras.getIdVehiculo() != null) {
                 actualizaConceVehiculo(vehiculo.getIdVehiculo());
+                JsfUtil.addSuccessMessage("Se actualizo las asignación correctamente");
             } else {
                 JsfUtil.addErrorMessage("Sucedio un error inesperado");
             }

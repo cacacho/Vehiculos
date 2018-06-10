@@ -3,7 +3,6 @@ package concesionario.vehiculos.umg.concesionario.api.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,7 +17,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -69,6 +67,9 @@ public class CvVehiculo implements Serializable {
     @Column(name = "MOTOR")
     private String motor;
 
+    @Column(name = "CILINDROS")
+    private String cilindro;
+
     @Size(max = 15)
     @Column(name = "COLOR")
     private String color;
@@ -78,6 +79,15 @@ public class CvVehiculo implements Serializable {
 
     @Column(name = "ESTANDAR")
     private boolean estandar;
+
+    @Column(name = "BOLSAS_AIRE")
+    private boolean bolsaAire;
+
+    @Column(name = "CERRADURA_CENTRALIZADA")
+    private boolean cerraduraCentralizada;
+
+    @Column(name = "DESCUENTO")
+    private boolean descuento;
 
     @Column(name = "STOCK")
     private Integer stock;
@@ -100,25 +110,25 @@ public class CvVehiculo implements Serializable {
 
     @Column(name = "ACTIVO")
     private boolean activo;
-    
+
     @OneToMany(mappedBy = "idVehiculo", fetch = FetchType.LAZY)
     private List<CvDetalleExtraVehiculo> cvDetalleExtraVehiculoList;
-    
+
     @JoinColumn(name = "ID_CONCESIONARIO", referencedColumnName = "ID_CONCESIONARIO")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvConcesionario idConcesionario;
-    
+
     @JoinColumn(name = "ID_MARCA", referencedColumnName = "ID_MARCA")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvMarca idMarca;
-    
+
     @JoinColumn(name = "ID_TIPO_VEHICULO", referencedColumnName = "ID_TIPO_VEHICULO")
     @ManyToOne(fetch = FetchType.LAZY)
     private CvTipoVehiculo idTipoVehiculo;
-    
+
     @OneToMany(mappedBy = "idVehiculo", fetch = FetchType.LAZY)
     private List<CvTraspasoVehiculo> cvTraspasoVehiculoList;
-    
+
     @OneToMany(mappedBy = "idVehiculo", fetch = FetchType.LAZY)
     private List<CvVenta> cvVentaList;
 
@@ -315,6 +325,38 @@ public class CvVehiculo implements Serializable {
     @Override
     public String toString() {
         return "concesionario.vehiculos.umg.concesionario.api.entity.CvVehiculo[ idVehiculo=" + idVehiculo + " ]";
+    }
+
+    public String getCilindro() {
+        return cilindro;
+    }
+
+    public void setCilindro(String cilindro) {
+        this.cilindro = cilindro;
+    }
+
+    public boolean isBolsaAire() {
+        return bolsaAire;
+    }
+
+    public void setBolsaAire(boolean bolsaAire) {
+        this.bolsaAire = bolsaAire;
+    }
+
+    public boolean isCerraduraCentralizada() {
+        return cerraduraCentralizada;
+    }
+
+    public void setCerraduraCentralizada(boolean cerraduraCentralizada) {
+        this.cerraduraCentralizada = cerraduraCentralizada;
+    }
+
+    public boolean isDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(boolean descuento) {
+        this.descuento = descuento;
     }
 
 }

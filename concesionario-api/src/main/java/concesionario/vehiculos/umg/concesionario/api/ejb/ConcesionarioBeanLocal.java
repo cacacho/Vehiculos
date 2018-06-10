@@ -18,6 +18,8 @@ public interface ConcesionarioBeanLocal {
     CvConcesionario saveConcesionario(CvConcesionario concesionario);
 
     CvConcesionario findConcesionario(Integer idConcesionario);
+    
+    CvConcesionario findConcesionarioByNombre(String nombre);
 
     CvConcesionario updateConcesionario(CvConcesionario concesionario);
 
@@ -29,6 +31,8 @@ public interface ConcesionarioBeanLocal {
     CvServicioOficial saveServicioOficial(CvServicioOficial servicioOficial);
 
     CvServicioOficial findServicioOficial(Integer idServicioOficial);
+    
+    CvServicioOficial findServicioOficialByNombre(String nombre);
 
     CvServicioOficial findServicioOficialByIdConcesionario(Integer idConcesionario);
 
@@ -41,9 +45,13 @@ public interface ConcesionarioBeanLocal {
 
     CvProveedor findProveedor(Integer idProveedor);
 
+    CvProveedor findProveedorByNombre(String nombre);
+
     CvProveedor updateProveedor(CvProveedor proveedor);
 
     CvConcesionarioProveedor AsignarProveedorConcesionario(CvConcesionarioProveedor concesionarioProveedor);
+
+    CvConcesionarioProveedor findProveedorConcesionario(Integer idProveedor, Integer idConcesionario);
 
     /*Asignacion vehiculo*/
     List<CvTraspasoVehiculo> listAsignacionVehiculo();

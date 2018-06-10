@@ -56,7 +56,7 @@ public class ColaboradorBean implements EmpleadoBeanLocal {
                 .getResultList();
 
         if (lst == null || lst.isEmpty()) {
-            //return ("No se encontró información relacionada con el puesto");
+            return null;
         }
         // return new Response(lst.get(0), ResponseStatus.OK_QUERY);
         return lst;
@@ -65,7 +65,7 @@ public class ColaboradorBean implements EmpleadoBeanLocal {
     @Override
     public List<CvColaborador> ListaColaboradores(String nombre) {
         if (nombre == null) {
-            //return new Response(ResponseStatus.ERROR_PARAMS, "Debe de proporcionar un puesto existente");
+            return null;
         }
 
         List<CvColaborador> lst = em.createQuery("SELECT col FROM CvColaborador col WHERE col.primerNombre like :nombre ", CvColaborador.class)
@@ -73,7 +73,7 @@ public class ColaboradorBean implements EmpleadoBeanLocal {
                 .getResultList();
 
         if (lst == null || lst.isEmpty()) {
-            //return new Response(ResponseStatus.ERROR_NO_DATA, String.format("No se encontró información relacionada con el puesto"));
+            return null;
         }
         // return new Response(lst.get(0), ResponseStatus.OK_QUERY);
         return lst;
@@ -156,6 +156,23 @@ public class ColaboradorBean implements EmpleadoBeanLocal {
             processException(ex);
             return null;
         }
+    }
+
+    @Override
+    public CvColaborador findColaboradorByDpi(Long cui) {
+        if (cui == null) {
+            return null;
+        }
+
+        List<CvColaborador> lst = em.createQuery("SELECT col FROM CvColaborador col WHERE col.cui =:cui ", CvColaborador.class)
+                .setParameter("cui", cui)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+        // return new Response(lst.get(0), ResponseStatus.OK_QUERY);
+        return lst.get(0);
     }
 
 }

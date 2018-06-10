@@ -45,14 +45,42 @@ public class RegistroColaboradorMB implements Serializable {
     }
 
     public void saveColaborador() {
-        colaborador.setUsuarioCreacion(LoginMB.usuario);
-        colaboradorBeanLocal.saveColaborador(colaborador);
-        JsfUtil.addSuccessMessage("Colaborador creado con exito");
-        JsfUtil.redirectTo("/colaborador/lista.xhtml");
+        int resultado = this.validarDpi(Long.toString(colaborador.getCui()));
+        if (resultado == 0) {
+            CvColaborador colabo = new CvColaborador();
+            colabo = colaboradorBeanLocal.findColaboradorByDpi(colaborador.getCui());
+            if (colabo != null){
+                 JsfUtil.addErrorMessage("El colaborador ya fue registrado");
+                 return;
+            }
+            
+            colaborador.setUsuarioCreacion(LoginMB.usuario);
+            colaboradorBeanLocal.saveColaborador(colaborador);
+            JsfUtil.addSuccessMessage("Colaborador creado con exito");
+            JsfUtil.redirectTo("/colaborador/lista.xhtml");
+        } else {
+            JsfUtil.addErrorMessage("Debe de ingresar un DPI valido");
+        }
+
     }
 
     public void cancelarRegistro() {
         JsfUtil.redirectTo("/colaborador/lista.xhtml");
+    }
+
+    public int validarDpi(String dpi) {
+        int resultado = (Integer.parseInt(dpi.substring(0, 1)) * 9
+                + Integer.parseInt(dpi.substring(1, 2)) * 8
+                + Integer.parseInt(dpi.substring(2, 3)) * 7
+                + Integer.parseInt(dpi.substring(3, 4)) * 6
+                + Integer.parseInt(dpi.substring(4, 5)) * 5
+                + Integer.parseInt(dpi.substring(5, 6)) * 4
+                + Integer.parseInt(dpi.substring(6, 7)) * 3
+                + Integer.parseInt(dpi.substring(7, 8)) * 2
+                + Integer.parseInt(dpi.substring(8, 9))) % 11;
+
+        return resultado;
+
     }
 
     /*Metodos getters y setters*/

@@ -17,6 +17,8 @@ public interface EmpleadoBeanLocal {
 
     CvColaborador findColaborador(Integer idColaborador);
 
+    CvColaborador findColaboradorByDpi(Long cui);
+
     CvColaborador updateColaborador(CvColaborador colaborador);
 
 }

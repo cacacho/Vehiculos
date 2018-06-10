@@ -50,6 +50,14 @@ public class RegistroConcesionarioMB implements Serializable {
     }
 
     public void guadarProveedor() {
+        CvProveedor pro = new CvProveedor();
+        pro = concesionarioBeanlocal.findProveedorByNombre(proveedor.getNombre());
+
+        if (pro != null) {
+            JsfUtil.addErrorMessage("El proveedor ya esta registrado");
+            return;
+        }
+
         proveedor.setUsuarioCreacion(LoginMB.usuario);
         concesionarioBeanlocal.saveProveedor(proveedor);
         JsfUtil.addSuccessMessage("Proveedor guardado exitosamente");
@@ -57,6 +65,14 @@ public class RegistroConcesionarioMB implements Serializable {
     }
 
     public void guardarConcesionario() {
+        CvConcesionario conVeri = new CvConcesionario();
+        conVeri = concesionarioBeanlocal.findConcesionarioByNombre(concesionario.getNombre());
+
+        if (conVeri != null) {
+            JsfUtil.addErrorMessage("El concesionario ya esta registrado");
+            return;
+        }
+
         CvConcesionario con = new CvConcesionario();
         concesionario.setUsuarioCreacion(LoginMB.usuario);
         con = concesionarioBeanlocal.saveConcesionario(concesionario);

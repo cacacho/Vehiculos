@@ -42,17 +42,17 @@
                 <p:row>
                     <p:column>
                         <p:inputText value="#{registroVehiculoMB.vehiculo.bastidor}" style="font-size: 16px!important;">
-                           
+
                         </p:inputText>
                     </p:column>
                     <p:column>
                         <p:inputText value="#{registroVehiculoMB.vehiculo.matricula}" style="font-size: 16px!important;">
-                           
+
                         </p:inputText>
                     </p:column>
                     <p:column>
                         <p:inputText value="#{registroVehiculoMB.vehiculo.modelo}" style="font-size: 16px!important;">
-                          
+
                         </p:inputText>
                     </p:column>
                 </p:row>
@@ -72,17 +72,17 @@
                 <p:row>
                     <p:column>
                         <p:inputText value="#{registroVehiculoMB.vehiculo.motor}" style="font-size: 16px!important;">
-                           
+
                         </p:inputText>
                     </p:column>
                     <p:column>
                         <p:inputText value="#{registroVehiculoMB.vehiculo.color}" style="font-size: 16px!important;">
-                           
+
                         </p:inputText>
                     </p:column>
                     <p:column>
                         <p:inputText value="#{registroVehiculoMB.vehiculo.precio}" style="font-size: 16px!important;">
-                           
+
                         </p:inputText>
                     </p:column>
                 </p:row>
@@ -90,6 +90,9 @@
                 <p:row>
                     <p:column >
                         <p:outputLabel value="Estandar:" styleClass="colorTitulo" />
+                    </p:column>
+                    <p:column >
+                        <p:outputLabel value="Bolsa de aire:" styleClass="colorTitulo" />
                     </p:column>
                     <p:column >
                         <p:outputLabel value="Cantidad:" styleClass="colorTitulo" />
@@ -105,9 +108,46 @@
                         </h:selectOneMenu>
                     </p:column>
                     <p:column>
-                        <p:inputText value="#{registroVehiculoMB.vehiculo.stock}" style="font-size: 16px!important;">
-                         
-                        </p:inputText>
+                        <h:selectOneMenu id="bolsa"  value="#{registroVehiculoMB.vehiculo.bolsaAire}" style="width: 272px;" >
+                            <f:selectItem itemLabel="Seleccione un elemento" value="#{null}" noSelectionOption="true"/>
+                            <f:selectItem itemValue="#{true}" itemLabel="Si" />
+                            <f:selectItem itemValue="#{false}" itemLabel="No" />
+                        </h:selectOneMenu>
+                    </p:column>
+                    <p:column>
+                        <p:inputText value="#{registroVehiculoMB.vehiculo.stock}" style="font-size: 16px!important;"/>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column >
+                        <p:outputLabel value="Cilindraje" styleClass="colorTitulo" />
+                    </p:column>
+                    <p:column >
+                        <p:outputLabel value="Cerradura centralizada:" styleClass="colorTitulo" />
+                    </p:column>
+                    <p:column >
+                        <p:outputLabel value="Descuento:" styleClass="colorTitulo" />
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <p:inputText value="#{registroVehiculoMB.vehiculo.cilindro}" style="font-size: 16px!important;"/>
+                    </p:column>
+                    <p:column>
+                        <h:selectOneMenu id="cerradura"  value="#{registroVehiculoMB.vehiculo.cerraduraCentralizada}" style="width: 272px;" >
+                            <f:selectItem itemLabel="Seleccione un elemento" value="#{null}" noSelectionOption="true"/>
+                            <f:selectItem itemValue="#{true}" itemLabel="Si" />
+                            <f:selectItem itemValue="#{false}" itemLabel="No" />
+                        </h:selectOneMenu>
+                    </p:column>
+                    <p:column>
+                        <h:selectOneMenu id="descuento"  value="#{registroVehiculoMB.vehiculo.descuento}" style="width: 272px;" >
+                            <f:selectItem itemLabel="Seleccione un elemento" value="#{null}" noSelectionOption="true"/>
+                            <f:selectItem itemValue="#{true}" itemLabel="Si" />
+                            <f:selectItem itemValue="#{false}" itemLabel="No" />
+                        </h:selectOneMenu>
                     </p:column>
                 </p:row>
             </p:panelGrid>

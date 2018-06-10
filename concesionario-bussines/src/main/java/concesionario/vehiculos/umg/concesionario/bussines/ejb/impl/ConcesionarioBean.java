@@ -411,7 +411,7 @@ public class ConcesionarioBean implements ConcesionarioBeanLocal {
         }
 
         try {
-            
+
             em.persist(concesionarioProveedor);
             em.flush();
             return (concesionarioProveedor);
@@ -424,5 +424,58 @@ public class ConcesionarioBean implements ConcesionarioBeanLocal {
             processException(ex);
             return null;
         }
+    }
+
+    @Override
+    public CvConcesionarioProveedor findProveedorConcesionario(Integer idProveedor, Integer idConcesionario) {
+        List<CvConcesionarioProveedor> lst = em.createQuery("SELECT asig FROM CvConcesionarioProveedor asig WHERE asig.idProveedor.idProveedor =:idProveedor and asig.idConcesionario.idConcesionario =:idConcesionario", CvConcesionarioProveedor.class)
+                .setParameter("idProveedor", idProveedor)
+                .setParameter("idConcesionario", idConcesionario)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst.get(0);
+    }
+
+    @Override
+    public CvConcesionario findConcesionarioByNombre(String nombre) {
+        List<CvConcesionario> lst = em.createQuery("SELECT conce FROM CvConcesionario conce WHERE conce.nombre =:nombre and conce.activo = true", CvConcesionario.class)
+                .setParameter("nombre", nombre)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst.get(0);
+    }
+
+    @Override
+    public CvServicioOficial findServicioOficialByNombre(String nombre) {
+        List<CvServicioOficial> lst = em.createQuery("SELECT conce FROM CvServicioOficial conce WHERE conce.nombre =:nombre and conce.activo = true", CvServicioOficial.class)
+                .setParameter("nombre", nombre)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst.get(0);
+    }
+
+    @Override
+    public CvProveedor findProveedorByNombre(String nombre) {
+        List<CvProveedor> lst = em.createQuery("SELECT conce FROM CvServicioOficial conce WHERE conce.nombre =:nombre and conce.activo = true", CvProveedor.class)
+                .setParameter("nombre", nombre)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst.get(0);
     }
 }

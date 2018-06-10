@@ -43,6 +43,14 @@ public class RegistroServicioOficialMB implements Serializable {
     }
 
     public void saveServicioOficial() {
+        CvServicioOficial pro = new CvServicioOficial();
+        pro = concesionarioBeanlocal.findServicioOficialByNombre(servicioOficial.getNombre());
+
+        if (pro != null) {
+            JsfUtil.addErrorMessage("El servicio oficial ya esta registrado");
+            return;
+        }
+
         CvServicioOficial of = new CvServicioOficial();
         servicioOficial.setIdConcesionario(selectedConcesionario);
         servicioOficial.setUsuarioCreacion(LoginMB.usuario);

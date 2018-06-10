@@ -279,6 +279,12 @@ public class RegistroVentaMB implements Serializable {
         for (CvVenta v : listVenta) {
             v.setUsuarioCreacion(LoginMB.usuario);
             CvColaborador cola = loginBeanLocal.findIdColaborador(LoginMB.usuario);
+            
+            if (cola == null) {
+                JsfUtil.addErrorMessage("Este usuario no es un colaborador");
+                return;
+            }
+
             v.setIdColaborador(cola);
             v.setIdConcesionario(cola.getIdConcesionario());
             vent = ventaBeanLocal.saveVentas(v);

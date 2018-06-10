@@ -28,12 +28,19 @@ public class RegistroProveedorMB implements Serializable {
     }
 
     public void saveProveedor() {
+        CvProveedor pro = new CvProveedor();
+        pro = concesionarioBeanlocal.findProveedorByNombre(proveedor.getNombre());
+
+        if (pro != null) {
+            JsfUtil.addErrorMessage("El proveedor ya esta registrado");
+            return;
+        }
         CvProveedor prove = new CvProveedor();
 
         prove = concesionarioBeanlocal.saveProveedor(proveedor);
         if (prove.getIdProveedor() != null) {
             JsfUtil.addSuccessMessage("Registro agregado correctamente");
-             JsfUtil.redirectTo("/proveedor/lista.xhtml");
+            JsfUtil.redirectTo("/proveedor/lista.xhtml");
         } else {
             JsfUtil.addSuccessMessage("Sucedio un error inesperado");
         }

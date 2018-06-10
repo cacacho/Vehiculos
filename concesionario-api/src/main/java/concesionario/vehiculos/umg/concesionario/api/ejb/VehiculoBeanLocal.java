@@ -21,6 +21,10 @@ public interface VehiculoBeanLocal {
     CvVehiculo saveVehiculo(CvVehiculo CvVehiculo);
 
     CvVehiculo findVehiculo(Integer idVehiculo);
+    
+    CvVehiculo findVehiculoByBastido(String bastidor);
+    
+    CvVehiculo findVehiculoByPlaca(String matricula);
 
     CvVehiculo updateVehiculo(CvVehiculo vehiculo);
 
@@ -55,6 +59,8 @@ public interface VehiculoBeanLocal {
 
     /*Tipo vehiculo*/
     CvTipoVehiculo findTipoVehiculo(Integer idTipoVehiculo);
+    
+    CvTipoVehiculo findTipoVehiculoByNombre(String descripcionTipo);
 
     CvTipoVehiculo updateExtraVehiculoByIdVehiculo(CvTipoVehiculo tipo);
 
@@ -64,6 +70,8 @@ public interface VehiculoBeanLocal {
 
     /*Marca del vehiculo*/
     CvMarca saveMarcaVehiculo(CvMarca marca);
+
+    CvMarca findMarcaVehiculoByMarca(String nombre);
 
     /*Detalle extra*/
     CvDetalleExtraVehiculo saveDetalleExtra(CvDetalleExtraVehiculo detalleExtra);

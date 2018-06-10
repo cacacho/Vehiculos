@@ -24,10 +24,10 @@
 
                         <p:inputText id="nombre" value="#{registroConcesionarioMB.concesionario.nombre}" style="width: 350px;"  placeholder="Ingrese un nombre" 
                                      required="true" requiredMessage="Debes ingresar un nombre">
-                        <p:ajax event="blur" process="@this"/>
+                            <p:ajax event="blur" process="@this"/>
                         </p:inputText>
                         <p:inputText id="direccion" value="#{registroConcesionarioMB.concesionario.direccion}" style="width: 350px;"  placeholder="Ingrese una dirección" >
-                        <p:ajax event="blur" process="@this"/>
+                            <p:ajax event="blur" process="@this"/>
                         </p:inputText>
 
                         <p:outputLabel for="fabrica" value="Fabrica:" />
@@ -91,12 +91,24 @@
                                              value="#{registroConcesionarioMB.proveedor.direccion}"/>
                             </p:column>
                         </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="Correo electronico: " styleClass="stepTitle"/>
+                            </p:column> 
+                        </p:row>
+
+                        <p:row>
+                            <p:column >
+                                <p:inputText id="emailPro" style="width: 100%; height: 40px;"  placeholder="(ingrese una dirección)" 
+                                             value="#{registroConcesionarioMB.proveedor.correoElectronico}"/>
+                            </p:column>
+                        </p:row>
 
                         <p:row>
                             <p:column >
                                 <br/>
                                 <div align="center">
-                                    <p:commandButton value="Cerrar" style="float: right; margin-left: 20px" immediate="true" update="@form"
+                                    <p:commandButton value="Cerrar" style="float: right; margin-left: 20px" immediate="true"
                                                      styleClass="button-16 b-greylight-16" icon="ui-icon-circle-close" onclick="PF('proveedores').hide();"/>
                                     <p:commandButton value="Limpiar" style="float: right; margin-left: 20px" update="proveedores" action="#{registroConcesionarioMB.limpiarDialog()}"
                                                      styleClass="button-16 b-greylight-16" icon="ui-icon-refresh"/>

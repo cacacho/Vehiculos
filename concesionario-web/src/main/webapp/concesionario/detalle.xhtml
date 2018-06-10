@@ -386,9 +386,11 @@
                 <p:column headerText="Teléfono" width="20%" >
                     <p:outputLabel value="#{prove.telefono}"/>
                 </p:column>
-
-                <p:column headerText="Correo Electrónico:" width="15%" >
-                    <p:outputLabel value="#{prove.correoElectronico}"/>
+                
+                <p:column width="9%" exportable="false" >
+                    <p:commandLink value="Asignar"  title="Asignacion de concesiario" action="#{detalleConcesionarioMB.asignar(prove)}"
+                                       update="tablaProveedor" onstart="return confirm('¿Confirmas asignar el proveedor al concesionario?');" 
+                                       onsuccess="stop();" immediate="true" />
                 </p:column>
 
                 <p:column width="9%" exportable="false" >

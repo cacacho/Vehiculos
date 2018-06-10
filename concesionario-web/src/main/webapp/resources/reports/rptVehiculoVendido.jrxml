@@ -3,6 +3,8 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptVehiculoVendido" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a6de8db3-36ab-49a9-bd0b-e461723d3b89">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Concesionario"/>
 	<parameter name="USUARIO" class="java.lang.String"/>
+	<parameter name="IMAGE" class="java.lang.String"/>
+	<parameter name="DIRECTORIO" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[select mar.NOMBRE AS MARCA, veh.MODELO, veh.MOTOR, conce.NOMBRE CONCESIONARIO, SUM(venta.CANTIDAD) CANTIDAD
 from CV_VENTA venta
@@ -22,10 +24,18 @@ ORDER BY SUM(venta.CANTIDAD) DESC]]>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<background>
-		<band splitType="Stretch"/>
+		<band splitType="Stretch">
+			<image hAlign="Center">
+				<reportElement x="690" y="-200" width="119" height="99" uuid="0333076e-4c01-4c75-b854-a217f4252054">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[new File($P{DIRECTORIO}, $P{IMAGE})]]></imageExpression>
+			</image>
+		</band>
 	</background>
 	<title>
-		<band height="42" splitType="Stretch">
+		<band height="99" splitType="Stretch">
 			<staticText>
 				<reportElement x="140" y="21" width="510" height="21" uuid="aa4b8d92-51dc-471c-920c-bc1f7c0faecf">
 					<property name="local_mesure_unitheight" value="pixel"/>

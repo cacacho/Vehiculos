@@ -2,10 +2,13 @@ package concesionario.vehiculos.umg.concesionario;
 
 import concesionario.vehiculos.umg.concesionario.api.ejb.CatalogoBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.ejb.ConcesionarioBeanLocal;
+import concesionario.vehiculos.umg.concesionario.api.ejb.VehiculoBeanLocal;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionario;
+import concesionario.vehiculos.umg.concesionario.api.entity.CvConcesionarioProveedor;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvProveedor;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvServicioOficial;
 import concesionario.vehiculos.umg.concesionario.api.entity.CvVehiculo;
+import concesionario.vehiculos.umg.login.LoginMB;
 import concesionario.vehiculos.umg.utilidades.JsfUtil;
 import java.io.Serializable;
 import java.util.List;
@@ -28,6 +31,8 @@ public class DetalleConcesionarioMB implements Serializable {
     private ConcesionarioBeanLocal concesionarioBean;
     @EJB
     private CatalogoBeanLocal catalogoBeanLocal;
+    @EJB
+    private VehiculoBeanLocal vehiculosBean;
 
     private Integer idConcesionario;
     private CvConcesionario concesionario;
@@ -38,6 +43,7 @@ public class DetalleConcesionarioMB implements Serializable {
     private CvServicioOficial servicioOficial;
     private CvServicioOficial selectedServicioOficial;
     private List<CvProveedor> listaProveedores;
+    private List<CvProveedor> listProveedor;
     private CvProveedor proveedor;
     private CvProveedor selectedProveedor;
     private List<CvVehiculo> listaVehiculo;
@@ -92,8 +98,17 @@ public class DetalleConcesionarioMB implements Serializable {
     }
 
     public void guardarServicioOficial() {
+        CvServicioOficial pro = new CvServicioOficial();
+        pro = concesionarioBean.findServicioOficialByNombre(servicioOficial.getNombre());
+
+        if (pro != null) {
+            JsfUtil.addErrorMessage("El servicio oficial ya esta registrado");
+            return;
+        }
+
         CvServicioOficial of = new CvServicioOficial();
         servicioOficial.setIdConcesionario(concesionario);
+        servicioOficial.setUsuarioCreacion(LoginMB.usuario);
         of = concesionarioBean.saveServicioOficial(servicioOficial);
         if (of.getIdServicioOficial() != null) {
             mostrarAgregarServicio = false;
@@ -105,7 +120,16 @@ public class DetalleConcesionarioMB implements Serializable {
     }
 
     public void guardarProveedor() {
+        CvProveedor pro = new CvProveedor();
+        pro = concesionarioBean.findProveedorByNombre(proveedor.getNombre());
+
+        if (pro != null) {
+            JsfUtil.addErrorMessage("El proveedor ya esta registrado");
+            return;
+        }
+
         CvProveedor prove = new CvProveedor();
+        proveedor.setUsuarioCreacion(LoginMB.usuario);
         prove = concesionarioBean.saveProveedor(proveedor);
         if (prove.getIdProveedor() != null) {
             mostrarAgregarProveedor = false;
@@ -117,19 +141,54 @@ public class DetalleConcesionarioMB implements Serializable {
     }
 
     public void guardarVehiculo() {
-        CvProveedor prove = new CvProveedor();
-        prove = concesionarioBean.saveProveedor(proveedor);
-        if (prove.getIdProveedor() != null) {
-            mostrarAgregarProveedor = false;
+        CvVehiculo vehiVeri = new CvVehiculo();
+        vehiVeri = vehiculosBean.findVehiculoByBastido(vehiculo.getBastidor());
+        if (vehiVeri != null) {
+            JsfUtil.addErrorMessage("Este vehículo ya fue registrado");
+            return;
+        }
+
+        if (vehiculo.getIdTipoVehiculo() == null) {
+            JsfUtil.addErrorMessage("Debe seleccionar un tipo");
+            return;
+        }
+        if (vehiculo.getIdMarca() == null) {
+            JsfUtil.addErrorMessage("Debe seleccionar una marca");
+            return;
+        }
+
+        vehiVeri = new CvVehiculo();
+        vehiVeri = vehiculosBean.findVehiculoByPlaca(vehiculo.getMatricula());
+        if (vehiVeri != null) {
+            JsfUtil.addErrorMessage("Este vehículo ya fue registrado");
+            return;
+        }
+
+        CvVehiculo vehi = new CvVehiculo();
+        vehiculo.setUsuarioCreacion(LoginMB.usuario);
+        vehi = vehiculosBean.saveVehiculo(vehiculo);
+        if (vehi.getIdVehiculo() != null) {
+
             JsfUtil.addSuccessMessage("Registro agregado correctamente");
-        } else {
-            mostrarAgregarServicio = false;
-            JsfUtil.addSuccessMessage("Sucedio un error inesperado");
         }
     }
 
     public void regresar() {
         JsfUtil.redirectTo("/concesionario/lista.xhtml");
+    }
+
+    public void asignar(CvProveedor pro) {
+        CvConcesionarioProveedor concePro = new CvConcesionarioProveedor();
+        concePro = concesionarioBean.findProveedorConcesionario(pro.getIdProveedor(), concesionario.getIdConcesionario());
+        if (concePro != null) {
+            JsfUtil.addErrorMessage("Este proveedor ya fue asignado al concesionario");
+            return;
+        }
+
+        CvConcesionarioProveedor conPro = new CvConcesionarioProveedor();
+        conPro.setIdProveedor(pro);
+        conPro.setIdConcesionario(concesionario);
+        concesionarioBean.AsignarProveedorConcesionario(conPro);
     }
 
     /*Metodos getters y setters*/

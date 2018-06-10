@@ -111,6 +111,14 @@ public class RegistroVehiculoMB implements Serializable {
     }
 
     public void guardarTipo() {
+        CvTipoVehiculo marVeri = new CvTipoVehiculo();
+        marVeri = vehiculosBean.findTipoVehiculoByNombre(tipoVehiculo.getDescripcionTipo());
+
+        if (marVeri != null) {
+            JsfUtil.addErrorMessage("El tipo ya fue registrada");
+            return;
+        }
+
         CvTipoVehiculo tipo = new CvTipoVehiculo();
         tipoVehiculo.setUsuarioCreacion(LoginMB.usuario);
         tipo = vehiculosBean.saveTipoVehiculo(tipoVehiculo);
@@ -125,6 +133,14 @@ public class RegistroVehiculoMB implements Serializable {
     }
 
     public void guardarMarca() {
+        CvMarca marVeri = new CvMarca();
+        marVeri = vehiculosBean.findMarcaVehiculoByMarca(marcaVehiculo.getNombre());
+
+        if (marVeri != null) {
+            JsfUtil.addErrorMessage("La marca ya fue registrada");
+            return;
+        }
+
         CvMarca mar = new CvMarca();
         marcaVehiculo.setUsuarioCreacion(LoginMB.usuario);
         mar = vehiculosBean.saveMarcaVehiculo(marcaVehiculo);
@@ -163,11 +179,33 @@ public class RegistroVehiculoMB implements Serializable {
     }
 
     public String guardarVehiculo() {
+        CvVehiculo vehiVeri = new CvVehiculo();
+        vehiVeri = vehiculosBean.findVehiculoByBastido(vehiculo.getBastidor());
+        if (vehiVeri != null) {
+            JsfUtil.addErrorMessage("Este vehículo ya fue registrado");
+            return null;
+        }
+
+        if (vehiculo.getIdTipoVehiculo() == null) {
+            JsfUtil.addErrorMessage("Debe seleccionar un tipo");
+            return null;
+        }
+        if (vehiculo.getIdMarca() == null) {
+            JsfUtil.addErrorMessage("Debe seleccionar una marca");
+            return null;
+        }
+        vehiVeri = new CvVehiculo();
+        vehiVeri = vehiculosBean.findVehiculoByPlaca(vehiculo.getMatricula());
+        if (vehiVeri != null) {
+            JsfUtil.addErrorMessage("Este vehículo ya fue registrado");
+            return null;
+        }
+
         CvVehiculo vehi = new CvVehiculo();
         vehiculo.setUsuarioCreacion(LoginMB.usuario);
         vehi = vehiculosBean.saveVehiculo(vehiculo);
         if (vehi.getIdVehiculo() != null) {
-            if (selectedListExtraVehiculo != null || !selectedListExtraVehiculo.isEmpty()) {
+            if (selectedListExtraVehiculo != null) {
                 CvDetalleExtraVehiculo detalleExtra = new CvDetalleExtraVehiculo();
                 for (CvExtraVehiculo extra : selectedListExtraVehiculo) {
                     detalleExtra.setIdExtraVehiculo(extra);
@@ -179,7 +217,6 @@ public class RegistroVehiculoMB implements Serializable {
             }
 
             JsfUtil.addSuccessMessage("Registro agregado correctamente");
-            limpiarPagina();
             JsfUtil.redirectTo("/vehiculos/detalle.xhtml?faces-redirect=true&idVehiculo=" + vehiculo.getIdVehiculo() + "&idRegresar=1");
         } else {
             mostrarAgregarMarca = false;

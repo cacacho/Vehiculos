@@ -511,4 +511,56 @@ public class VehiculoBean implements VehiculoBeanLocal {
         }
     }
 
+    @Override
+    public CvVehiculo findVehiculoByBastido(String bastidor) {
+        List<CvVehiculo> lst = em.createQuery("SELECT tipo FROM CvVehiculo tipo WHERE tipo.bastidor =:bastidor ", CvVehiculo.class)
+                .setParameter("bastidor", bastidor)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst.get(0);
+    }
+
+    @Override
+    public CvVehiculo findVehiculoByPlaca(String matricula) {
+        List<CvVehiculo> lst = em.createQuery("SELECT tipo FROM CvVehiculo tipo WHERE tipo.matricula =:matricula ", CvVehiculo.class)
+                .setParameter("matricula", matricula)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst.get(0);
+    }
+
+    @Override
+    public CvTipoVehiculo findTipoVehiculoByNombre(String descripcionTipo) {
+        List<CvTipoVehiculo> lst = em.createQuery("SELECT tipo FROM CvTipoVehiculo tipo WHERE tipo.descripcionTipo =:descripcionTipo and tipo.activo = true", CvTipoVehiculo.class)
+                .setParameter("descripcionTipo", descripcionTipo)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst.get(0);
+    }
+
+    @Override
+    public CvMarca findMarcaVehiculoByMarca(String nombre) {
+         List<CvMarca> lst = em.createQuery("SELECT tipo FROM CvMarca tipo WHERE tipo.nombre =:nombre  and tipo.activo = true", CvMarca.class)
+                .setParameter("nombre", nombre)
+                .getResultList();
+
+        if (lst == null || lst.isEmpty()) {
+            return null;
+        }
+
+        return lst.get(0);
+    }
+
 }
